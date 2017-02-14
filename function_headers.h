@@ -102,6 +102,7 @@ void send_pressure_xdcr_msg(uint8_t command_id_in_response_to, uint16_t msg_seq)
 void send_pressure_xdcr_msg_ISR(uint8_t command_id_in_response_to, uint16_t msg_seq); 
 void send_ack(uint8_t command_id_in_response_to, uint16_t msg_seq);
 void send_nack(uint8_t command_id_in_response_to, uint16_t msg_seq, uint32_t nack_bitfield);
+void send_full_report_ISR(uint8_t command_id_in_response_to, uint16_t msg_seq);
 void send_health_report_ISR(uint8_t command_id_in_response_to, uint16_t msg_seq);
 void send_valve_report_ISR(uint8_t command_id_in_response_to, uint16_t msg_seq);
 void send_join_msg_ISR(uint8_t command_id_in_response_to, uint16_t msg_seq);
@@ -165,6 +166,7 @@ void stop_current_spinkler_setting_ISR(void);
 
 //battery.h
 uint16_t get_vgen(int1 charge_state);
+uint16_t get_vgen_ISR(int1 charge_state);
 uint16_t get_vbatt(int1 charge_state);
 uint16_t get_vbatt_ISR(int1 charge_state);
 uint32_t calc_vbatt(uint16_t vref_count);

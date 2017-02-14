@@ -161,7 +161,25 @@ void read_all_eeprom_values(void)
    // is defined as VLV_POSITION_UNKNOWN
    global_valve_time_to_open_1024th = read_ee2(EE_VLV_TIME_TO_OPEN);
    global_valve_time_to_close_1024th = read_ee2(EE_VLV_TIME_TO_CLOSE);
-   global_valve_calibration_utc_time = read_ee4(EE_VLV_CAL_UTC_TIME);
+   
+   if ((global_valve_time_to_open_1024th < ERROR_VLV_CAL_TIME_LO) || \
+       (global_valve_time_to_open_1024th > ERROR_VLV_CAL_TIME_HI))
+   {
+      global_valve_time_to_open_1024th = DEFAULT_VLV_TIME_TO_OPEN;
+      write_ee2 (EE_VLV_TIME_TO_OPEN, DEFAULT_VLV_TIME_TO_OPEN);
+   }
+   
+   if ((global_valve_time_to_close_1024th < ERROR_VLV_CAL_TIME_LO) || \
+       (global_valve_time_to_close_1024th > ERROR_VLV_CAL_TIME_HI))
+   {
+      global_valve_time_to_close_1024th = DEFAULT_VLV_TIME_TO_CLOSE;
+      write_ee2 (EE_VLV_TIME_TO_OPEN, DEFAULT_VLV_TIME_TO_OPEN);
+   }
+
+ // for cleared EEPROM, the following read will give us 0xFFFFFFFF, so
+ //  add 1 so that it is 0.  This global is compared to current time
+ //  to determine if the valve calibration is stale
+   global_valve_calibration_utc_time = 1 + read_ee4(EE_VLV_CAL_UTC_TIME);
    global_valve_position = read_ee2(EE_VLV_POSITION);
    // store unknown valve position incase it doesn't get stored properly on shutdown/restart
    //    so the position isn't used from before

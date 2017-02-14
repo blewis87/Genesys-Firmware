@@ -3,3 +3,9 @@ From E309-E310
 -Added LCD "Page" functionality
 -Added RB4 IOC functionality
 -Cleaned up LCD stuff a bit
+
+From E311-E312
+(Brian)
+-Cleanup
+-Added SYSTEM_IDLE
+-Added Force Valve

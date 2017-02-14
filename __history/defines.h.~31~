@@ -1,0 +1,688 @@
+// defines.h                                                               
+//
+// contains all non-pic (and non-dn2500.h) related defines and macros
+
+////////////////////Defines Table of Contents//////////////////////////////////
+//Version
+//Priority Queue
+//Time Queue
+//Command Stack
+//Sprinkler Stack
+//Gen RPM                              
+//Control Algorithm
+//Valve               
+//XDCR          
+//RB ISR        
+//I2C Addresses 
+//LCD        
+//DUST   
+//Errors  
+            
+////////////////////Version////////////////////////////////////////////////////
+#define FIRMWARE_VERSION 0xE313          
+
+                           
+// Defines designed to simplify debugging and program development process        
+#DEFINE DISABLE_NO_SPIN_RECOVERY          1
+#DEFINE DISABLE_MAG_DECOUPLING_RECOVERY   1              
+#DEFINE DISABLE_RECAL_VLV                 1
+#DEFINE ALLOW_VALVE_SET_WITH_STALE_CAL    1
+#DEFINE OPEN_VALVE_TO_SETPT_AT_BOOT       1
+                                   
+////////////////////Priority Queue/////////////////////////////////////////////
+// Maximum number of items in priority queue. Each item is 1 byte and in RAM
+// Actual number of items is max - 1 as item 0 is reserved for sorting use
+#define MAX_PRIORITY_QUEUE_ITEMS   20
+
+// Priority Queue items (identified by their priority) (1-255)
+// lower number is higher priority
+#define EMPTY_PRIORITY_QUEUE           0x00
+
+#define WAIT_FOR_BOOT_EVENT            0x10
+#define RESET_MOTE                     0x11
+
+#define DEAL_WITH_NEW_PACKET           0x20
+
+#define VALVE_MOVE_ERROR               0x30
+#define CALIBRATE_VALVE_1              0x31
+#define CALIBRATE_VALVE_2              0x32                  
+#define CALIBRATE_VALVE_3              0x33
+#define CALIBRATE_VALVE_4              0x34
+#define CALIBRATE_VALVE_5              0x35
+#define CALIBRATE_VALVE_6              0x36
+#define CALIBRATE_FSR_1                0x37
+#define CALIBRATE_FSR_2                0x38           
+#define CALIBRATE_FSR_3                0x39
+#define CALIBRATE_FSR_4                0X3A
+#define MOVE_VALVE_MAG_DECOUPLING_RECOVERY 0x3C             
+#define MOVE_VALVE_NO_SPIN_RECOVERY        0x3D 
+#define OPEN_VALVE_UNKNOWN_STATE       0x3E
+#define CLOSE_VALVE_UNKNOWN_STATE      0x3F
+#define MOVE_VALVE                     0x40
+
+#define START_GPS_AQUISITION           0x50
+#define CHECK_GPS_FOR_LOCK             0x51 
+#define TAKE_XCDR_MESUREMENT_1         0x55
+#define TAKE_XCDR_MESUREMENT_2         0x56  
+#define OPTIMIZE_MPPC                  0xA0
+
+#define CHECK_BATTERY_STATE            0xA1
+#define CHECK_MOTE_TEMP                0xA2
+#define UPDATE_MOTE_TIME               0xA3
+#define UPDATE_MOTE_NETWORK_INFO       0xA4
+
+#define SEARCH_FOR_STRONGEST_1         0xB1
+#define SEARCH_FOR_STRONGEST_2         0xB2
+#define INIT_JOIN                      0xB3
+#define CHECK_MOTE_STATE               0xB4
+#define CHECK_MOTE_INFO                0xB5
+
+#define BUSCOL_RESET                   0xC0
+
+#define LCD_DISPLAY_RUN_MODULATION     0xD1
+#define LCD_DISPLAY_RUN_NO_MODULATION  0xD2
+#define LCD_DISPLAY_RBUF               0xD3
+#define LCD_UPDATE                     0xD4
+
+#define CPU_RESET                      0xF0
+#define SHUTDOWN_SYSTEM                0xF1
+
+// Macros used to push things to priority queue
+#define PUSH_PRIORITY_QUEUE_MACRO(x)   \
+{disable_interrupts(INT_CCP4);         \
+push_priority_queue(x);                \
+enable_interrupts(INT_CCP4);}
+                                 
+#define PUSH_PRIORITY_QUEUE_ISR_MACRO(x) {push_priority_queue_ISR(x);} 
+                                 
+////////////////////Time Queue/////////////////////////////////////////////////
+// Maximum number of items in time queue. Each item is 5 bytes and in RAM
+// Actual number of items is max - 1 as item 0 is reserved for sorting use
+#define MAX_TIME_QUEUE_ITEMS   5
+
+// empty spot in the time queue, used as return item to signify empty top spot
+#define EMPTY_TIME_QUEUE 0
+
+// struct of individual time queue item
+struct TimeQueueItem 
+{
+   uint32_t time_to_execute;
+   uint8_t pq_priority;
+};
+
+// Macro for pushing items onto the time queue
+#define PUSH_TIME_QUEUE_MACRO(x,y)  {disable_interrupts(INT_CCP4);            \
+                                    push_time_queue(x,y);                     \
+                                    enable_interrupts(INT_CCP4);}  
+                                
+////////////////////Periodic checks/updates done in the time queue
+// How often "long-term" checks are done within ccp4 (timer interrupt) in seconds
+   // - mote state (reacts as necessary)
+   // - battery state (turns off/on charging, sends warnings, etc.)
+   // - mote temp (logs data, sends warnings, etc.)
+   // - mote utc time (updates utc time if valid)
+#define PERIODIC_CHECKS_TIME      32
+
+////////////////////Command Queue//////////////////////////////////////////////
+// depth of command queue
+#define MAX_COMMAND_QUEUE_ITEMS 10
+
+// maximum number of sprinkler zones in each command coming from manager
+#define MAX_NUM_SPRINKLER_ZONES 4
+
+// struct for individual sprinkler zone settings
+struct SprinklerZoneSettingsItem
+{
+   uint16_t vlv_open_amount;
+   uint16_t spin_rate;
+   uint8_t duty_cycle;
+};
+
+// struct for a single command (coming from manager) and item in the command
+// queue
+struct CommandQueueItem
+{
+   uint32_t start_time;
+   uint32_t end_time;
+   struct SprinklerZoneSettingsItem* sprinkler_settings;
+   uint8_t num_of_zones;
+   uint8_t control_loop_mechanism;
+};
+
+////////////////////Sprinkler Queue////////////////////////////////////////////
+// depth of sprinkler queue (ONLY SETUP FOR 2 AT THE MOMENT)
+//#define MAX_SPRINKLER_QUEUE_ITEMS 2
+#define MAX_SPRINKLER_QUEUE_ITEMS 10
+
+// struct for single sprinkler queue item
+struct SprinklerQueueItem
+{
+   uint32_t start_time;
+   uint32_t end_time;
+   uint16_t vlv_open_amount;
+   uint16_t spin_rate;
+   uint8_t zone_num;
+   uint8_t control_loop_mechanism;
+};
+
+#define EMPTY_SPINKLER_QUEUE 0
+/////////////////////Message Queue/////////////////////////////////////////////
+// depth of message queue
+#define MAX_MESSAGE_QUEUE_ITEMS 10 
+
+// empty spot in the message queue, used as return item to signify empty top spot
+#define EMPTY_MESSAGE_QUEUE 0
+
+// how many times will messages be attempted before an error message/bit is sent/set
+#define MAX_UNSOLICITED_MESSAGE_ATTEMPTS 3
+                                                                    
+// how long to wait between message reattempts in seconds
+#define MESSAGE_RESEND_WAIT_PERIOD 60
+
+// how often identical error messages are able to be resent 
+// (if there haven't been any other types of error messages) in seconds
+#define ERR_MESSAGE_WAIT_PERIOD 60                                                            
+                                                                                           
+// struct for single message queue item
+struct MessageQueueItem
+{                                           
+   uint32_t time_to_send;
+   uint8_t message_type;
+   uint16_t msg_seq;
+   uint8_t attempt_num;
+};
+
+// Macro for pushing items onto the message queue
+#define PUSH_MESSAGE_QUEUE_MACRO(x)  {disable_interrupts(INT_CCP4);           \
+                                       push_message_queue(x);                 \
+                                       enable_interrupts(INT_CCP4);}   
+                                       
+#define PUSH_MESSAGE_QUEUE_ISR_MACRO(x)  {disable_interrupts(INT_CCP4);       \
+                                          push_message_queue_isr(x);          \
+                                          enable_interrupts(INT_CCP4);}                                          
+                                       
+// Macro for deleting items off the message queue
+#define REMOVE_MESSAGE_QUEUE_MACRO(x)  {disable_interrupts(INT_CCP4);         \
+                                       remove_message_queue_item(x);          \
+                                       enable_interrupts(INT_CCP4);}                                       
+
+/////////////////////Gen RPM///////////////////////////////////////////////////
+#define CCP_PER_RPM     2576980378L                                     
+// 39322 shifted 16 places left
+// The timer used for the RPM measurement (CCP5) is 32.768KHz clock
+// Stepper has 50 poles....
+// stepper output frequency = 50 * revs/sec = 50/60 * RPM                   
+// stepper output period = 1.2 / RPM
+// CCP counter period = 1/32768
+// CCP counts = (1.2/RPM) / (1/32768) = 39321.6 / RPM
+// RPM = 39322/(CCP counts) 
+                                                          
+////////////////////Control Algorithm Defines//////////////////////////////////
+// Min/Max Value of braking
+#define NO_BRK    0
+#define MAX_BRK   400
+
+// Min/Max Value of charging
+#define NO_CHARGE    0
+#define MAX_CHARGE   400
+
+// Min/Max Value of MPPC
+#define NO_MPPC    0x07
+#define MAX_MPPC   0xFF
+
+// Min/Max setting of rpm
+#define MIN_RPM_SETTING    10 
+#define MAX_RPM_SETTING    250
+
+// Min/Max Value of fixture dac setting
+// Set DAC on lab fixture to 0xC00 to sink ALL the current from the power
+// source...  750mA (Test fixture setup:  full scale (0x1000) draws 1A
+#define NO_FIXTURE    0x000
+#define MAX_FIXTURE   0xC00
+
+// Battery Charging cutoffs (in adc counts summed over 4 samples)
+// When to stop charging the battery (3.5V while charging)
+#define BATTERY_STOP_CHARGING    1402
+// Hysteresis to start charging the battery again (3.3V while NOT charging)
+#define BATTERY_START_CHARGING   1490
+// When to warn the manager that the battery is dying (3.1V while NOT charging)
+#define BATTERY_WARN             1584     
+// When to put the mote to sleep (3.0V while NOT charging)
+#define BATTERY_DEAD             1637  
+
+// defines for global_control_loop_mechanism
+// Shows what is being used to control rpm in control loop
+// No rpm control is generally used for test modes                                  
+// No rpm control fsr will set braking and charging to 0 for FSR Calibration     
+                                   
+// where to "jump into" the control loop.
+//    basically, regular mode with both engaged, but it will evaluate if it should go into
+//    BRAKE_AND_CHARGE or BRAKE_ONLY        
+#define BRAKE_AND_CHARGE_START      0x00
+// regular mode with charging turned on       
+#define BRAKE_AND_CHARGE            0x01
+// regular mode with charging turned off (due to full battery most likely)
+#define BRAKE_ONLY                  0x02
+// test mode where charging is force off
+#define FORCE_BRAKE_ONLY            0x03
+// test mode where braking is forced off
+#define FORCE_CHARGE_ONLY           0x04
+// test mode where brake and charge are set
+#define NO_RPM_CONTROL              0x05
+// test mode where brake and charge are set and dynamic mppc is used
+#define NO_RPM_CONTROL_DYN_MPPC     0x06
+// FSR calibration (no brake/charge/rpm control)
+#define NO_RPM_CONTROL_FSR          0x07
+// magnetic decoupling recovery
+#define NO_SPIN_RECOVERY            0x08
+// magnetic decoupling recovery            
+#define MAG_DECOUPLING_RECOVERY     0x09  
+// idle (nothing in the queue). Disable control loop   
+#define NO_SPRINKLER_CONTROL        0xFF                   
+                                                        
+////////////////////Valve//////////////////////////////////////////////////////
+// Starting position of the DAC (also works as the eeprom stored inital value)
+#define VLV_POSITION_UNKNOWN         0xFFFF
+// Fully closed valve position                                                
+#define VLV_POSITION_CLOSED          0x0000
+// Fully open valve position     
+#define VLV_POSITION_OPENED          0x8000
+
+// moved to eeprom stuff
+/*
+// Maximum value of "near closed" range
+#define VLV_NEAR_CLOSED_RANGE_MAX    0x1000
+// Maximum value of "near opened" range
+#define VLV_NEAR_OPENED_RANGE_MAX    0x7000
+*/
+// default valve position for pre-calibration                    
+#define VLV_PRECALIBRATION_POSITION   0x4000
+// Amount to move open in calibration routine 1 in units of valve position
+#define VLV_CAL_1_MOVEMENT           0x2000    
+
+// approximate position to move valve at boot time
+// if OPEN_VALVE_TO_SETPT_AT_BOOT is defined....
+// 0x1000 is 12.5%
+#define VLV_BOOT_SETPT  0x1000
+
+//moved to eeprom stuff
+/*
+// DAC level while opening near the fully open end
+#define DAC_LVL_OPENING_NEAR_OPENED       22       
+// DAC level while opening near the fully closed end
+#define DAC_LVL_OPENING_NEAR_CLOSED       15   
+// DAC level while closing near the fully open end
+#define DAC_LVL_CLOSING_NEAR_OPENED       15
+// DAC level while closing near the fully closed end
+#define DAC_LVL_CLOSING_NEAR_CLOSED       21
+// DAC level while moving in the middle of the valve range and it's default
+#define DAC_LVL_IN_MIDDLE                 18
+// DAC level for the inital current boost/lowered current limit  
+#define DAC_LVL_INIT_CURRENT_BOOST        15            
+*/
+
+// Valve timeout in millispans (maximum number of millispans that it can move 
+//    without error).  1024 is the full range.
+#define VALVE_TIMEOUT                     1500
+
+// Number of movements since an endstop before triggering a re-calibration of
+//    endstop position (done before/triggered by a pending move)
+#define VLV_MOVES_BEFORE_RECAL            25         
+                                             
+// moved to eeprom stuff
+/*
+// Amount of millispans that a current boost/lovered dac level is implemented.
+//    This is done outside of the (NEAR_CLOSED/OPEN_RANGE)
+//    @ 45 seconds to close, 30 = 1.3 seconds
+#define VLV_INIT_CURRENT_BOOST_TIME_1024THS   30     
+*/                                    
+
+// default time_to_open/close.  This is the number of 2ndary Osccilator ticks
+//    for 1/1024th of the span if the entire open-close takes 45 seconds.
+#define DEFAULT_VLV_TIME_TO_OPEN          1280  
+#define DEFAULT_VLV_TIME_TO_CLOSE         1280       
+   
+// if vlv_time_to_close/open is below this number, errors are thrown and calibration 
+//     is thrown away.  750 = 23.4375 seconds
+#define ERROR_VLV_CAL_TIME_LO             750   
+// if vlv_time_to_close/open is above this number, errors are thrown and calibration 
+//     is thrown away.  750 = 78.125 seconds
+#define ERROR_VLV_CAL_TIME_HI             2500  
+
+// moved to eeprom stuff
+/*
+// valve not-spinning and magnetic de-coupling defines                                                    
+// below this number is the regime where we watch for the vgen not spinning case
+#define VLV_NOT_SPIN_LIMIT                0x6000
+// where we send the valve when we want to fix it.  If it gets fixed before reaching this valve position
+//    it stops. If it does not get fixed by the time it reaches this position, it sends an error and stops.
+#define VLV_NOT_SPIN_FIX                  0x7000
+                                           
+// above this rpm, consider magnetic coupling or not-spinning fixed
+#define NOT_SPINNING_MAG_DECOUPLING_RPM_FIXED   8       
+                                                  
+// above this number is the regime where we watch for the vgen not spinning case
+#define VLV_MAGNETIC_COUPLING_LIMIT       0x6000       
+// where to move the valve at a time when trying to recover 
+#define VLV_MAGNETIC_COUPLING_FIX         0x2000         
+// amount to move the valve at a time when trying to recover
+                                                 
+// how many seconds it takes to consider the rpm to be zero (or infinite for higher valve settings) 
+// 8 = 7.5 RPM (8 may be max of what ccp5 can handle without overflow)            
+#define RPM_TIMEOUT                      8       
+*/                                                        
+
+// defines for testing valve state
+#define  IS_VLV_COASTING   (LATE == 0)
+#define  IS_VLV_CLOSING    (LATE == 0x01)
+#define  IS_VLV_OPENING    (LATE == 0x02)
+#define  IS_VLV_BRAKING    (LATE == 0x03)
+
+// macros for making the valve move
+#define  mV_COASTm   {LATE=0;}
+#define  mV_CLOSEm   {LATE=0x01;}
+#define  mV_OPENm    {LATE=0x02;}
+#define  mV_BRAKEm   {LATE=0x03;}                                                                                                                     
+
+////////////////////XDCR/////////////////////////////////////////////////////// 
+// limit for detecting if the XDCR is plugged in or not.  
+// there is a ~5.6M resistor pulling the line up to vcc.
+// It sums 8 measurements and with the weak pullups is usually around 6200
+// To account for variation, we will set 5000 (around 75 psi on the 100 psi sensor)
+// as the limit to detect it.        
+#define XDCR_ADC_OFF_LIMIT 5000     
+                                                    
+////////////////////RB ISR/////////////////////////////////////////////////////  
+// seconds you have to press SW1 until it activate the long press function
+#define SW1_ISR_LONG_PRESS_TIME 5 
+                                            
+////////////////////I2C Addresses//////////////////////////////////////////////
+#define LCD_ADDRESS 0x7C
+#define XDCR_ADDRESS 0x48        
+#define FIXTURE_DAC_ADDRESS 0x40    
+                                   
+////////////////////LCD Defines////////////////////////////////////////////////    
+// total number of lcd pages defined in switch-case in LCD_update_diplay()
+// JG: Actually there are 4 defined in the switch-case, but only
+//  want to see 3 at this time
+#define TOTAL_LCD_PAGES 4                             
+
+////////////////////LED Defines Start//////////////////////////////////////////   
+// make sure to disable INT_RB4 to not have the led trigger an IOC int
+#define LED1_ON       disable_interrupts(INT_RB4); set_tris_b(TRISB_LED); output_low(LED1n);
+#define LED1_OFF      set_tris_b(TRISB_NORM); enable_interrupts(INT_RB4);
+
+#define LED2_ON       output_low(LED2n);
+#define LED2_OFF      output_high(LED2n);
+
+////////////////////LED Defines End////////////////////////////////////////////
+
+////////////////////DUST Defines///////////////////////////////////////////////
+// moved to eeprom stuff     
+/*                                            
+// amount of seconds for mote to stay searching for advertisements                    
+#define MOTE_SEARCH_TIME 120       
+// amount of time the mote will stay disconnected from the network before shutting down (900 = 15 min)   
+#define MOTE_NETWORK_SHUTDOWN_TIMEOUT 900           
+*/
+
+// Min temperature before sending a warning/shutdown
+#define MOTE_MIN_TEMP_WARNING   -35
+#define MOTE_MAX_TEMP_WARNING    80                                      
+#define MOTE_MIN_TEMP_SHUTDOWN   -40
+#define MOTE_MAX_TEMP_SHUTDOWN   85                                                            
+
+//Crazy macro for finding control escape
+#define STUFF_BYTE(x, y, z)  { \
+    if ((x==CONTROL_ESCAPE)||(x==FLAG_SEQUENCE)) { \
+        y[z++] = CONTROL_ESCAPE; \
+        y[z++] = x ^ XOR_BYTE; \
+    } else { \
+        y[z++] = x;     \
+    } \
+}
+
+#define STUFF_BYTE_ISR(x, y, z)  { \
+    if ((x==CONTROL_ESCAPE)||(x==FLAG_SEQUENCE)) { \
+        y[z++] = CONTROL_ESCAPE; \
+        y[z++] = x ^ XOR_BYTE; \
+    } else { \
+        y[z++] = x;     \
+    } \
+}      
+
+// Default newtork ID of bluebox 
+// Somewhat arbitrary, but we will refer to 04cd blue box as center pivot number 0
+//    ...which is the default listed below
+#define NETWORK_ID_DEF  0x04cd                                
+                                                       
+// defines for msg_id (Manager->Mote Payload message ID to Micro)
+#define MSG_MGR_ACK                       0x01
+#define MSG_MGR_NACK                      0x02
+                                                         
+#define MSG_MGR_FULL_REPORT               0x10
+#define MSG_MGR_HEALTH_REPORT             0x11
+#define MSG_MGR_VALVE_REPORT              0x12
+
+#define MSG_MGR_WARM_RESTART              0x20
+#define MSG_MGR_COLD_RESTART              0x21
+#define MSG_MGR_FORCE_REJOIN              0x22
+#define MSG_MGR_SHUTDOWN                  0x23
+
+#define MSG_MGR_UPDATE_SP_NUM             0x30
+#define MSG_MGR_CAL_VALVE                 0x31
+#define MSG_MGR_CAL_FSR                   0x32
+#define MSG_MGR_AQUIRE_GPS                0x33
+#define MSG_MGR_UPDATE_EEPROM             0x34 
+#define MSG_MGR_READ_EEPROM               0x35 
+#define MSG_MGR_READ_XDCR                 0x36
+
+#define MSG_MGR_RUN_CMD_NO_MOD            0x40
+#define MSG_MGR_RUN_CMD_MOD               0x41
+#define MSG_MGR_TEST_NO_RPM_CTRL          0x42
+#define MSG_MGR_TEST_RPM_CTRL             0x43
+#define MSG_MGR_DEMO                      0x44
+#define MSG_MGR_CLEAR_SPINKLER_CMD_QUEUE  0x45
+#define MSG_MGR_FORCE_VALVE_MOVEMENT      0x46
+
+// defines for msg_id (Micro to Mote)
+#define MSG_MOTE_UNSOLICITED              0x00
+#define MSG_MOTE_ACK                      0x80
+#define MSG_MOTE_NACK                     0x81         
+
+#define MSG_MOTE_FULL_REPORT              0x90
+#define MSG_MOTE_HEALTH_REPORT            0x91
+#define MSG_MOTE_VALVE_REPORT             0x92                 
+#define MSG_MOTE_SPINKLER_CMD_RESPONSE    0x93
+#define MSG_MOTE_JOIN_MSG                 0x94      
+#define MSG_MOTE_UPDATE_SP_NUM_RESPONSE   0x95
+#define MSG_MOTE_GPS_POINT_MSG            0x96   
+#define MSG_MOTE_EEPROM_READ_RESPONSE     0x97
+#define MSG_MOTE_XDCR_READ_MSG            0x98   
+#define MSG_MOTE_ERROR_MSG                0xA0
+
+
+////////////////////Status Defines/////////////////////////////////////////////
+////////////////////Mote Statuses (for global_mote_status)
+/* From jack_dn2500.h
+// Mote Status values
+#define MOTESTATE_INIT           0x00     // Mote is booting.
+#define MOTESTATE_IDLE           0x01     // Mote is accepting config cmds.  
+                                          //  Upon receiving a join cmd, mote 
+                                          //  moves into the Searching state.
+                                          //  Idle state is low power state.
+#define MOTESTATE_SEARCHING      0x02     // Mote's rcvr is on with a 
+                                          //  configurable duty cycle while
+                                          //  mote is actively searching for net. 
+#define MOTESTATE_NEGOTIATING    0x03     // Mote has detected a network 
+                                          //  and is attempting to connect.
+#define MOTESTATE_CONNECTED      0x04     // Mote has joined the net
+#define MOTESTATE_OPERATIONAL    0x05     // Mote has links to both net mgr and
+                                          //  gateway; ready to send data.
+#define MOTESTATE_DISCONNECTED   0x06     // Mote is disconnected.
+#define MOTESTATE_RADIOTEST      0x07
+#define MOTESTATE_PROMISCUOUS    0x08
+#define MOTESTATE_UNKNOWN        0xFF
+*/
+
+////////////////////System States (for global_system_state)      
+// system is initalizing, but not ready to run yet     
+#define SYSTEM_INIT                       0x00       
+// system is paused while sprinkling (for something like going over a waterway, for example)
+//    Not sure if this needs to be used.
+#define SYSTEM_PAUSE                      0x01  
+// system is running (sprinkling and control loop running)
+#define SYSTEM_RUN                        0x02 
+// system is on and ready for commands, but not in the control loop (lower power)          
+#define SYSTEM_IDLE                       0x03       
+// system is sleeping (powered down?). Not sure if this needs to be used
+#define SYSTEM_SLEEP                      0x04
+// valve opening a little bit to ensure we dont jam into close endstop
+#define SYSTEM_CAL_VLV_1                  0x10
+// valve closing towards closing endstop pre-calibration
+#define SYSTEM_CAL_VLV_2                  0x11
+// valve opening fully from fully closed for calibration                        
+#define SYSTEM_CAL_VLV_3                  0x12
+// doing FSR w/ valve fully open
+#define SYSTEM_CAL_VLV_4                  0x13
+// valve closing fully from fully open for calibration
+#define SYSTEM_CAL_VLV_5                  0x14
+// calibration routine is done, send message to manager and prepare system for
+//    idle/run mode
+#define SYSTEM_CAL_VLV_6                  0x15
+// valve is moving towards one of the endstops trying to recalibrate it's position
+#define SYSTEM_RECAL_VLV_MOVES            0x16
+// valve is moving (outside of calibrate valve routine)
+#define SYSTEM_MOVE_VALVE                 0x17
+// Move valve to desired setting
+#define SYSTEM_CAL_FSR_1                  0x18
+// do fsr calibration
+#define SYSTEM_CAL_FSR_2                  0x19
+// move valve back to original position
+#define SYSTEM_CAL_FSR_3                  0x1A
+// fsr is done, send message to manager and restore previous state/run mode
+#define SYSTEM_CAL_FSR_4
+
+// system is searching for a network
+#define SYSTEM_SEARCHING_FOR_NETWORK      0x20
+// system is connecting to a network
+#define SYSTEM_CONNECTING_TO_NETWORK      0x21
+// ?????
+#define SYSTEM_STATE_UNKNOWN              0xFF    
+
+///////////////////////////////////////////////////////////////////////////////
+////////////////////Error Defines//////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////
+
+////////////////////Deep sleep/shutdown/restart reasons/errors
+// stored in global_shutdown_errors_bitfield and EEPROM and shown on screen before deep sleep
+// no error
+#define NO_ERR                            0x00
+// mote doesn't respond after a reset
+#define ERR_FAIL_ON_MOTE_RESET            0x01
+// mote receives no advertisement from managers
+#define ERR_NO_ADV_WHILE_SEARCHING        0x02
+// mote has set it's network manager id during search succesfully
+#define NEW_NETWORK_ID_SET                0x03
+// mote does not respond properly to a request
+#define ERR_MOTE_UNRESPONSIVE             0x04
+// mote is outside of operating range (defined under dust)
+#define ERR_MOTE_OUT_OF_TEMP_RANGE        0x05
+// network was unable to join properly
+#define ERR_NETWORK_JOIN_FAIL             0x06
+// unable to set join duty on mote properly
+#define ERR_MTJOINDUTY                    0x07
+// unable to join network with joinkey
+#define ERR_MTJOINKEY                     0x08
+// warm restart requested by manager
+#define WARM_RESTART_REQUEST              0x09
+// cold restart requested by manager
+#define COLD_RESTART_REQUEST              0x0A
+// shutdown requested by manager          
+#define MANAGER_SHUTDOWN_REQUEST          0x0B
+// battery is dead
+#define ERR_BATT_DEAD_SLEEP               0x0C
+// network timeout
+#define ERR_NO_NETWORK_TIMEOUT            0x0D
+
+// freshly programmed (EEPROM defaults to all F,F,F...F)
+#define NEWLY_PROGRAMMED                  0xFF
+
+
+////////////////////global error bitfield errors for sending to manager
+// unsolicited message not ack'd after max attempts
+#define ERR_MSG_UNSOLICITED_MESSAGE_NOT_ACKD       0x00000001
+// state incompatible with requested action
+#define ERR_MSG_INCOMPATIBLE_STATE                 0x00000002
+// valve not calibrated (so it can't move to a position)
+#define ERR_MSG_VLV_NOT_CALIBRATED                 0x00000004
+// mote was unresponsive in system (busy likely)
+#define ERR_MSG_MOTE_UNRESPONSIVE                  0x00000008
+// rpm set point is too high to reach (no charging or braking and still no go)
+#define ERR_MSG_RPM_TOO_HIGH_TO_REACH              0x00000010
+// rpm is too low to reach (full charging, braking and still no go)
+#define ERR_MSG_RPM_TOO_LOW_TO_REACH               0x00000020
+// mote temperature is out of range (sleep)
+#define ERR_MSG_MOTE_TEMP_OUT_OF_RANGE             0x00000040
+// battery is low (warning)
+#define ERR_MSG_BATT_LOW_WARN                      0x00000080
+// battery is dead (going to sleep)
+#define ERR_MSG_BATT_DEAD_SLEEP                    0x00000100
+// valve calibration was invalid (too short)
+#define ERR_MSG_VLV_CAL_FAIL                       0x00000200
+// valve hit an endstop outside of the "closing when opened" etc. areas (close to the endstops)
+#define ERR_MSG_VLV_MOVE_FAIL                      0x00000400
+// not spinning condition detected, recovery attempt proceeding
+#define ERR_MSG_NOT_SPINNING                       0x00000800
+// magnetic decoupling condition detected, recovery attempt proceeding
+#define ERR_MSG_MAG_DECOUPLING                     0x00001000                     
+// not spinning condition or magnetic decoupling condition recovery failed (going to sleep (another message afterwards))
+#define ERR_MSG_MAG_NOT_SPIN_RECOVERY_FAILED       0x00002000
+// signal that system is in invalid state to do run command (e.g. cal vlv, recal vlv, fsr)
+#define ERR_MSG_SPINKLER_CMD_DELAYED_INVALID_STATE 0x00004000   
+// signal that the mote is going to shutdown/sleep (or with another reason)
+#define ERR_MSG_MOTE_GOING_TO_DEEP_SLEEP           0x80000000
+
+/*
+// message needs to be sent now! Disregard message waiting time.
+#define ERR_MSG_HIGH_PRIORITY                    0x80000000
+*/
+
+////////////////////NACK Bitfield Errors
+
+// valve position not calibrated
+#define NACK_BITFIELD_VLV_POSITION_UNKNOWN         0x00000001
+// invalid valve setting requested
+#define NACK_BITFIELD_INVALID_VLV_SETTING          0x00000002
+// invalid rpm setting requested
+#define NACK_BITFIELD_INVALID_RPM_SETTING          0x00000004
+// invalid brake pwm setting requested
+#define NACK_BITFIELD_INVALID_BRAKE_SETTING        0x00000008
+// invalid charge pwm setting requested
+#define NACK_BITFIELD_INVALID_CHARGE_SETTING       0x00000010
+// state incompatible with requested action
+#define NACK_BITFIELD_INCOMPATIBLE_STATE           0x00000020
+// battery is too low for requested action
+#define NACK_BITFIELD_BATT_TOO_LOW                 0x00000040
+// don't have the required hardware for requested operation (e.g. gps, xdcr)
+#define NACK_BITFIELD_INVALID_HARDWARE             0x00000080
+// info recived during eeprom update is invalid (invalid range, number of bytes)
+#define NACK_BITFIELD_INVALID_EEPROM_SETTINGS      0x00000100
+// invalid mppc setting requested
+#define NACK_BITFIELD_INVALID_MPPC_SETTING         0x00000200
+
+////////////////////get and send dustmsg_ISR Errors and pkdecode errors
+// Where the errors start (for checking return values in deal_with_mote)
+#define ERR_BAD_PAYLOAD                   249
+#define ERR_DUSTMSG_START_OF_ERRORS       250
+// CRC errors in pkdecode
+#define ERR_DUSTMSG_CRC                   251
+// Timeout on first byte
+#define ERR_DUSTMSG_TIMEOUT               252
+// RS232 errors from getc()
+#define ERR_DUSTMSG_RS232                 253
+// Framing Error
+#define ERR_DUSTMSG_FRAMING_ERROR         254
+// Message < 6 bytes (too short)
+#define ERR_DUSTMSG_MESSAGE_LENGTH        255
+
