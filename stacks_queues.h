@@ -491,19 +491,19 @@ void pop_message_queue_and_send_ISR(void)
                send_health_report_ISR(MSG_MOTE_UNSOLICITED, global_message_queue[global_current_message_queue_location].msg_seq);
                break;                                                                          
             case MSG_MOTE_VALVE_REPORT:   
-               send_valve_report_ISR(MSG_MOTE_UNSOLICITED, global_message_queue[global_current_message_queue_location].msg_seq);
+               send_valve_report_ISR(MSG_MOTE_UNSOLICITED,global_message_queue[global_current_message_queue_location].msg_seq);
                break;
             case MSG_MOTE_JOIN_MSG:
-               send_join_msg_ISR(MSG_MOTE_UNSOLICITED, global_message_queue[global_current_message_queue_location].msg_seq);
+               send_join_msg_ISR(MSG_MOTE_UNSOLICITED,global_message_queue[global_current_message_queue_location].msg_seq);
                break;
             case MSG_MOTE_GPS_POINT_MSG:
-               send_gps_point_msg_ISR(MSG_MOTE_UNSOLICITED, global_message_queue[global_current_message_queue_location].msg_seq);
+               send_gps_point_msg_ISR(MSG_MOTE_UNSOLICITED,global_message_queue[global_current_message_queue_location].msg_seq);
                break;                                        
             case MSG_MOTE_XDCR_READ_MSG:                                                   
-               send_pressure_xdcr_msg_ISR(MSG_MOTE_UNSOLICITED, global_message_queue[global_current_message_queue_location].msg_seq);
+               send_pressure_xdcr_msg_ISR(MSG_MOTE_UNSOLICITED,global_message_queue[global_current_message_queue_location].msg_seq);
                break;
             case MSG_MOTE_ERROR_MSG:      
-               send_error_msg_ISR(MSG_MOTE_UNSOLICITED, global_message_queue[global_current_message_queue_location].msg_seq);
+               send_error_msg_ISR(MSG_MOTE_UNSOLICITED,global_message_queue[global_current_message_queue_location].msg_seq);
                break;
          }
          // increment attempt number and reschedule it to send at a later time (if not ack'd)

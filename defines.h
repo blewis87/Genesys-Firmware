@@ -19,15 +19,13 @@
 //Errors  
             
 ////////////////////Version////////////////////////////////////////////////////
-#define FIRMWARE_VERSION 0xE313          
+#define FIRMWARE_VERSION 0xE312          
 
                            
-// Defines designed to simplify debugging and program development process        
+// Defines designed to simply debugging and program development process        
 #DEFINE DISABLE_NO_SPIN_RECOVERY          1
 #DEFINE DISABLE_MAG_DECOUPLING_RECOVERY   1              
 #DEFINE DISABLE_RECAL_VLV                 1
-#DEFINE ALLOW_VALVE_SET_WITH_STALE_CAL    1
-#DEFINE OPEN_VALVE_TO_SETPT_AT_BOOT       1
                                    
 ////////////////////Priority Queue/////////////////////////////////////////////
 // Maximum number of items in priority queue. Each item is 1 byte and in RAM
@@ -59,7 +57,6 @@
 #define OPEN_VALVE_UNKNOWN_STATE       0x3E
 #define CLOSE_VALVE_UNKNOWN_STATE      0x3F
 #define MOVE_VALVE                     0x40
-#define MOVE_VALVE_AT_BOOT             0x41
 
 #define START_GPS_AQUISITION           0x50
 #define CHECK_GPS_FOR_LOCK             0x51 
@@ -71,8 +68,6 @@
 #define CHECK_MOTE_TEMP                0xA2
 #define UPDATE_MOTE_TIME               0xA3
 #define UPDATE_MOTE_NETWORK_INFO       0xA4
-// below added by JG 2017 Feb13
-#define SEND_UNSOLICITED_FULL_REPORT   0xA5
 
 #define SEARCH_FOR_STRONGEST_1         0xB1
 #define SEARCH_FOR_STRONGEST_2         0xB2
@@ -91,9 +86,9 @@
 #define SHUTDOWN_SYSTEM                0xF1
 
 // Macros used to push things to priority queue
-#define PUSH_PRIORITY_QUEUE_MACRO(x)   \
-{disable_interrupts(INT_CCP4);         \
-push_priority_queue(x);                \
+#define PUSH_PRIORITY_QUEUE_MACRO(x)                                          \
+{disable_interrupts(INT_CCP4);                                                  \
+push_priority_queue(x);                                                       \
 enable_interrupts(INT_CCP4);}
                                  
 #define PUSH_PRIORITY_QUEUE_ISR_MACRO(x) {push_priority_queue_ISR(x);} 
@@ -182,8 +177,7 @@ struct SprinklerQueueItem
 // how long to wait between message reattempts in seconds
 #define MESSAGE_RESEND_WAIT_PERIOD 60
 
-// how often identical error messages are able to be resent 
-// (if there haven't been any other types of error messages) in seconds
+// how often identical error messages are able to be resent (if there haven't been any other types of error messages) in seconds
 #define ERR_MESSAGE_WAIT_PERIOD 60                                                            
                                                                                            
 // struct for single message queue item
@@ -201,7 +195,7 @@ struct MessageQueueItem
                                        enable_interrupts(INT_CCP4);}   
                                        
 #define PUSH_MESSAGE_QUEUE_ISR_MACRO(x)  {disable_interrupts(INT_CCP4);       \
-                                          push_message_queue_isr(x);          \
+                                          push_message_queue_isr(x);              \
                                           enable_interrupts(INT_CCP4);}                                          
                                        
 // Macro for deleting items off the message queue
@@ -220,6 +214,15 @@ struct MessageQueueItem
 // CCP counts = (1.2/RPM) / (1/32768) = 39321.6 / RPM
 // RPM = 39322/(CCP counts) 
                                                           
+#define T5_PER_RPM      69120
+// assumes 921.6KHz div4 div4 into TIMER5 (or use of CCP5 with TMR5)
+// assumes that stepper has 50 poles....
+// stepper output frequency = 50 * revs/sec = 50/60 * RPM
+// stepper output period = 1.2 / RPM
+// CCP counter period = 16/921.6K
+// CCP counts = (1.2/RPM) / (16/921.6K) = 69120 / RPM
+// RPM = 69120/(CCP counts)
+
 ////////////////////Control Algorithm Defines//////////////////////////////////
 // Min/Max Value of braking
 #define NO_BRK    0
@@ -299,18 +302,9 @@ struct MessageQueueItem
 #define VLV_NEAR_OPENED_RANGE_MAX    0x7000
 */
 // default valve position for pre-calibration                    
-#define VLV_PRECALIBRATION_POSITION   0x4000
+#define VLV_PRECALIBRAION_POSITION   0x4000
 // Amount to move open in calibration routine 1 in units of valve position
 #define VLV_CAL_1_MOVEMENT           0x2000    
-
-// approximate position to move valve at boot time
-// if OPEN_VALVE_TO_SETPT_AT_BOOT is defined....
-// 0x2000 is 25%
-#define VLV_BOOT_SETPT  0x2000
-
-// determines when a VLV_CAL_STALE error message may occur
-// 0x15180 is 24 hours
-#define VLV_SECS_TO_STALE_CAL       0x00015180
 
 //moved to eeprom stuff
 /*
@@ -351,10 +345,7 @@ struct MessageQueueItem
    
 // if vlv_time_to_close/open is below this number, errors are thrown and calibration 
 //     is thrown away.  750 = 23.4375 seconds
-#define ERROR_VLV_CAL_TIME_LO             750   
-// if vlv_time_to_close/open is above this number, errors are thrown and calibration 
-//     is thrown away.  750 = 78.125 seconds
-#define ERROR_VLV_CAL_TIME_HI             2500  
+#define ERROR_VLV_CAL_TIME                 750   
 
 // moved to eeprom stuff
 /*
@@ -621,9 +612,8 @@ struct MessageQueueItem
 #define ERR_MSG_UNSOLICITED_MESSAGE_NOT_ACKD       0x00000001
 // state incompatible with requested action
 #define ERR_MSG_INCOMPATIBLE_STATE                 0x00000002
-// valve calibration stale (activity depends on defines)
-#define ERR_MSG_VLV_CAL_STALE                      0x00000004
-//#define ERR_MSG_VLV_NOT_CALIBRATED                 0x00000004
+// valve not calibrated (so it can't move to a position)
+#define ERR_MSG_VLV_NOT_CALIBRATED                 0x00000004
 // mote was unresponsive in system (busy likely)
 #define ERR_MSG_MOTE_UNRESPONSIVE                  0x00000008
 // rpm set point is too high to reach (no charging or braking and still no go)

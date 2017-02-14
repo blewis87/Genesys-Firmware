@@ -1,20 +1,20 @@
 [PROJECT]
-Target=IntRF.hex
+Target=IntRF_E311.hex
 Processor_Text=PIC18F46K22
-CCSVersion=5.068
+CCSVersion=5.051
 Compiler=PCH
 [Target Data]
-FileList=IntRF.c
+FileList=IntRF_E311.c
 [IntRF_E311.c]
 Type=4
 [mru-list]
-1=IntRF.c
+1=IntRF_E311.c
 
 [defines]
-buildcount=149
+buildcount=91
 
 [ProjectLog]
-Days=14
+Days=9
 D1=01-02-2017
 D1_L=20
 D1_L1=[43927]Started Editing.
@@ -43,7 +43,11 @@ D2_L1=[32315]Started Editing.
 D2_L2=[34255]Stopped Editing.
 D2_L3=[34460]Started Editing.
 D2_L4=[35024]Stopped Editing.
+<<<<<<< HEAD
 TotalEdit=657
+=======
+TotalEdit=401
+>>>>>>> parent of 136b246... E313 commit
 TotalDebug=0
 D2_E=71
 D2_D=0
@@ -178,6 +182,7 @@ D9_L33=[61626]Stopped Editing.
 D9_L34=[62309]Started Editing.
 D9_L35=[62837]Stopped Editing.
 D9_L36=[62837]Project Closed.
+<<<<<<< HEAD
 D10=10-02-2017
 D10_L=5
 D10_L1=[61855]Project Opened.
@@ -313,24 +318,41 @@ t4=1
 5=function_headers.h
 t5=1
 6=defines.h
+=======
+
+[Opened Files]
+1=IntRF_E311.c
+t1=126
+2=globals.h
+t2=250
+3=defines.h
+t3=42
+Count=16
+4=periph.h
+t4=357
+5=control.h
+t5=1
+6=pic_config.h
+>>>>>>> parent of 136b246... E313 commit
 t6=1
 7=pic.h
-t7=1
-8=stacks_queues.h
+t7=834
+8=util.h
 t8=1
-9=valve.h
+9=function_headers.h
 t9=1
-10=util.h
+10=stacks_queues.h
 t10=1
 11=IntRF Notes.txt
 t11=1
 12=dust.h
 t12=1
-13=globals.h
-t13=1
-14=periph.h
+13=valve.h
+t13=219
+14=battery.h
 t14=1
 15=eeprom.h
+<<<<<<< HEAD
 t15=1
 16=IntRF.hex
 t16=1
@@ -342,15 +364,28 @@ t18=1
 t19=13
 20=IntRF.lst
 t20=1
+=======
+t15=145
+16=IntRF_E311.lst
+t16=1
+17=battery.h
+t17=128
+18=eeprom.h
+t18=129
+19=IntRF_E311.lst
+t19=1
+>>>>>>> parent of 136b246... E313 commit
 
 [Documentation]
-1=IntRF Notes.txt
-1T=IntRF Notes.txt
+1=C:\_PROJ\Jain Irrigation\2017 reset\Firmware\2017-01-31 - E311\IntRF_E311 Notes.txt
+1T=IntRF_E311 Notes.txt
 1E=
 1W=0
-Count=1
-[IntRF.c]
-Type=4
+Count=2
+2=C:\_PROJ\Jain Irrigation\2017 reset\Firmware\2017-01-31 - E311\IntRF Notes.txt
+2T=IntRF Notes.txt
+2E=
+2W=0
 [Units]
 Count=1
-1=IntRF (main)
+1=IntRF_E311 (main)

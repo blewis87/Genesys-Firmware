@@ -1,56 +1,56 @@
 
-ROM used:   45526/65536 (69%)
-            45526/65536 (69%) including unused fragments
+ROM used:   42132/65536 (64%)
+            42132/65536 (64%) including unused fragments
 
             2.7 Average locations per line
-            9.4 Average locations per statement
+            9.3 Average locations per statement
 
-RAM used:   1359/3896 (35%) at main() level
-            1600/3896 (41%) worst case
+RAM used:   1355/3896 (35%) at main() level
+            1479/3896 (38%) worst case
 
 Stack used: 10 worst case (5 in main + 5 for interrupts)
 Stack size: 31
 
 Lines Stmts  %   Files
 ----- ----- ---  -----
- 1525   691  14  IntRF.c
+ 1325   625  14  IntRF.c
  1022     0   0  ..\..\..\..\..\Program Files (x86)\PICC\Devices\18F46K22.h
    37     0   0  ..\..\..\..\..\Program Files (x86)\PICC\Drivers\stdio.h
   435     0   0  ..\..\..\..\..\Program Files (x86)\PICC\Drivers\string.h
    32     0   0  ..\..\..\..\..\Program Files (x86)\PICC\Drivers\stddef.h
    28     0   0  ..\..\..\..\..\Program Files (x86)\PICC\Drivers\ctype.h
   168     0   0  ..\..\..\..\..\Program Files (x86)\PICC\Drivers\stdint.h
- 1352   359   7  ..\..\..\..\..\Program Files (x86)\PICC\Drivers\stdlib.h
-  419   159   3  ..\..\..\..\..\Program Files (x86)\PICC\Drivers\stdlibm.h
+ 1352   359   8  ..\..\..\..\..\Program Files (x86)\PICC\Drivers\stdlib.h
+  419   159   4  ..\..\..\..\..\Program Files (x86)\PICC\Drivers\stdlibm.h
    76    13   0  ..\..\..\..\..\Program Files (x86)\PICC\Drivers\memmgmt.c
- 2032     0   0  pic_config.h
-  697     0   0  defines.h
-  188     0   0  function_headers.h
+ 2042     0   0  pic_config.h
+  658     0   0  defines.h
+  178     0   0  function_headers.h
  1181     0   0  jack_dn2500.h
-  283     0   0  globals.h
-  259    87   2  eeprom.h
-  873   343   7  pic.h
- 2492  1475  31  dust.h
- 1137   620  13  periph.h
-  815   443   9  control.h
-  248    95   2  valve.h
-  371   128   3  battery.h
-  760   312   6  stacks_queues.h
-  177   104   2  util.h
+  274     0   0  globals.h
+  238    79   2  eeprom.h
+  820   325   7  pic.h
+ 2259  1329  29  dust.h
+  998   540  12  periph.h
+  797   497  11  control.h
+  240    92   2  valve.h
+  279    99   2  battery.h
+  760   312   7  stacks_queues.h
+  175   110   2  util.h
 ----- -----
-16607  4829 Total
+15793  4539 Total
 
 Page ROM  %  RAM    Vol Diff  Functions:
 ---- --- --- ---    --- ----  ----------
 0     54   0    2             @ITOF
 0    350   0   14             @DIVFF
-0     90   0   14             @MUL3232
+0     92   0   14             @MUL3232
 0    128   0    4    101  3.8  rand
-0     70   0  131             @DIV1616
+0     70   0    5             @DIV1616
 0     20   0    4     39  2.1  srand
 0     34   0    5             @MUL1616
 0     26   0    0             @MEMSET
-0    526   1    0             @const1773
+0    526   1    0             @const1753
 0     34   0    3     30  1.3  read_ee1
 0     86   0    6     74  2.2  read_ee2
 0    170   0   10    134  2.6  read_ee4
@@ -58,7 +58,7 @@ Page ROM  %  RAM    Vol Diff  Functions:
 0    122   0    7    123  2.2  write_ee2
 0    262   0    9    248  2.3  write_ee4
 0    116   0    0    147  1.8  store_all_eeprom_values
-0    312   0    2    658  5.3  read_all_eeprom_values
+0    196   0    2    341  3.3  read_all_eeprom_values
 0     78   0    0     84  1.7  store_vcal_eeprom_values
 0    650   1    2   1844  2.9  read_all_eeprom_variables
 0     44   0    1    192  2.7  fosc_pri
@@ -73,34 +73,31 @@ Page ROM  %  RAM    Vol Diff  Functions:
 0     18   0    1    100  1.7  setup_T4_int
 0    300   0    0   2360  3.0  periph_init
 0    354   0    2   2162  5.4  deep_sleep
-0     34   0    0             @const1936
-0     34   0    0             @const1937
+0     34   0    0             @const1914
+0     34   0    0             @const1915
 0     50   0    0    195  2.3  start_rtc
 0     62   0    0    204  4.9  safeI2C_start
 0     20   0    2     47  1.8  safeI2C_write
-0     10   0    0     38  1.4  setup_rb4_int
-0     50   0    1    221  3.8  write_system_state
-0     10   0    0     17  1.3  read_system_state
 0     12   0    0     48  1.1  mote_init
 0     90   0    4    206  3.9  mote_reset
 0    118   0    4    398  7.5  mote_sleep
-0   1064   1   26   4726 12.8  search_for_strongest
-0     34   0    0             @const1947
-0     34   0    0             @const1948
-0     34   0    0             @const1950
-0     34   0    0             @const1951
-0     34   0    0             @const1954
-0     34   0    0             @const1955
+0   1068   1   26   4726 12.8  search_for_strongest
+0     34   0    0             @const1925
+0     34   0    0             @const1926
+0     34   0    0             @const1928
+0     34   0    0             @const1929
+0     34   0    0             @const1932
+0     34   0    0             @const1933
 0    268   0    2    869  6.6  process_advert
-0     34   0    0             @const1956
+0     34   0    0             @const1934
 0    378   0   17   1417  7.8  initiate_join
-0    874   1    9   2721  9.4  mote_state_check
+0    856   1    9   2649  9.4  mote_state_check
 0    142   0    6    548  8.1  mote_info_check
 0    306   0    9   1163 10.7  mote_temp_check
 0    142   0    6    548  8.1  mote_time_update
 0    142   0    6    548  8.1  get_mote_net_info
 0     74   0    2     96  2.5  init_msgSEQ
-0   1418   2   28   9310 12.4  deal_with_mote_ISR
+0   1252   1   28   8631 12.4  deal_with_mote_ISR
 0    234   0    3   1110 10.7  get_dustmsg_ISR
 0    682   1   14   2464  9.4  dust_hdlc_pkgen
 0    654   1   14   2467  9.3  dust_hdlc_pkgen_ISR
@@ -110,16 +107,16 @@ Page ROM  %  RAM    Vol Diff  Functions:
 0     66   0    7     98  3.5  fcs_fcs16
 0     68   0    7     97  3.8  fcs_fcs16_ISR
 0     92   0    7    203  4.7  fcs_calc_ISR
-0   3780   4   19  19321 13.0  deal_with_packet
-0    166   0    0             @goto47172
+0   3198   4   19  15203 13.0  deal_with_packet
+0    164   0    0             @goto45226
 0     66   0    1    600  2.9  prepare_prefix_and_payload
 0     66   0    1    600  2.9  prepare_prefix_and_payload_ISR
 0     90   0    2    346  8.8  generate_message_and_send
 0     92   0    2    316  7.8  generate_message_and_send_ISR
-0    794   1   11   5623  5.0  send_full_report
-0    134   0    5    926  2.9  send_health_report
-0    308   0    7   1906  3.4  send_valve_report
-0    534   1   11   2411  4.9  send_sprinkler_cmd_response
+0    788   1   11   5615  5.0  send_full_report
+0    128   0    5    919  2.9  send_health_report
+0    310   0    7   1906  3.4  send_valve_report
+0    536   1   11   2411  4.9  send_sprinkler_cmd_response
 0     52   0    3    354  2.8  send_update_sp_num_response
 0     90   0    9    822  2.9  send_read_eeprom_response
 0     38   0    3    228  2.8  send_ack
@@ -144,26 +141,24 @@ Page ROM  %  RAM    Vol Diff  Functions:
 0     50   0    2    132  3.0  LCD_position
 0     52   0    1    119  2.5  LCD_char
 0    120   0    0    354  3.3  LCD_shutdown
-0    130   0    7    239  4.4  LCD_display_battery_voltage
-0     34   0    0             @const2056
-0    410   0   11   1957  9.8  LCD_display_batt_voltage
-0    500   1   12   2177 10.8  LCD_display_vgen
+0    176   0    7    360  5.0  LCD_display_battery_voltage
+0     34   0    0             @const2033
+0    412   0   11   1957  9.8  LCD_display_batt_voltage
 0     90   0    3    234  4.8  LCD_display_shutdown_cause
-0     34   0    0             @const2070
-0   1656   2    3   6388  9.4  LCD_update_diplay
-0     34   0    0             @const2072
-0     34   0    0             @const2073
-0     34   0    0             @const2074
-0     34   0    0             @const2075
-0     20   0    0             @const2076
-0     34   0    0             @const2077
-0     34   0    0             @const2078
-0     34   0    0             @const2079
+0     34   0    0             @const2041
+0   1098   1    3   4166  8.9  LCD_update_diplay
+0     34   0    0             @const2043
+0     34   0    0             @const2044
+0     34   0    0             @const2045
+0     34   0    0             @const2046
+0     20   0    0             @const2047
+0     34   0    0             @const2048
+0     34   0    0             @const2049
 0    104   0    3    456  6.0  adc_XDCR_init
 0     88   0    3    304  5.1  adc_XDCR_measure
 0     90   0    1    262  3.2  fixture_init
 0     34   0    0    127  1.6  setup_gen_rpm
-0    226   0   12    591  5.5  calc_gen_rpm
+0    286   0   12    707  6.7  calc_gen_rpm
 0     36   0    2    140  4.2  is_brake_duty_valid
 0     36   0    2    140  4.2  is_charge_duty_valid
 0     26   0    1    140  4.2  is_mppc_valid
@@ -174,88 +169,84 @@ Page ROM  %  RAM    Vol Diff  Functions:
 0     84   0    3    202  2.7  set_fixture_dac
 0    218   0    0   1201  8.0  adjust_mppc
 0    132   0    4    225  5.4  calc_mppc_by_vgen
-0   2004   2   11   9396 12.3  update_control_loop
-0     46   0    0             @goto49161
+0   2166   3   11  10898 12.4  update_control_loop
+0     46   0    0             @goto47102
 0     58   0    0     86  2.1  stop_current_spinkler_setting
-0     60   0    0     94  2.1  stop_current_spinkler_setting_ISR
+0     48   0    0     94  2.1  stop_current_spinkler_setting_ISR
 0     46   0    0    130  1.2  comparator_setup
-0    318   0    1    827  5.3  set_comp_dac_level
-0    314   0    1    827  5.3  set_comp_dac_level_ISR
-0     34   0    2    140  4.2  is_valve_position_valid
-0     36   0    2     93  2.9  is_valve_value_full_open_or_close
+0    320   0    0    815  5.3  set_comp_dac_level
+0    320   0    0    815  5.3  set_comp_dac_level_ISR
+0     34   0    2    142  3.9  is_valve_position_valid
 0     90   0    6    462  5.2  get_vbatt
 0     90   0    6    462  5.2  get_vbatt_ISR
 0     98   0    6    489  5.2  get_vgen
-0    498   1   22    867  7.1  calc_vbatt_BCD
+0    504   1   22    867  7.1  calc_vbatt_BCD
 0     66   0    5             @FTOSD
-0    520   1   22    882  7.1  calc_vgen_BCD
-0    336   0   20    516  6.5  calc_vbatt
+0    334   0   20    516  6.5  calc_vbatt
 0    286   0    8    824  6.3  check_and_deal_with_battery
 0     36   0    3    105  3.1  clear_priority_queue
 0     62   0    3    158  4.3  pop_priority_queue
 0    198   0    5    485  6.6  push_priority_queue
 0    178   0    5    436  6.1  push_priority_queue_ISR
 0     96   0    5    160  4.0  clear_time_queue
-0    168   0    5    240  5.0  pop_time_queue_ISR
+0    156   0    5    240  5.0  pop_time_queue_ISR
 0    590   1   16    905  7.8  push_time_queue
 0    570   1   16    851  7.3  push_time_queue_ISR
 0     40   0    0    163  3.5  clear_sprinkler_queue
-0    574   1   37   1319  8.8  push_sprinkler_queue
-0    526   1    4    593  6.7  pop_sprinkler_queue_ISR
+0    574   1   37   1319  8.8  push_spinkler_queue
+0    522   1    4    593  6.7  pop_sprinkler_queue_ISR
 0     28   0    0     90  2.5  clear_message_queue
-0    906   1   17   1725 12.2  pop_message_queue_and_send_ISR
-0    788   1   18   1599 10.3  push_message_queue
+0    882   1   17   1725 12.2  pop_message_queue_and_send_ISR
+0    792   1   18   1599 10.3  push_message_queue
 0    636   1   18   1387  9.8  push_message_queue_ISR
 0    350   0   14    678  9.1  remove_message_queue_item
 0    292   0   14    580  9.0  remove_message_queue_item_ISR
-0     64   0    2    279  5.1  flash_led_2
-0     78   0    1    401  5.2  happy_lites
-0    120   0   14    334  4.1  convert_period_to_rpm
+0     82   0    1    428  5.2  happy_lites
+0    118   0   14    334  4.1  convert_period_to_rpm
 0    106   0   14    334  4.1  convert_period_to_rpm_ISR
 0     32   0    1    113  3.5  hi2asc
 0     30   0    1    111  3.8  lo2asc
-0   4294   5    7  17330 13.4  MAIN
-0     34   0    0             @const2195
-0     34   0    0             @const2196
-0     34   0    0             @const2197
-0     34   0    0             @const2198
-0     34   0    0             @const2199
-0     34   0    0             @const2200
-0     34   0    0             @const2201
-0     34   0    0             @const2202
-0     34   0    0             @const2203
-0     34   0    0             @const2204
-0     34   0    0             @const2205
-0     34   0    0             @const2206
-0     34   0    0             @const2207
-0     54   0    0    193  4.4  RB_ISR
+0   3766   4    7  15686 12.9  MAIN
+0     34   0    0             @const2152
+0     34   0    0             @const2153
+0     34   0    0             @const2154
+0     34   0    0             @const2155
+0     34   0    0             @const2156
+0     34   0    0             @const2157
+0     34   0    0             @const2158
+0     34   0    0             @const2159
+0     34   0    0             @const2160
+0     34   0    0             @const2161
+0     34   0    0             @const2162
+0     34   0    0             @const2163
+0     32   0    0    207  4.4  RB_ISR
 0      8   0    0     16  1.0  vgen_wakeup_ISR
-0     58   0    0    167  2.2  BUSCOL_ISR
+0     46   0    0    167  2.2  BUSCOL_ISR
 0     48   0    4    297  2.3  mote_interrupt
-0   1204   1   10   2120  7.8  comp1_ISR
-0    392   0    4   1373  9.7  ccp3_ISR
-0    872   1    6   1458  9.3  ccp4_isr
-0    154   0    4    292  4.6  CCP5_ISR
+0   1030   1   10   1720  6.9  comp1_ISR
+0    360   0    4   1236  9.7  ccp3_ISR
+0    744   1    6   1106  8.7  ccp4_isr
+0    122   0    4    267  4.6  CCP5_ISR
  Inline         0             @cinit1
 
 Program metrics:
-    Functions               147
-    Statements              4829
-    Comments                5530
-    Volume (V)              287325
-    Difficulty (D)          783.6
-    Effort to implement (E) 225157269
-    Time to implement (T)   3474 hours, 39 minutes
-    Est Delivered Bugs (B)  123
-    Cyclomatic Complexity   602
-    Maintainability (MI)    70
+    Functions               140
+    Statements              4539
+    Comments                5312
+    Volume (V)              266842
+    Difficulty (D)          746.2
+    Effort to implement (E) 199118287
+    Time to implement (T)   3072 hours, 49 minutes
+    Est Delivered Bugs (B)  114
+    Cyclomatic Complexity   552
+    Maintainability (MI)    69
 
  Segment     Used  Free
 -----------  ----  ----
 00000-00002     4  0  
 00004-00006     0  4  
 00008-001AA   420  0  
-001AC-0FFFE  45102  20006  
+001AC-0FFFE  41708  23400  
 
 
 

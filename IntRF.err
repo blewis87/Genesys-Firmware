@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 *** Error 1 "C:\Users\Brian\Dropbox\Metrionix\Firmware\Genesys Firmware\pic_config.h" Line 64(1,2): Illegal C character in input file  0x80
 *** Error 1 "C:\Users\Brian\Dropbox\Metrionix\Firmware\Genesys Firmware\pic_config.h" Line 64(1,2): Illegal C character in input file  0x00
 *** Error 1 "C:\Users\Brian\Dropbox\Metrionix\Firmware\Genesys Firmware\pic_config.h" Line 64(1,2): Illegal C character in input file  0xD5
@@ -98,3 +99,105 @@
 *** Error 1 "C:\Users\Brian\Dropbox\Metrionix\Firmware\Genesys Firmware\pic_config.h" Line 64(31,32): Illegal C character in input file  0x00
 *** Error 1 "C:\Users\Brian\Dropbox\Metrionix\Firmware\Genesys Firmware\pic_config.h" Line 64(31,32): Illegal C character in input file  0x00
 *** Error 1 "C:\Users\Brian\Dropbox\Metrionix\Firmware\Genesys Firmware\pic_config.h" Line 64(31,32): Illegal C character in input file  0x00
+=======
+*** Error 1 "C:\Users\Brian\Dropbox\Metrionix\Firmware\2017-01-31 - E312\pic_config.h" Line 64(1,2): Illegal C character in input file  0x80
+*** Error 1 "C:\Users\Brian\Dropbox\Metrionix\Firmware\2017-01-31 - E312\pic_config.h" Line 64(1,2): Illegal C character in input file  0x00
+*** Error 1 "C:\Users\Brian\Dropbox\Metrionix\Firmware\2017-01-31 - E312\pic_config.h" Line 64(1,2): Illegal C character in input file  0xD5
+*** Error 1 "C:\Users\Brian\Dropbox\Metrionix\Firmware\2017-01-31 - E312\pic_config.h" Line 64(1,2): Illegal C character in input file  0x0B
+*** Error 1 "C:\Users\Brian\Dropbox\Metrionix\Firmware\2017-01-31 - E312\pic_config.h" Line 64(1,2): Illegal C character in input file  0x00
+*** Error 1 "C:\Users\Brian\Dropbox\Metrionix\Firmware\2017-01-31 - E312\pic_config.h" Line 64(1,2): Illegal C character in input file  0x00
+*** Error 1 "C:\Users\Brian\Dropbox\Metrionix\Firmware\2017-01-31 - E312\pic_config.h" Line 64(1,2): Illegal C character in input file  0xFF
+*** Error 1 "C:\Users\Brian\Dropbox\Metrionix\Firmware\2017-01-31 - E312\pic_config.h" Line 64(1,2): Illegal C character in input file  0xFF
+*** Error 1 "C:\Users\Brian\Dropbox\Metrionix\Firmware\2017-01-31 - E312\pic_config.h" Line 64(1,2): Illegal C character in input file  0xFF
+*** Error 1 "C:\Users\Brian\Dropbox\Metrionix\Firmware\2017-01-31 - E312\pic_config.h" Line 64(1,2): Illegal C character in input file  0x00
+*** Error 1 "C:\Users\Brian\Dropbox\Metrionix\Firmware\2017-01-31 - E312\pic_config.h" Line 64(1,2): Illegal C character in input file  0x06
+*** Error 1 "C:\Users\Brian\Dropbox\Metrionix\Firmware\2017-01-31 - E312\pic_config.h" Line 64(1,2): Illegal C character in input file  0x00
+*** Error 1 "C:\Users\Brian\Dropbox\Metrionix\Firmware\2017-01-31 - E312\pic_config.h" Line 64(1,2): Illegal C character in input file  0x00
+*** Error 1 "C:\Users\Brian\Dropbox\Metrionix\Firmware\2017-01-31 - E312\pic_config.h" Line 64(1,2): Illegal C character in input file  0x00
+*** Error 1 "C:\Users\Brian\Dropbox\Metrionix\Firmware\2017-01-31 - E312\pic_config.h" Line 64(1,2): Illegal C character in input file  0x00
+*** Error 1 "C:\Users\Brian\Dropbox\Metrionix\Firmware\2017-01-31 - E312\pic_config.h" Line 64(1,2): Illegal C character in input file  0x00
+*** Error 1 "C:\Users\Brian\Dropbox\Metrionix\Firmware\2017-01-31 - E312\pic_config.h" Line 64(1,2): Illegal C character in input file  0x00
+*** Error 1 "C:\Users\Brian\Dropbox\Metrionix\Firmware\2017-01-31 - E312\pic_config.h" Line 64(1,2): Illegal C character in input file  0x00
+*** Error 1 "C:\Users\Brian\Dropbox\Metrionix\Firmware\2017-01-31 - E312\pic_config.h" Line 64(1,2): Illegal C character in input file  0x18
+*** Error 1 "C:\Users\Brian\Dropbox\Metrionix\Firmware\2017-01-31 - E312\pic_config.h" Line 64(1,2): Illegal C character in input file  0xFC
+*** Error 1 "C:\Users\Brian\Dropbox\Metrionix\Firmware\2017-01-31 - E312\pic_config.h" Line 64(1,2): Illegal C character in input file  0xE4
+*** Error 1 "C:\Users\Brian\Dropbox\Metrionix\Firmware\2017-01-31 - E312\pic_config.h" Line 64(9,10): Illegal C character in input file  0x93
+*** Error 48 "C:\Users\Brian\Dropbox\Metrionix\Firmware\2017-01-31 - E312\pic_config.h" Line 64(1,2): Expecting a (
+*** Error 43 "C:\Users\Brian\Dropbox\Metrionix\Firmware\2017-01-31 - E312\pic_config.h" Line 64(11,12): Expecting a declaration
+*** Error 1 "C:\Users\Brian\Dropbox\Metrionix\Firmware\2017-01-31 - E312\pic_config.h" Line 64(12,13): Illegal C character in input file  0x40
+*** Error 1 "C:\Users\Brian\Dropbox\Metrionix\Firmware\2017-01-31 - E312\pic_config.h" Line 64(12,13): Illegal C character in input file  0xF7
+*** Error 1 "C:\Users\Brian\Dropbox\Metrionix\Firmware\2017-01-31 - E312\pic_config.h" Line 64(12,13): Illegal C character in input file  0xE2
+*** Error 1 "C:\Users\Brian\Dropbox\Metrionix\Firmware\2017-01-31 - E312\pic_config.h" Line 64(12,13): Illegal C character in input file  0xE4
+*** Error 1 "C:\Users\Brian\Dropbox\Metrionix\Firmware\2017-01-31 - E312\pic_config.h" Line 64(12,13): Illegal C character in input file  0x40
+*** Error 1 "C:\Users\Brian\Dropbox\Metrionix\Firmware\2017-01-31 - E312\pic_config.h" Line 64(12,13): Illegal C character in input file  0x00
+*** Error 1 "C:\Users\Brian\Dropbox\Metrionix\Firmware\2017-01-31 - E312\pic_config.h" Line 64(12,13): Illegal C character in input file  0x07
+*** Error 1 "C:\Users\Brian\Dropbox\Metrionix\Firmware\2017-01-31 - E312\pic_config.h" Line 64(12,13): Illegal C character in input file  0x00
+*** Error 1 "C:\Users\Brian\Dropbox\Metrionix\Firmware\2017-01-31 - E312\pic_config.h" Line 64(12,13): Illegal C character in input file  0x00
+*** Error 1 "C:\Users\Brian\Dropbox\Metrionix\Firmware\2017-01-31 - E312\pic_config.h" Line 64(12,13): Illegal C character in input file  0xB0
+*** Error 1 "C:\Users\Brian\Dropbox\Metrionix\Firmware\2017-01-31 - E312\pic_config.h" Line 64(12,13): Illegal C character in input file  0xD7
+*** Error 1 "C:\Users\Brian\Dropbox\Metrionix\Firmware\2017-01-31 - E312\pic_config.h" Line 64(12,13): Illegal C character in input file  0x01
+*** Error 1 "C:\Users\Brian\Dropbox\Metrionix\Firmware\2017-01-31 - E312\pic_config.h" Line 64(12,13): Illegal C character in input file  0x00
+*** Error 1 "C:\Users\Brian\Dropbox\Metrionix\Firmware\2017-01-31 - E312\pic_config.h" Line 64(12,13): Illegal C character in input file  0x80
+*** Error 1 "C:\Users\Brian\Dropbox\Metrionix\Firmware\2017-01-31 - E312\pic_config.h" Line 64(12,13): Illegal C character in input file  0x00
+*** Error 1 "C:\Users\Brian\Dropbox\Metrionix\Firmware\2017-01-31 - E312\pic_config.h" Line 64(12,13): Illegal C character in input file  0x00
+*** Error 1 "C:\Users\Brian\Dropbox\Metrionix\Firmware\2017-01-31 - E312\pic_config.h" Line 64(12,13): Illegal C character in input file  0x00
+*** Error 1 "C:\Users\Brian\Dropbox\Metrionix\Firmware\2017-01-31 - E312\pic_config.h" Line 64(12,13): Illegal C character in input file  0x00
+*** Error 1 "C:\Users\Brian\Dropbox\Metrionix\Firmware\2017-01-31 - E312\pic_config.h" Line 64(12,13): Illegal C character in input file  0x00
+*** Error 1 "C:\Users\Brian\Dropbox\Metrionix\Firmware\2017-01-31 - E312\pic_config.h" Line 64(12,13): Illegal C character in input file  0x00
+*** Error 1 "C:\Users\Brian\Dropbox\Metrionix\Firmware\2017-01-31 - E312\pic_config.h" Line 64(12,13): Illegal C character in input file  0x00
+*** Error 1 "C:\Users\Brian\Dropbox\Metrionix\Firmware\2017-01-31 - E312\pic_config.h" Line 64(12,13): Illegal C character in input file  0x00
+*** Error 1 "C:\Users\Brian\Dropbox\Metrionix\Firmware\2017-01-31 - E312\pic_config.h" Line 64(12,13): Illegal C character in input file  0x00
+*** Error 1 "C:\Users\Brian\Dropbox\Metrionix\Firmware\2017-01-31 - E312\pic_config.h" Line 64(12,13): Illegal C character in input file  0x00
+*** Error 1 "C:\Users\Brian\Dropbox\Metrionix\Firmware\2017-01-31 - E312\pic_config.h" Line 64(12,13): Illegal C character in input file  0x00
+*** Error 1 "C:\Users\Brian\Dropbox\Metrionix\Firmware\2017-01-31 - E312\pic_config.h" Line 64(21,22): Illegal C character in input file  0xAF
+*** Error 1 "C:\Users\Brian\Dropbox\Metrionix\Firmware\2017-01-31 - E312\pic_config.h" Line 64(21,22): Illegal C character in input file  0xC7
+*** Error 1 "C:\Users\Brian\Dropbox\Metrionix\Firmware\2017-01-31 - E312\pic_config.h" Line 64(21,22): Illegal C character in input file  0x04
+*** Error 1 "C:\Users\Brian\Dropbox\Metrionix\Firmware\2017-01-31 - E312\pic_config.h" Line 64(21,22): Illegal C character in input file  0x40
+*** Error 48 "C:\Users\Brian\Dropbox\Metrionix\Firmware\2017-01-31 - E312\pic_config.h" Line 64(12,13): Expecting a (
+*** Error 1 "C:\Users\Brian\Dropbox\Metrionix\Firmware\2017-01-31 - E312\pic_config.h" Line 64(25,26): Illegal C character in input file  0x9F
+*** Error 1 "C:\Users\Brian\Dropbox\Metrionix\Firmware\2017-01-31 - E312\pic_config.h" Line 64(25,26): Illegal C character in input file  0x04
+*** Error 1 "C:\Users\Brian\Dropbox\Metrionix\Firmware\2017-01-31 - E312\pic_config.h" Line 64(25,26): Illegal C character in input file  0xD0
+*** Error 43 "C:\Users\Brian\Dropbox\Metrionix\Firmware\2017-01-31 - E312\pic_config.h" Line 64(25,26): Expecting a declaration
+*** Error 1 "C:\Users\Brian\Dropbox\Metrionix\Firmware\2017-01-31 - E312\pic_config.h" Line 64(28,29): Illegal C character in input file  0x9F
+*** Error 1 "C:\Users\Brian\Dropbox\Metrionix\Firmware\2017-01-31 - E312\pic_config.h" Line 64(28,29): Illegal C character in input file  0x04
+*** Error 1 "C:\Users\Brian\Dropbox\Metrionix\Firmware\2017-01-31 - E312\pic_config.h" Line 64(28,29): Illegal C character in input file  0x00
+*** Error 1 "C:\Users\Brian\Dropbox\Metrionix\Firmware\2017-01-31 - E312\pic_config.h" Line 64(28,29): Illegal C character in input file  0x00
+*** Error 1 "C:\Users\Brian\Dropbox\Metrionix\Firmware\2017-01-31 - E312\pic_config.h" Line 64(28,29): Illegal C character in input file  0x00
+*** Error 1 "C:\Users\Brian\Dropbox\Metrionix\Firmware\2017-01-31 - E312\pic_config.h" Line 64(28,29): Illegal C character in input file  0x00
+*** Error 1 "C:\Users\Brian\Dropbox\Metrionix\Firmware\2017-01-31 - E312\pic_config.h" Line 64(28,29): Illegal C character in input file  0x90
+*** Error 43 "C:\Users\Brian\Dropbox\Metrionix\Firmware\2017-01-31 - E312\pic_config.h" Line 64(28,29): Expecting a declaration
+*** Error 1 "C:\Users\Brian\Dropbox\Metrionix\Firmware\2017-01-31 - E312\pic_config.h" Line 64(31,32): Illegal C character in input file  0x9F
+*** Error 1 "C:\Users\Brian\Dropbox\Metrionix\Firmware\2017-01-31 - E312\pic_config.h" Line 64(31,32): Illegal C character in input file  0x04
+*** Error 1 "C:\Users\Brian\Dropbox\Metrionix\Firmware\2017-01-31 - E312\pic_config.h" Line 64(31,32): Illegal C character in input file  0x00
+*** Error 1 "C:\Users\Brian\Dropbox\Metrionix\Firmware\2017-01-31 - E312\pic_config.h" Line 64(31,32): Illegal C character in input file  0x00
+*** Error 1 "C:\Users\Brian\Dropbox\Metrionix\Firmware\2017-01-31 - E312\pic_config.h" Line 64(31,32): Illegal C character in input file  0x00
+*** Error 1 "C:\Users\Brian\Dropbox\Metrionix\Firmware\2017-01-31 - E312\pic_config.h" Line 64(31,32): Illegal C character in input file  0x00
+*** Error 1 "C:\Users\Brian\Dropbox\Metrionix\Firmware\2017-01-31 - E312\pic_config.h" Line 64(31,32): Illegal C character in input file  0x00
+*** Error 1 "C:\Users\Brian\Dropbox\Metrionix\Firmware\2017-01-31 - E312\pic_config.h" Line 64(31,32): Illegal C character in input file  0x00
+*** Error 1 "C:\Users\Brian\Dropbox\Metrionix\Firmware\2017-01-31 - E312\pic_config.h" Line 64(31,32): Illegal C character in input file  0x00
+*** Error 1 "C:\Users\Brian\Dropbox\Metrionix\Firmware\2017-01-31 - E312\pic_config.h" Line 64(31,32): Illegal C character in input file  0x00
+*** Error 1 "C:\Users\Brian\Dropbox\Metrionix\Firmware\2017-01-31 - E312\pic_config.h" Line 64(31,32): Illegal C character in input file  0x00
+*** Error 1 "C:\Users\Brian\Dropbox\Metrionix\Firmware\2017-01-31 - E312\pic_config.h" Line 64(31,32): Illegal C character in input file  0x00
+*** Error 1 "C:\Users\Brian\Dropbox\Metrionix\Firmware\2017-01-31 - E312\pic_config.h" Line 64(31,32): Illegal C character in input file  0x00
+*** Error 1 "C:\Users\Brian\Dropbox\Metrionix\Firmware\2017-01-31 - E312\pic_config.h" Line 64(31,32): Illegal C character in input file  0x00
+*** Error 1 "C:\Users\Brian\Dropbox\Metrionix\Firmware\2017-01-31 - E312\pic_config.h" Line 64(31,32): Illegal C character in input file  0x00
+*** Error 1 "C:\Users\Brian\Dropbox\Metrionix\Firmware\2017-01-31 - E312\pic_config.h" Line 64(31,32): Illegal C character in input file  0x00
+*** Error 1 "C:\Users\Brian\Dropbox\Metrionix\Firmware\2017-01-31 - E312\pic_config.h" Line 64(31,32): Illegal C character in input file  0x00
+*** Error 1 "C:\Users\Brian\Dropbox\Metrionix\Firmware\2017-01-31 - E312\pic_config.h" Line 64(31,32): Illegal C character in input file  0x00
+*** Error 1 "C:\Users\Brian\Dropbox\Metrionix\Firmware\2017-01-31 - E312\pic_config.h" Line 64(31,32): Illegal C character in input file  0x00
+*** Error 1 "C:\Users\Brian\Dropbox\Metrionix\Firmware\2017-01-31 - E312\pic_config.h" Line 64(31,32): Illegal C character in input file  0x00
+*** Error 1 "C:\Users\Brian\Dropbox\Metrionix\Firmware\2017-01-31 - E312\pic_config.h" Line 64(31,32): Illegal C character in input file  0x00
+*** Error 1 "C:\Users\Brian\Dropbox\Metrionix\Firmware\2017-01-31 - E312\pic_config.h" Line 64(31,32): Illegal C character in input file  0x00
+*** Error 1 "C:\Users\Brian\Dropbox\Metrionix\Firmware\2017-01-31 - E312\pic_config.h" Line 64(31,32): Illegal C character in input file  0x00
+*** Error 1 "C:\Users\Brian\Dropbox\Metrionix\Firmware\2017-01-31 - E312\pic_config.h" Line 64(31,32): Illegal C character in input file  0x00
+*** Error 1 "C:\Users\Brian\Dropbox\Metrionix\Firmware\2017-01-31 - E312\pic_config.h" Line 64(31,32): Illegal C character in input file  0x00
+*** Error 1 "C:\Users\Brian\Dropbox\Metrionix\Firmware\2017-01-31 - E312\pic_config.h" Line 64(31,32): Illegal C character in input file  0x00
+*** Error 1 "C:\Users\Brian\Dropbox\Metrionix\Firmware\2017-01-31 - E312\pic_config.h" Line 64(31,32): Illegal C character in input file  0x00
+*** Error 1 "C:\Users\Brian\Dropbox\Metrionix\Firmware\2017-01-31 - E312\pic_config.h" Line 64(31,32): Illegal C character in input file  0x00
+*** Error 1 "C:\Users\Brian\Dropbox\Metrionix\Firmware\2017-01-31 - E312\pic_config.h" Line 64(31,32): Illegal C character in input file  0x00
+*** Error 1 "C:\Users\Brian\Dropbox\Metrionix\Firmware\2017-01-31 - E312\pic_config.h" Line 64(31,32): Illegal C character in input file  0x00
+*** Error 1 "C:\Users\Brian\Dropbox\Metrionix\Firmware\2017-01-31 - E312\pic_config.h" Line 64(31,32): Illegal C character in input file  0x00
+*** Error 1 "C:\Users\Brian\Dropbox\Metrionix\Firmware\2017-01-31 - E312\pic_config.h" Line 64(31,32): Illegal C character in input file  0x00
+*** Error 1 "C:\Users\Brian\Dropbox\Metrionix\Firmware\2017-01-31 - E312\pic_config.h" Line 64(31,32): Illegal C character in input file  0x00
+*** Error 1 "C:\Users\Brian\Dropbox\Metrionix\Firmware\2017-01-31 - E312\pic_config.h" Line 64(31,32): Illegal C character in input file  0x00
+>>>>>>> parent of 136b246... E313 commit

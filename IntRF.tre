@@ -1,14 +1,13 @@
 ÀÄIntRF
-   ÃÄMAIN  0/4294  Ram=7
+   ÃÄMAIN  0/3766  Ram=7
    ³  ÃÄ@cinit1  (Inline)  Ram=0
-   ³  ÃÄwrite_system_state  0/50  Ram=1
    ³  ÃÄosc_init  0/12  Ram=0
    ³  ³  ÀÄfosc_250k  0/48  Ram=1
    ³  ÃÄhi2asc  0/32  Ram=1
    ³  ÃÄlo2asc  0/30  Ram=1
    ³  ÃÄhi2asc  0/32  Ram=1
    ³  ÃÄlo2asc  0/30  Ram=1
-   ³  ÃÄread_all_eeprom_values  0/312  Ram=2
+   ³  ÃÄread_all_eeprom_values  0/196  Ram=2
    ³  ³  ÃÄread_ee2  0/86  Ram=6
    ³  ³  ÃÄwrite_ee2  0/122  Ram=7
    ³  ³  ÃÄread_ee2  0/86  Ram=6
@@ -16,8 +15,6 @@
    ³  ³  ÃÄwrite_ee1  0/50  Ram=3
    ³  ³  ÃÄread_ee2  0/86  Ram=6
    ³  ³  ÃÄread_ee2  0/86  Ram=6
-   ³  ³  ÃÄwrite_ee2  0/122  Ram=7
-   ³  ³  ÃÄwrite_ee2  0/122  Ram=7
    ³  ³  ÃÄread_ee4  0/170  Ram=10
    ³  ³  ÃÄread_ee2  0/86  Ram=6
    ³  ³  ÀÄwrite_ee2  0/122  Ram=7
@@ -137,7 +134,7 @@
    ³  ³  ³  ÃÄ@I2C_WRITEU_2  0/28  Ram=1
    ³  ³  ³  ÃÄ@I2C_WRITEU_2  0/28  Ram=1
    ³  ³  ³  ÃÄ@I2C_WRITEU_2  0/28  Ram=1
-   ³  ³  ³  ÃÄ@const1956  0/34  Ram=0
+   ³  ³  ³  ÃÄ@const1934  0/34  Ram=0
    ³  ³  ³  ÃÄLCD_line1  0/90  Ram=4
    ³  ³  ³  ³  ÃÄLCD_position  0/50  Ram=2
    ³  ³  ³  ³  ³  ÃÄ@I2C_WRITEU_2  0/28  Ram=1
@@ -217,103 +214,95 @@
    ³  ³     ÃÄget_vgen  0/98  Ram=6
    ³  ³     ÃÄsrand  0/20  Ram=4
    ³  ³     ÀÄrand  0/128  Ram=4
-   ³  ³        ÃÄ@MUL3232  0/90  Ram=14
-   ³  ³        ÀÄ@DIV1616  0/70  Ram=131
+   ³  ³        ÃÄ@MUL3232  0/92  Ram=14
+   ³  ³        ÀÄ@DIV1616  0/70  Ram=5
    ³  ÃÄmote_reset  0/90  Ram=4
    ³  ³  ÃÄsetup_T0_int  0/28  Ram=2
    ³  ³  ÀÄpush_time_queue  0/590  Ram=16
-   ³  ÃÄwrite_system_state  0/50  Ram=1
-   ³  ÃÄ@const2195  0/34  Ram=0
+   ³  ÃÄ@const2152  0/34  Ram=0
    ³  ÃÄLCD_line1  0/90  Ram=4
    ³  ³  ÀÄ*
-   ³  ÃÄ@const2196  0/34  Ram=0
+   ³  ÃÄ@const2153  0/34  Ram=0
    ³  ÃÄLCD_line2  0/92  Ram=4
    ³  ³  ÀÄ*
    ³  ÃÄpush_priority_queue  0/198  Ram=5
-   ³  ÃÄsetup_rb4_int  0/10  Ram=0
-   ³  ÃÄLCD_display_battery_voltage  0/130  Ram=7
+   ³  ÃÄLCD_display_battery_voltage  0/176  Ram=7
    ³  ³  ÃÄget_vbatt  0/90  Ram=6
-   ³  ³  ÃÄcalc_vbatt  0/336  Ram=20
+   ³  ³  ÃÄcalc_vbatt  0/334  Ram=20
    ³  ³  ³  ÃÄ@ITOF  0/54  Ram=2
    ³  ³  ³  ÃÄ@DIVFF  0/350  Ram=14
    ³  ³  ³  ÃÄ@FTOSD  0/66  Ram=5
-   ³  ³  ³  ÃÄ@MUL3232  0/90  Ram=14
-   ³  ³  ³  ÀÄ@MUL3232  0/90  Ram=14
-   ³  ³  ÃÄ@const2056  0/34  Ram=0
+   ³  ³  ³  ÃÄ@MUL3232  0/92  Ram=14
+   ³  ³  ³  ÀÄ@MUL3232  0/92  Ram=14
+   ³  ³  ÃÄ@const2033  0/34  Ram=0
    ³  ³  ÃÄLCD_line1  0/90  Ram=4
    ³  ³  ³  ÀÄ*
    ³  ³  ÃÄLCD_line2  0/92  Ram=4
    ³  ³  ³  ÀÄ*
-   ³  ³  ÀÄLCD_display_batt_voltage  0/410  Ram=11
-   ³  ³     ÃÄget_vbatt  0/90  Ram=6
-   ³  ³     ÃÄcalc_vbatt_BCD  0/498  Ram=22
-   ³  ³     ³  ÃÄ@ITOF  0/54  Ram=2
-   ³  ³     ³  ÃÄ@DIVFF  0/350  Ram=14
-   ³  ³     ³  ÃÄ@FTOSD  0/66  Ram=5
-   ³  ³     ³  ÃÄ@MUL3232  0/90  Ram=14
-   ³  ³     ³  ÃÄ@MUL3232  0/90  Ram=14
-   ³  ³     ³  ÃÄ@DIV1616  0/70  Ram=131
-   ³  ³     ³  ÃÄ@MUL1616  0/34  Ram=5
-   ³  ³     ³  ÃÄ@DIV1616  0/70  Ram=131
-   ³  ³     ³  ÀÄ@DIV1616  0/70  Ram=131
-   ³  ³     ÃÄLCD_place_char  0/56  Ram=4
-   ³  ³     ³  ÃÄLCD_position  0/50  Ram=2
-   ³  ³     ³  ³  ÀÄ*
-   ³  ³     ³  ÃÄLCD_position  0/50  Ram=2
-   ³  ³     ³  ³  ÀÄ*
-   ³  ³     ³  ÀÄLCD_char  0/52  Ram=1
-   ³  ³     ³     ÃÄ@I2C_WRITEU_2  0/28  Ram=1
-   ³  ³     ³     ÃÄ@I2C_WRITEU_2  0/28  Ram=1
-   ³  ³     ³     ÀÄ@I2C_WRITEU_2  0/28  Ram=1
-   ³  ³     ÃÄLCD_place_char  0/56  Ram=4
-   ³  ³     ³  ÀÄ*
-   ³  ³     ÃÄLCD_place_char  0/56  Ram=4
-   ³  ³     ³  ÀÄ*
-   ³  ³     ÃÄLCD_place_char  0/56  Ram=4
-   ³  ³     ³  ÀÄ*
-   ³  ³     ÀÄLCD_place_char  0/56  Ram=4
+   ³  ³  ÃÄLCD_place_uint8  0/148  Ram=7
+   ³  ³  ³  ÃÄ@DIV88  0/44  Ram=3
+   ³  ³  ³  ÃÄ@DIV88  0/44  Ram=3
+   ³  ³  ³  ÀÄLCD_place_text  0/136  Ram=7
+   ³  ³  ³     ÃÄLCD_position  0/50  Ram=2
+   ³  ³  ³     ³  ÀÄ*
+   ³  ³  ³     ÃÄLCD_position  0/50  Ram=2
+   ³  ³  ³     ³  ÀÄ*
+   ³  ³  ³     ÃÄ@I2C_WRITEU_2  0/28  Ram=1
+   ³  ³  ³     ÃÄ@I2C_WRITEU_2  0/28  Ram=1
+   ³  ³  ³     ÀÄ@I2C_WRITEU_2  0/28  Ram=1
+   ³  ³  ÀÄLCD_place_uint16  0/174  Ram=18
+   ³  ³     ÃÄ@DIV1616  0/70  Ram=5
+   ³  ³     ÃÄ@DIV1616  0/70  Ram=5
+   ³  ³     ÀÄLCD_place_text  0/136  Ram=7
    ³  ³        ÀÄ*
    ³  ÃÄLCD_display_shutdown_cause  0/90  Ram=3
-   ³  ³  ÃÄ@const2070  0/34  Ram=0
+   ³  ³  ÃÄ@const2041  0/34  Ram=0
    ³  ³  ÃÄhi2asc  0/32  Ram=1
    ³  ³  ÃÄlo2asc  0/30  Ram=1
    ³  ³  ÃÄLCD_line1  0/90  Ram=4
    ³  ³  ³  ÀÄ*
    ³  ³  ÀÄLCD_line2  0/92  Ram=4
    ³  ³     ÀÄ*
-   ³  ÃÄwrite_system_state  0/50  Ram=1
-   ³  ÃÄhappy_lites  0/78  Ram=1
+   ³  ÃÄhappy_lites  0/82  Ram=1
    ³  ³  ÃÄsetup_T0_int  0/28  Ram=2
    ³  ³  ÀÄsetup_T0_int  0/28  Ram=2
    ³  ÃÄpush_time_queue  0/590  Ram=16
    ³  ÃÄpush_time_queue  0/590  Ram=16
-   ³  ÃÄpush_time_queue  0/590  Ram=16
+   ³  ÃÄ@delay_ms4  0/28  Ram=1
    ³  ÃÄsetup_T2_int  0/14  Ram=1
    ³  ÃÄsetup_T2_int  0/14  Ram=1
-   ³  ÃÄread_system_state  0/10  Ram=0
-   ³  ÃÄupdate_control_loop  0/2004  Ram=11
+   ³  ÃÄupdate_control_loop  0/2166  Ram=11
    ³  ³  ÃÄcalc_mppc_by_vgen  0/132  Ram=4
    ³  ³  ³  ÃÄget_vgen  0/98  Ram=6
    ³  ³  ³  ÃÄ@MUL1616  0/34  Ram=5
-   ³  ³  ³  ÀÄ@DIV1616  0/70  Ram=131
+   ³  ³  ³  ÀÄ@DIV1616  0/70  Ram=5
    ³  ³  ÃÄset_mppc  0/140  Ram=1
    ³  ³  ³  ÀÄ*
-   ³  ³  ÃÄcalc_gen_rpm  0/226  Ram=12
+   ³  ³  ÃÄcalc_gen_rpm  0/286  Ram=12
    ³  ³  ³  ÀÄ@DIV3232  0/148  Ram=13
-   ³  ³  ÃÄ@goto49161  0/46  Ram=0
-   ³  ³  ÃÄpush_message_queue  0/788  Ram=18
+   ³  ³  ÃÄ@goto47102  0/46  Ram=0
+   ³  ³  ÃÄpush_message_queue  0/792  Ram=18
+   ³  ³  ÃÄpush_priority_queue  0/198  Ram=5
+   ³  ³  ÃÄpush_message_queue  0/792  Ram=18
    ³  ³  ÃÄset_brake_duty  0/110  Ram=4
    ³  ³  ÃÄset_brake_duty  0/110  Ram=4
    ³  ³  ÃÄset_charge_duty  0/110  Ram=4
    ³  ³  ÃÄset_charge_duty  0/110  Ram=4
-   ³  ³  ÃÄpush_message_queue  0/788  Ram=18
+   ³  ³  ÃÄpush_message_queue  0/792  Ram=18
+   ³  ³  ÃÄpush_priority_queue  0/198  Ram=5
+   ³  ³  ÃÄpush_message_queue  0/792  Ram=18
    ³  ³  ÃÄset_charge_duty  0/110  Ram=4
    ³  ³  ÃÄset_charge_duty  0/110  Ram=4
    ³  ³  ÃÄset_brake_duty  0/110  Ram=4
    ³  ³  ÃÄset_brake_duty  0/110  Ram=4
+   ³  ³  ÃÄpush_message_queue  0/792  Ram=18
+   ³  ³  ÃÄpush_priority_queue  0/198  Ram=5
+   ³  ³  ÃÄpush_message_queue  0/792  Ram=18
    ³  ³  ÃÄset_brake_duty  0/110  Ram=4
    ³  ³  ÃÄset_brake_duty  0/110  Ram=4
-   ³  ³  ÃÄpush_message_queue  0/788  Ram=18
+   ³  ³  ÃÄpush_message_queue  0/792  Ram=18
+   ³  ³  ÃÄpush_priority_queue  0/198  Ram=5
+   ³  ³  ÃÄpush_message_queue  0/792  Ram=18
    ³  ³  ÃÄset_brake_duty  0/110  Ram=4
    ³  ³  ÃÄset_brake_duty  0/110  Ram=4
    ³  ³  ÃÄset_charge_duty  0/110  Ram=4
@@ -322,48 +311,47 @@
    ³  ³  ÃÄset_brake_duty  0/110  Ram=4
    ³  ³  ÃÄset_charge_duty  0/110  Ram=4
    ³  ³  ÃÄset_charge_duty  0/110  Ram=4
-   ³  ³  ÃÄpush_message_queue  0/788  Ram=18
-   ³  ³  ÃÄpush_message_queue  0/788  Ram=18
+   ³  ³  ÃÄpush_message_queue  0/792  Ram=18
+   ³  ³  ÃÄpush_message_queue  0/792  Ram=18
    ³  ³  ÃÄstop_current_spinkler_setting  0/58  Ram=0
    ³  ³  ³  ÀÄpush_priority_queue_ISR  0/178  Ram=5
    ³  ³  ÃÄclear_sprinkler_queue  0/40  Ram=0
    ³  ³  ³  ÀÄ@MEMSET  0/26  Ram=0
-   ³  ³  ÃÄpush_message_queue  0/788  Ram=18
-   ³  ³  ÃÄpush_message_queue  0/788  Ram=18
-   ³  ³  ÃÄpush_message_queue  0/788  Ram=18
+   ³  ³  ÃÄpush_message_queue  0/792  Ram=18
+   ³  ³  ÃÄpush_message_queue  0/792  Ram=18
+   ³  ³  ÃÄpush_message_queue  0/792  Ram=18
    ³  ³  ÃÄstop_current_spinkler_setting  0/58  Ram=0
    ³  ³  ³  ÀÄ*
    ³  ³  ÃÄclear_sprinkler_queue  0/40  Ram=0
    ³  ³  ³  ÀÄ*
-   ³  ³  ÀÄpush_message_queue  0/788  Ram=18
+   ³  ³  ÀÄpush_message_queue  0/792  Ram=18
    ³  ÃÄpop_priority_queue  0/62  Ram=3
    ³  ÃÄLCD_clear  0/58  Ram=2
-   ³  ³  ÃÄ@const1956  0/34  Ram=0
+   ³  ³  ÃÄ@const1934  0/34  Ram=0
    ³  ³  ÃÄLCD_line1  0/90  Ram=4
    ³  ³  ³  ÀÄ*
    ³  ³  ÀÄLCD_line2  0/92  Ram=4
    ³  ³     ÀÄ*
-   ³  ÃÄ@const2197  0/34  Ram=0
+   ³  ÃÄ@const2154  0/34  Ram=0
    ³  ÃÄLCD_line1  0/90  Ram=4
    ³  ³  ÀÄ*
-   ³  ÃÄdeal_with_packet  0/3780  Ram=19
-   ³  ³  ÃÄ@goto47172  0/166  Ram=0
+   ³  ÃÄdeal_with_packet  0/3198  Ram=19
+   ³  ³  ÃÄ@goto45226  0/164  Ram=0
    ³  ³  ÃÄremove_message_queue_item  0/350  Ram=14
    ³  ³  ³  ÀÄ@MEMSET  0/26  Ram=0
-   ³  ³  ÃÄsend_full_report  0/794  Ram=11
+   ³  ³  ÃÄsend_full_report  0/788  Ram=11
    ³  ³  ³  ÃÄprepare_prefix_and_payload  0/66  Ram=1
-   ³  ³  ³  ÃÄread_system_state  0/10  Ram=0
    ³  ³  ³  ÃÄget_vbatt  0/90  Ram=6
    ³  ³  ³  ÃÄget_vbatt  0/90  Ram=6
    ³  ³  ³  ÃÄget_vgen  0/98  Ram=6
-   ³  ³  ³  ÃÄconvert_period_to_rpm  0/120  Ram=14
+   ³  ³  ³  ÃÄconvert_period_to_rpm  0/118  Ram=14
    ³  ³  ³  ³  ÀÄ@DIV3232  0/148  Ram=13
-   ³  ³  ³  ÃÄconvert_period_to_rpm  0/120  Ram=14
+   ³  ³  ³  ÃÄconvert_period_to_rpm  0/118  Ram=14
    ³  ³  ³  ³  ÀÄ*
    ³  ³  ³  ÀÄgenerate_message_and_send  0/90  Ram=2
    ³  ³  ³     ÃÄdust_hdlc_pkgen  0/682  Ram=14
    ³  ³  ³     ³  ÃÄfcs_fcs16  0/66  Ram=7
-   ³  ³  ³     ³  ³  ÀÄ@const1773  0/526  Ram=0
+   ³  ³  ³     ³  ³  ÀÄ@const1753  0/526  Ram=0
    ³  ³  ³     ³  ÀÄfcs_fcs16  0/66  Ram=7
    ³  ³  ³     ³     ÀÄ*
    ³  ³  ³     ÃÄdust_hdlc_pksend  0/182  Ram=6
@@ -372,16 +360,15 @@
    ³  ³  ³     ³  ÃÄsetup_T0_int  0/28  Ram=2
    ³  ³  ³     ³  ÀÄ@PUTCHARI_BIU_2  0/8  Ram=0
    ³  ³  ³     ÀÄsetup_T0_int  0/28  Ram=2
-   ³  ³  ÃÄsend_health_report  0/134  Ram=5
+   ³  ³  ÃÄsend_health_report  0/128  Ram=5
    ³  ³  ³  ÃÄprepare_prefix_and_payload  0/66  Ram=1
-   ³  ³  ³  ÃÄread_system_state  0/10  Ram=0
    ³  ³  ³  ÃÄget_vbatt  0/90  Ram=6
    ³  ³  ³  ÃÄget_vbatt  0/90  Ram=6
    ³  ³  ³  ÀÄgenerate_message_and_send  0/90  Ram=2
    ³  ³  ³     ÀÄ*
-   ³  ³  ÃÄsend_valve_report  0/308  Ram=7
+   ³  ³  ÃÄsend_valve_report  0/310  Ram=7
    ³  ³  ³  ÃÄprepare_prefix_and_payload  0/66  Ram=1
-   ³  ³  ³  ÃÄconvert_period_to_rpm  0/120  Ram=14
+   ³  ³  ³  ÃÄconvert_period_to_rpm  0/118  Ram=14
    ³  ³  ³  ³  ÀÄ*
    ³  ³  ³  ÀÄgenerate_message_and_send  0/90  Ram=2
    ³  ³  ³     ÀÄ*
@@ -410,7 +397,6 @@
    ³  ³  ÃÄsend_ack  0/38  Ram=3
    ³  ³  ³  ÀÄ*
    ³  ³  ÃÄpush_priority_queue  0/198  Ram=5
-   ³  ³  ÃÄread_system_state  0/10  Ram=0
    ³  ³  ÃÄis_valve_position_valid  0/34  Ram=2
    ³  ³  ÃÄsend_nack  0/62  Ram=7
    ³  ³  ³  ÃÄprepare_prefix_and_payload  0/66  Ram=1
@@ -425,21 +411,9 @@
    ³  ³  ÃÄLCD_clear  0/58  Ram=2
    ³  ³  ³  ÀÄ*
    ³  ³  ÃÄLCD_place_uint16  0/174  Ram=18
-   ³  ³  ³  ÃÄ@DIV1616  0/70  Ram=131
-   ³  ³  ³  ÃÄ@DIV1616  0/70  Ram=131
-   ³  ³  ³  ÀÄLCD_place_text  0/136  Ram=7
-   ³  ³  ³     ÃÄLCD_position  0/50  Ram=2
-   ³  ³  ³     ³  ÀÄ*
-   ³  ³  ³     ÃÄLCD_position  0/50  Ram=2
-   ³  ³  ³     ³  ÀÄ*
-   ³  ³  ³     ÃÄ@I2C_WRITEU_2  0/28  Ram=1
-   ³  ³  ³     ÃÄ@I2C_WRITEU_2  0/28  Ram=1
-   ³  ³  ³     ÀÄ@I2C_WRITEU_2  0/28  Ram=1
+   ³  ³  ³  ÀÄ*
    ³  ³  ÃÄLCD_place_uint8  0/148  Ram=7
-   ³  ³  ³  ÃÄ@DIV88  0/44  Ram=3
-   ³  ³  ³  ÃÄ@DIV88  0/44  Ram=3
-   ³  ³  ³  ÀÄLCD_place_text  0/136  Ram=7
-   ³  ³  ³     ÀÄ*
+   ³  ³  ³  ÀÄ*
    ³  ³  ÃÄLCD_place_uint32  0/290  Ram=20
    ³  ³  ³  ÃÄ@DIV3232  0/148  Ram=13
    ³  ³  ³  ÃÄ@DIV3232  0/148  Ram=13
@@ -470,161 +444,107 @@
    ³  ³  ÃÄis_rpm_setting_valid  0/46  Ram=2
    ³  ³  ÃÄsend_nack  0/62  Ram=7
    ³  ³  ³  ÀÄ*
-   ³  ³  ÃÄpush_sprinkler_queue  0/574  Ram=37
+   ³  ³  ÃÄpush_spinkler_queue  0/574  Ram=37
    ³  ³  ÃÄpush_priority_queue  0/198  Ram=5
-   ³  ³  ÃÄsend_sprinkler_cmd_response  0/534  Ram=11
+   ³  ³  ÃÄsend_sprinkler_cmd_response  0/536  Ram=11
    ³  ³  ³  ÃÄprepare_prefix_and_payload  0/66  Ram=1
    ³  ³  ³  ÃÄget_vbatt  0/90  Ram=6
    ³  ³  ³  ÀÄgenerate_message_and_send  0/90  Ram=2
    ³  ³  ³     ÀÄ*
    ³  ³  ÃÄsend_nack  0/62  Ram=7
    ³  ³  ³  ÀÄ*
-   ³  ³  ÃÄis_valve_value_full_open_or_close  0/36  Ram=2
    ³  ³  ÃÄis_valve_position_valid  0/34  Ram=2
    ³  ³  ÃÄis_brake_duty_valid  0/36  Ram=2
    ³  ³  ÃÄis_charge_duty_valid  0/36  Ram=2
    ³  ³  ÃÄis_mppc_valid  0/26  Ram=1
    ³  ³  ÃÄsend_nack  0/62  Ram=7
    ³  ³  ³  ÀÄ*
-   ³  ³  ÃÄpush_priority_queue  0/198  Ram=5
-   ³  ³  ÃÄpush_priority_queue  0/198  Ram=5
-   ³  ³  ÃÄpush_priority_queue  0/198  Ram=5
    ³  ³  ÃÄclear_sprinkler_queue  0/40  Ram=0
    ³  ³  ³  ÀÄ*
-   ³  ³  ÃÄpush_sprinkler_queue  0/574  Ram=37
-   ³  ³  ÃÄpush_sprinkler_queue  0/574  Ram=37
-   ³  ³  ÃÄsend_full_report  0/794  Ram=11
+   ³  ³  ÃÄpush_spinkler_queue  0/574  Ram=37
+   ³  ³  ÃÄsend_full_report  0/788  Ram=11
    ³  ³  ³  ÀÄ*
-   ³  ³  ÃÄis_valve_value_full_open_or_close  0/36  Ram=2
    ³  ³  ÃÄis_valve_position_valid  0/34  Ram=2
    ³  ³  ÃÄis_rpm_setting_valid  0/46  Ram=2
    ³  ³  ÃÄsend_nack  0/62  Ram=7
    ³  ³  ³  ÀÄ*
    ³  ³  ÃÄclear_sprinkler_queue  0/40  Ram=0
    ³  ³  ³  ÀÄ*
-   ³  ³  ÃÄpush_sprinkler_queue  0/574  Ram=37
-   ³  ³  ÃÄpush_sprinkler_queue  0/574  Ram=37
+   ³  ³  ÃÄpush_spinkler_queue  0/574  Ram=37
    ³  ³  ÃÄpush_priority_queue  0/198  Ram=5
-   ³  ³  ÃÄpush_priority_queue  0/198  Ram=5
-   ³  ³  ÃÄpush_priority_queue  0/198  Ram=5
-   ³  ³  ÃÄsend_full_report  0/794  Ram=11
+   ³  ³  ÃÄsend_full_report  0/788  Ram=11
    ³  ³  ³  ÀÄ*
    ³  ³  ÃÄsend_nack  0/62  Ram=7
    ³  ³  ³  ÀÄ*
    ³  ³  ÃÄclear_sprinkler_queue  0/40  Ram=0
    ³  ³  ³  ÀÄ*
-   ³  ³  ÃÄpush_sprinkler_queue  0/574  Ram=37
-   ³  ³  ÃÄpush_sprinkler_queue  0/574  Ram=37
-   ³  ³  ÃÄpush_sprinkler_queue  0/574  Ram=37
-   ³  ³  ÃÄpush_sprinkler_queue  0/574  Ram=37
+   ³  ³  ÃÄpush_spinkler_queue  0/574  Ram=37
+   ³  ³  ÃÄpush_spinkler_queue  0/574  Ram=37
+   ³  ³  ÃÄpush_spinkler_queue  0/574  Ram=37
+   ³  ³  ÃÄpush_spinkler_queue  0/574  Ram=37
    ³  ³  ÃÄsend_ack  0/38  Ram=3
    ³  ³  ³  ÀÄ*
    ³  ³  ÃÄclear_sprinkler_queue  0/40  Ram=0
    ³  ³  ³  ÀÄ*
-   ³  ³  ÃÄsend_full_report  0/794  Ram=11
-   ³  ³  ³  ÀÄ*
-   ³  ³  ÃÄis_valve_value_full_open_or_close  0/36  Ram=2
-   ³  ³  ÃÄis_valve_value_full_open_or_close  0/36  Ram=2
-   ³  ³  ÃÄsend_nack  0/62  Ram=7
-   ³  ³  ³  ÀÄ*
-   ³  ³  ÃÄpush_priority_queue  0/198  Ram=5
-   ³  ³  ÀÄsend_valve_report  0/308  Ram=7
+   ³  ³  ÀÄsend_full_report  0/788  Ram=11
    ³  ³     ÀÄ*
    ³  ÃÄLCD_clear  0/58  Ram=2
    ³  ³  ÀÄ*
-   ³  ÃÄ@const2198  0/34  Ram=0
+   ³  ÃÄ@const2155  0/34  Ram=0
    ³  ÃÄLCD_line1  0/90  Ram=4
    ³  ³  ÀÄ*
-   ³  ÃÄpush_priority_queue  0/198  Ram=5
-   ³  ÃÄwrite_system_state  0/50  Ram=1
-   ³  ÃÄLCD_clear  0/58  Ram=2
-   ³  ³  ÀÄ*
-   ³  ÃÄ@const2199  0/34  Ram=0
-   ³  ÃÄLCD_line1  0/90  Ram=4
-   ³  ³  ÀÄ*
-   ³  ÃÄ@const2200  0/34  Ram=0
+   ³  ÃÄ@const2156  0/34  Ram=0
    ³  ÃÄLCD_line2  0/92  Ram=4
    ³  ³  ÀÄ*
    ³  ÃÄpush_priority_queue  0/198  Ram=5
-   ³  ÃÄwrite_system_state  0/50  Ram=1
    ³  ÃÄpush_priority_queue  0/198  Ram=5
-   ³  ÃÄwrite_system_state  0/50  Ram=1
    ³  ÃÄpush_priority_queue  0/198  Ram=5
-   ³  ÃÄwrite_system_state  0/50  Ram=1
    ³  ÃÄpush_priority_queue  0/198  Ram=5
-   ³  ÃÄwrite_system_state  0/50  Ram=1
    ³  ÃÄpush_priority_queue  0/198  Ram=5
-   ³  ÃÄwrite_system_state  0/50  Ram=1
    ³  ÃÄLCD_clear  0/58  Ram=2
    ³  ³  ÀÄ*
-   ³  ÃÄ@const2201  0/34  Ram=0
+   ³  ÃÄ@const2157  0/34  Ram=0
    ³  ÃÄLCD_line1  0/90  Ram=4
    ³  ³  ÀÄ*
-   ³  ÃÄ@const2202  0/34  Ram=0
+   ³  ÃÄ@const2158  0/34  Ram=0
    ³  ÃÄLCD_line2  0/92  Ram=4
    ³  ³  ÀÄ*
    ³  ÃÄLCD_place_uint16  0/174  Ram=18
    ³  ³  ÀÄ*
    ³  ÃÄLCD_place_uint16  0/174  Ram=18
    ³  ³  ÀÄ*
-   ³  ÃÄpush_message_queue  0/788  Ram=18
+   ³  ÃÄpush_message_queue  0/792  Ram=18
    ³  ÃÄstore_vcal_eeprom_values  0/78  Ram=0
    ³  ³  ÃÄwrite_ee2  0/122  Ram=7
    ³  ³  ÃÄwrite_ee2  0/122  Ram=7
    ³  ³  ÀÄwrite_ee4  0/262  Ram=9
-   ³  ÃÄpush_message_queue  0/788  Ram=18
-   ³  ÃÄwrite_system_state  0/50  Ram=1
-   ³  ÃÄwrite_system_state  0/50  Ram=1
+   ³  ÃÄpush_message_queue  0/792  Ram=18
    ³  ÃÄpush_priority_queue  0/198  Ram=5
-   ³  ÃÄwrite_system_state  0/50  Ram=1
    ³  ÃÄpush_priority_queue  0/198  Ram=5
-   ³  ÃÄpush_message_queue  0/788  Ram=18
-   ³  ÃÄwrite_system_state  0/50  Ram=1
-   ³  ÃÄwrite_system_state  0/50  Ram=1
+   ³  ÃÄpush_message_queue  0/792  Ram=18
    ³  ÃÄpush_priority_queue  0/198  Ram=5
    ³  ÃÄpush_priority_queue  0/198  Ram=5
    ³  ÃÄcomparator_setup  0/46  Ram=0
-   ³  ³  ÀÄset_comp_dac_level  0/318  Ram=1
-   ³  ³     ÃÄread_system_state  0/10  Ram=0
-   ³  ³     ÀÄread_system_state  0/10  Ram=0
-   ³  ÃÄpush_priority_queue  0/198  Ram=5
-   ³  ÃÄcomparator_setup  0/46  Ram=0
-   ³  ³  ÀÄ*
-   ³  ÃÄpush_priority_queue  0/198  Ram=5
-   ³  ÃÄread_system_state  0/10  Ram=0
-   ³  ÃÄwrite_system_state  0/50  Ram=1
-   ³  ÃÄread_system_state  0/10  Ram=0
-   ³  ÃÄpush_message_queue  0/788  Ram=18
-   ³  ÃÄread_system_state  0/10  Ram=0
-   ³  ÃÄpush_message_queue  0/788  Ram=18
-   ³  ÃÄread_system_state  0/10  Ram=0
+   ³  ³  ÀÄset_comp_dac_level  0/320  Ram=0
+   ³  ÃÄpush_message_queue  0/792  Ram=18
+   ³  ÃÄpush_message_queue  0/792  Ram=18
    ³  ÃÄcomparator_setup  0/46  Ram=0
    ³  ³  ÀÄ*
    ³  ÃÄpush_time_queue  0/590  Ram=16
    ³  ÃÄadc_XDCR_measure  0/88  Ram=3
-   ³  ÃÄpush_message_queue  0/788  Ram=18
-   ³  ÃÄflash_led_2  0/64  Ram=2
-   ³  ³  ÃÄsetup_T0_int  0/28  Ram=2
-   ³  ³  ÀÄsetup_T0_int  0/28  Ram=2
-   ³  ÃÄLCD_update_diplay  0/1656  Ram=3
+   ³  ÃÄpush_message_queue  0/792  Ram=18
+   ³  ÃÄLCD_update_diplay  0/1098  Ram=3
    ³  ³  ÃÄLCD_clear  0/58  Ram=2
    ³  ³  ³  ÀÄ*
-   ³  ³  ÃÄ@const2072  0/34  Ram=0
+   ³  ³  ÃÄ@const2043  0/34  Ram=0
    ³  ³  ÃÄLCD_line1  0/90  Ram=4
    ³  ³  ³  ÀÄ*
-   ³  ³  ÃÄ@const2073  0/34  Ram=0
+   ³  ³  ÃÄ@const2044  0/34  Ram=0
    ³  ³  ÃÄLCD_line2  0/92  Ram=4
    ³  ³  ³  ÀÄ*
    ³  ³  ÃÄLCD_place_uint16  0/174  Ram=18
    ³  ³  ³  ÀÄ*
-   ³  ³  ÃÄread_system_state  0/10  Ram=0
    ³  ³  ÃÄLCD_place_uint16  0/174  Ram=18
-   ³  ³  ³  ÀÄ*
-   ³  ³  ÃÄLCD_place_char  0/56  Ram=4
-   ³  ³  ³  ÀÄ*
-   ³  ³  ÃÄLCD_place_char  0/56  Ram=4
-   ³  ³  ³  ÀÄ*
-   ³  ³  ÃÄLCD_place_char  0/56  Ram=4
    ³  ³  ³  ÀÄ*
    ³  ³  ÃÄLCD_place_uint32  0/290  Ram=20
    ³  ³  ³  ÀÄ*
@@ -636,10 +556,10 @@
    ³  ³  ³  ÀÄ*
    ³  ³  ÃÄLCD_clear  0/58  Ram=2
    ³  ³  ³  ÀÄ*
-   ³  ³  ÃÄ@const2074  0/34  Ram=0
+   ³  ³  ÃÄ@const2045  0/34  Ram=0
    ³  ³  ÃÄLCD_line1  0/90  Ram=4
    ³  ³  ³  ÀÄ*
-   ³  ³  ÃÄ@const2075  0/34  Ram=0
+   ³  ³  ÃÄ@const2046  0/34  Ram=0
    ³  ³  ÃÄLCD_line2  0/92  Ram=4
    ³  ³  ³  ÀÄ*
    ³  ³  ÃÄhi2asc  0/32  Ram=1
@@ -657,8 +577,15 @@
    ³  ³  ÃÄLCD_place_text  0/136  Ram=7
    ³  ³  ³  ÀÄ*
    ³  ³  ÃÄLCD_place_char  0/56  Ram=4
-   ³  ³  ³  ÀÄ*
-   ³  ³  ÃÄ@const2076  0/20  Ram=0
+   ³  ³  ³  ÃÄLCD_position  0/50  Ram=2
+   ³  ³  ³  ³  ÀÄ*
+   ³  ³  ³  ÃÄLCD_position  0/50  Ram=2
+   ³  ³  ³  ³  ÀÄ*
+   ³  ³  ³  ÀÄLCD_char  0/52  Ram=1
+   ³  ³  ³     ÃÄ@I2C_WRITEU_2  0/28  Ram=1
+   ³  ³  ³     ÃÄ@I2C_WRITEU_2  0/28  Ram=1
+   ³  ³  ³     ÀÄ@I2C_WRITEU_2  0/28  Ram=1
+   ³  ³  ÃÄ@const2047  0/20  Ram=0
    ³  ³  ÃÄLCD_place_uint8  0/148  Ram=7
    ³  ³  ³  ÀÄ*
    ³  ³  ÃÄLCD_place_text  0/136  Ram=7
@@ -667,62 +594,18 @@
    ³  ³  ³  ÀÄ*
    ³  ³  ÃÄLCD_place_uint16  0/174  Ram=18
    ³  ³  ³  ÀÄ*
-   ³  ³  ÃÄLCD_display_batt_voltage  0/410  Ram=11
-   ³  ³  ³  ÀÄ*
-   ³  ³  ÃÄLCD_place_text  0/136  Ram=7
-   ³  ³  ³  ÀÄ*
-   ³  ³  ÃÄLCD_clear  0/58  Ram=2
-   ³  ³  ³  ÀÄ*
-   ³  ³  ÃÄ@const2077  0/34  Ram=0
-   ³  ³  ÃÄLCD_line1  0/90  Ram=4
-   ³  ³  ³  ÀÄ*
-   ³  ³  ÃÄ@const2078  0/34  Ram=0
-   ³  ³  ÃÄLCD_line2  0/92  Ram=4
-   ³  ³  ³  ÀÄ*
-   ³  ³  ÃÄLCD_place_uint16  0/174  Ram=18
-   ³  ³  ³  ÀÄ*
-   ³  ³  ÃÄLCD_place_uint16  0/174  Ram=18
-   ³  ³  ³  ÀÄ*
-   ³  ³  ÃÄhi2asc  0/32  Ram=1
-   ³  ³  ÃÄLCD_place_char  0/56  Ram=4
-   ³  ³  ³  ÀÄ*
-   ³  ³  ÃÄlo2asc  0/30  Ram=1
-   ³  ³  ÃÄLCD_place_char  0/56  Ram=4
-   ³  ³  ³  ÀÄ*
-   ³  ³  ÃÄread_system_state  0/10  Ram=0
-   ³  ³  ÃÄLCD_place_uint16  0/174  Ram=18
-   ³  ³  ³  ÀÄ*
-   ³  ³  ÃÄLCD_place_char  0/56  Ram=4
-   ³  ³  ³  ÀÄ*
-   ³  ³  ÃÄLCD_place_char  0/56  Ram=4
-   ³  ³  ³  ÀÄ*
-   ³  ³  ÃÄLCD_place_char  0/56  Ram=4
-   ³  ³  ³  ÀÄ*
-   ³  ³  ÃÄLCD_place_char  0/56  Ram=4
-   ³  ³  ³  ÀÄ*
-   ³  ³  ÃÄLCD_place_char  0/56  Ram=4
-   ³  ³  ³  ÀÄ*
-   ³  ³  ÃÄLCD_place_char  0/56  Ram=4
-   ³  ³  ³  ÀÄ*
-   ³  ³  ÃÄLCD_place_uint16  0/174  Ram=18
-   ³  ³  ³  ÀÄ*
-   ³  ³  ÃÄLCD_display_vgen  0/500  Ram=12
-   ³  ³  ³  ÃÄget_vgen  0/98  Ram=6
-   ³  ³  ³  ÃÄcalc_vgen_BCD  0/520  Ram=22
-   ³  ³  ³  ³  ÃÄget_vbatt  0/90  Ram=6
+   ³  ³  ÃÄLCD_display_batt_voltage  0/412  Ram=11
+   ³  ³  ³  ÃÄget_vbatt  0/90  Ram=6
+   ³  ³  ³  ÃÄcalc_vbatt_BCD  0/504  Ram=22
    ³  ³  ³  ³  ÃÄ@ITOF  0/54  Ram=2
    ³  ³  ³  ³  ÃÄ@DIVFF  0/350  Ram=14
    ³  ³  ³  ³  ÃÄ@FTOSD  0/66  Ram=5
-   ³  ³  ³  ³  ÃÄ@MUL3232  0/90  Ram=14
-   ³  ³  ³  ³  ÃÄ@MUL3232  0/90  Ram=14
-   ³  ³  ³  ³  ÃÄ@DIV1616  0/70  Ram=131
+   ³  ³  ³  ³  ÃÄ@MUL3232  0/92  Ram=14
+   ³  ³  ³  ³  ÃÄ@MUL3232  0/92  Ram=14
+   ³  ³  ³  ³  ÃÄ@DIV1616  0/70  Ram=5
    ³  ³  ³  ³  ÃÄ@MUL1616  0/34  Ram=5
-   ³  ³  ³  ³  ÃÄ@DIV1616  0/70  Ram=131
-   ³  ³  ³  ³  ÀÄ@DIV1616  0/70  Ram=131
-   ³  ³  ³  ÃÄ@DIV88  0/44  Ram=3
-   ³  ³  ³  ÃÄ@DIV88  0/44  Ram=3
-   ³  ³  ³  ÃÄLCD_place_char  0/56  Ram=4
-   ³  ³  ³  ³  ÀÄ*
+   ³  ³  ³  ³  ÃÄ@DIV1616  0/70  Ram=5
+   ³  ³  ³  ³  ÀÄ@DIV1616  0/70  Ram=5
    ³  ³  ³  ÃÄLCD_place_char  0/56  Ram=4
    ³  ³  ³  ³  ÀÄ*
    ³  ³  ³  ÃÄLCD_place_char  0/56  Ram=4
@@ -733,18 +616,15 @@
    ³  ³  ³  ³  ÀÄ*
    ³  ³  ³  ÀÄLCD_place_char  0/56  Ram=4
    ³  ³  ³     ÀÄ*
+   ³  ³  ÃÄLCD_place_text  0/136  Ram=7
+   ³  ³  ³  ÀÄ*
    ³  ³  ÃÄLCD_clear  0/58  Ram=2
    ³  ³  ³  ÀÄ*
-   ³  ³  ÃÄ@const2079  0/34  Ram=0
+   ³  ³  ÃÄ@const2048  0/34  Ram=0
    ³  ³  ÃÄLCD_line1  0/90  Ram=4
    ³  ³  ³  ÀÄ*
-   ³  ³  ÃÄ@const1956  0/34  Ram=0
+   ³  ³  ÃÄ@const2049  0/34  Ram=0
    ³  ³  ÃÄLCD_line2  0/92  Ram=4
-   ³  ³  ³  ÀÄ*
-   ³  ³  ÃÄread_system_state  0/10  Ram=0
-   ³  ³  ÃÄLCD_place_uint8  0/148  Ram=7
-   ³  ³  ³  ÀÄ*
-   ³  ³  ÃÄLCD_place_uint32  0/290  Ram=20
    ³  ³  ³  ÀÄ*
    ³  ³  ÀÄLCD_clear  0/58  Ram=2
    ³  ³     ÀÄ*
@@ -752,19 +632,19 @@
    ³  ³  ÀÄ*
    ³  ÃÄLCD_clear  0/58  Ram=2
    ³  ³  ÀÄ*
-   ³  ÃÄ@const2203  0/34  Ram=0
+   ³  ÃÄ@const2159  0/34  Ram=0
    ³  ÃÄLCD_line1  0/90  Ram=4
    ³  ³  ÀÄ*
    ³  ÃÄmote_reset  0/90  Ram=4
    ³  ³  ÀÄ*
    ³  ÃÄLCD_clear  0/58  Ram=2
    ³  ³  ÀÄ*
-   ³  ÃÄ@const2204  0/34  Ram=0
+   ³  ÃÄ@const2160  0/34  Ram=0
    ³  ÃÄLCD_line1  0/90  Ram=4
    ³  ³  ÀÄ*
    ³  ÃÄpush_priority_queue  0/198  Ram=5
    ³  ÃÄpush_priority_queue  0/198  Ram=5
-   ³  ÃÄmote_state_check  0/874  Ram=9
+   ³  ÃÄmote_state_check  0/856  Ram=9
    ³  ³  ÃÄdust_hdlc_pkgen  0/682  Ram=14
    ³  ³  ³  ÀÄ*
    ³  ³  ÃÄdust_hdlc_pksend  0/182  Ram=6
@@ -772,15 +652,12 @@
    ³  ³  ÃÄsetup_T0_int  0/28  Ram=2
    ³  ³  ÃÄpush_priority_queue  0/198  Ram=5
    ³  ³  ÃÄpush_time_queue  0/590  Ram=16
-   ³  ³  ÃÄread_system_state  0/10  Ram=0
-   ³  ³  ÃÄread_system_state  0/10  Ram=0
    ³  ³  ÃÄpush_priority_queue  0/198  Ram=5
    ³  ³  ÃÄpush_time_queue  0/590  Ram=16
    ³  ³  ÃÄpush_priority_queue  0/198  Ram=5
    ³  ³  ÃÄpush_time_queue  0/590  Ram=16
    ³  ³  ÃÄpush_priority_queue  0/198  Ram=5
    ³  ³  ÃÄpush_time_queue  0/590  Ram=16
-   ³  ³  ÃÄread_system_state  0/10  Ram=0
    ³  ³  ÃÄpush_priority_queue  0/198  Ram=5
    ³  ³  ÃÄpush_time_queue  0/590  Ram=16
    ³  ³  ÃÄpush_time_queue  0/590  Ram=16
@@ -792,58 +669,56 @@
    ³  ³  ÃÄdust_hdlc_pksend  0/182  Ram=6
    ³  ³  ³  ÀÄ*
    ³  ³  ÃÄsetup_T0_int  0/28  Ram=2
-   ³  ³  ÀÄpush_message_queue  0/788  Ram=18
+   ³  ³  ÀÄpush_message_queue  0/792  Ram=18
    ³  ÃÄmote_time_update  0/142  Ram=6
    ³  ³  ÃÄdust_hdlc_pkgen  0/682  Ram=14
    ³  ³  ³  ÀÄ*
    ³  ³  ÃÄdust_hdlc_pksend  0/182  Ram=6
    ³  ³  ³  ÀÄ*
    ³  ³  ÃÄsetup_T0_int  0/28  Ram=2
-   ³  ³  ÀÄpush_message_queue  0/788  Ram=18
+   ³  ³  ÀÄpush_message_queue  0/792  Ram=18
    ³  ÃÄget_mote_net_info  0/142  Ram=6
    ³  ³  ÃÄdust_hdlc_pkgen  0/682  Ram=14
    ³  ³  ³  ÀÄ*
    ³  ³  ÃÄdust_hdlc_pksend  0/182  Ram=6
    ³  ³  ³  ÀÄ*
    ³  ³  ÃÄsetup_T0_int  0/28  Ram=2
-   ³  ³  ÀÄpush_message_queue  0/788  Ram=18
+   ³  ³  ÀÄpush_message_queue  0/792  Ram=18
    ³  ÃÄcheck_and_deal_with_battery  0/286  Ram=8
    ³  ³  ÃÄget_vbatt  0/90  Ram=6
    ³  ³  ÃÄget_vbatt  0/90  Ram=6
-   ³  ³  ÃÄpush_message_queue  0/788  Ram=18
+   ³  ³  ÃÄpush_message_queue  0/792  Ram=18
    ³  ³  ÃÄpush_priority_queue  0/198  Ram=5
    ³  ³  ÃÄpush_time_queue  0/590  Ram=16
-   ³  ³  ÀÄpush_message_queue  0/788  Ram=18
-   ³  ÃÄsend_full_report  0/794  Ram=11
-   ³  ³  ÀÄ*
+   ³  ³  ÀÄpush_message_queue  0/792  Ram=18
    ³  ÃÄmote_temp_check  0/306  Ram=9
    ³  ³  ÃÄdust_hdlc_pkgen  0/682  Ram=14
    ³  ³  ³  ÀÄ*
    ³  ³  ÃÄdust_hdlc_pksend  0/182  Ram=6
    ³  ³  ³  ÀÄ*
    ³  ³  ÃÄsetup_T0_int  0/28  Ram=2
-   ³  ³  ÃÄpush_message_queue  0/788  Ram=18
-   ³  ³  ÃÄpush_message_queue  0/788  Ram=18
+   ³  ³  ÃÄpush_message_queue  0/792  Ram=18
+   ³  ³  ÃÄpush_message_queue  0/792  Ram=18
    ³  ³  ÃÄpush_priority_queue  0/198  Ram=5
    ³  ³  ÃÄpush_time_queue  0/590  Ram=16
-   ³  ³  ÀÄpush_message_queue  0/788  Ram=18
+   ³  ³  ÀÄpush_message_queue  0/792  Ram=18
    ³  ÃÄLCD_clear  0/58  Ram=2
    ³  ³  ÀÄ*
-   ³  ÃÄ@const2205  0/34  Ram=0
+   ³  ÃÄ@const2161  0/34  Ram=0
    ³  ÃÄLCD_line1  0/90  Ram=4
    ³  ³  ÀÄ*
    ³  ÃÄpush_priority_queue  0/198  Ram=5
    ³  ÃÄpush_time_queue  0/590  Ram=16
    ³  ÃÄLCD_clear  0/58  Ram=2
    ³  ³  ÀÄ*
-   ³  ÃÄ@const2206  0/34  Ram=0
+   ³  ÃÄ@const2162  0/34  Ram=0
    ³  ÃÄLCD_line1  0/90  Ram=4
    ³  ³  ÀÄ*
-   ³  ÃÄsearch_for_strongest  0/1064  Ram=26
-   ³  ³  ÃÄ@const1947  0/34  Ram=0
+   ³  ÃÄsearch_for_strongest  0/1068  Ram=26
+   ³  ³  ÃÄ@const1925  0/34  Ram=0
    ³  ³  ÃÄLCD_line1  0/90  Ram=4
    ³  ³  ³  ÀÄ*
-   ³  ³  ÃÄ@const1948  0/34  Ram=0
+   ³  ³  ÃÄ@const1926  0/34  Ram=0
    ³  ³  ÃÄLCD_line2  0/92  Ram=4
    ³  ³  ³  ÀÄ*
    ³  ³  ÃÄdust_hdlc_pkgen  0/682  Ram=14
@@ -852,10 +727,10 @@
    ³  ³  ³  ÀÄ*
    ³  ³  ÃÄsetup_T0_int  0/28  Ram=2
    ³  ³  ÃÄdeep_sleep  0/354  Ram=2
-   ³  ³  ³  ÃÄ@const1936  0/34  Ram=0
+   ³  ³  ³  ÃÄ@const1914  0/34  Ram=0
    ³  ³  ³  ÃÄLCD_line1  0/90  Ram=4
    ³  ³  ³  ³  ÀÄ*
-   ³  ³  ³  ÃÄ@const1937  0/34  Ram=0
+   ³  ³  ³  ÃÄ@const1915  0/34  Ram=0
    ³  ³  ³  ÃÄhi2asc  0/32  Ram=1
    ³  ³  ³  ÃÄlo2asc  0/30  Ram=1
    ³  ³  ³  ÃÄLCD_line2  0/92  Ram=4
@@ -872,7 +747,7 @@
    ³  ³  ÃÄsetup_T0_int  0/28  Ram=2
    ³  ³  ÃÄsetup_T0_int  0/28  Ram=2
    ³  ³  ÃÄprocess_advert  0/268  Ram=2
-   ³  ³  ³  ÃÄ@const1956  0/34  Ram=0
+   ³  ³  ³  ÃÄ@const1934  0/34  Ram=0
    ³  ³  ³  ÃÄhi2asc  0/32  Ram=1
    ³  ³  ³  ÃÄlo2asc  0/30  Ram=1
    ³  ³  ³  ÃÄhi2asc  0/32  Ram=1
@@ -887,7 +762,7 @@
    ³  ³  ³  ³  ÀÄ*
    ³  ³  ³  ÀÄLCD_place_uint8  0/148  Ram=7
    ³  ³  ³     ÀÄ*
-   ³  ³  ÃÄ@const1950  0/34  Ram=0
+   ³  ³  ÃÄ@const1928  0/34  Ram=0
    ³  ³  ÃÄhi2asc  0/32  Ram=1
    ³  ³  ÃÄlo2asc  0/30  Ram=1
    ³  ³  ÃÄhi2asc  0/32  Ram=1
@@ -895,7 +770,7 @@
    ³  ³  ÃÄLCD_line1  0/90  Ram=4
    ³  ³  ³  ÀÄ*
    ³  ³  ÃÄsetup_T0_int  0/28  Ram=2
-   ³  ³  ÃÄ@const1951  0/34  Ram=0
+   ³  ³  ÃÄ@const1929  0/34  Ram=0
    ³  ³  ÃÄhi2asc  0/32  Ram=1
    ³  ³  ÃÄlo2asc  0/30  Ram=1
    ³  ³  ÃÄhi2asc  0/32  Ram=1
@@ -911,10 +786,10 @@
    ³  ³  ÃÄsetup_T0_int  0/28  Ram=2
    ³  ³  ÃÄdeep_sleep  0/354  Ram=2
    ³  ³  ³  ÀÄ*
-   ³  ³  ÃÄ@const1954  0/34  Ram=0
+   ³  ³  ÃÄ@const1932  0/34  Ram=0
    ³  ³  ÃÄLCD_line1  0/90  Ram=4
    ³  ³  ³  ÀÄ*
-   ³  ³  ÃÄ@const1955  0/34  Ram=0
+   ³  ³  ÃÄ@const1933  0/34  Ram=0
    ³  ³  ÃÄhi2asc  0/32  Ram=1
    ³  ³  ÃÄlo2asc  0/30  Ram=1
    ³  ³  ÃÄhi2asc  0/32  Ram=1
@@ -922,13 +797,13 @@
    ³  ³  ÃÄLCD_line2  0/92  Ram=4
    ³  ³  ³  ÀÄ*
    ³  ³  ÃÄsetup_T0_int  0/28  Ram=2
-   ³  ³  ÃÄhappy_lites  0/78  Ram=1
+   ³  ³  ÃÄhappy_lites  0/82  Ram=1
    ³  ³  ³  ÀÄ*
    ³  ³  ÀÄdeep_sleep  0/354  Ram=2
    ³  ³     ÀÄ*
    ³  ÃÄLCD_clear  0/58  Ram=2
    ³  ³  ÀÄ*
-   ³  ÃÄ@const2207  0/34  Ram=0
+   ³  ÃÄ@const2163  0/34  Ram=0
    ³  ÃÄLCD_line1  0/90  Ram=4
    ³  ³  ÀÄ*
    ³  ÃÄinitiate_join  0/378  Ram=17
@@ -961,8 +836,6 @@
    ³  ³  ÀÄwrite_ee1  0/50  Ram=3
    ³  ÃÄpush_time_queue  0/590  Ram=16
    ³  ÃÄpush_time_queue  0/590  Ram=16
-   ³  ÃÄread_system_state  0/10  Ram=0
-   ³  ÃÄread_system_state  0/10  Ram=0
    ³  ÃÄmote_sleep  0/118  Ram=4
    ³  ³  ÃÄdust_hdlc_pkgen  0/682  Ram=14
    ³  ³  ³  ÀÄ*
@@ -975,20 +848,20 @@
    ³  ³  ÀÄ*
    ³  ÃÄpush_time_queue  0/590  Ram=16
    ³  ÀÄpush_time_queue  0/590  Ram=16
-   ÃÄRB_ISR  0/54  Ram=0
+   ÃÄRB_ISR  0/32  Ram=0
    ÃÄvgen_wakeup_ISR  0/8  Ram=0
-   ÃÄBUSCOL_ISR  0/58  Ram=0
+   ÃÄBUSCOL_ISR  0/46  Ram=0
    ³  ÀÄpush_priority_queue_ISR  0/178  Ram=5
    ÃÄmote_interrupt  0/48  Ram=4
    ³  ÃÄfosc_pri_ISR  0/46  Ram=1
-   ³  ÀÄdeal_with_mote_ISR  0/1418  Ram=28
+   ³  ÀÄdeal_with_mote_ISR  0/1252  Ram=28
    ³     ÃÄget_dustmsg_ISR  0/234  Ram=3
    ³     ³  ÃÄsetup_T4_int  0/18  Ram=1
    ³     ³  ÀÄsetup_T4_int  0/18  Ram=1
    ³     ÃÄdust_hdlc_pkdecode_ISR  0/326  Ram=13
    ³     ³  ÀÄfcs_calc_ISR  0/92  Ram=7
    ³     ³     ÀÄfcs_fcs16_ISR  0/68  Ram=7
-   ³     ³        ÀÄ@const1773  0/526  Ram=0
+   ³     ³        ÀÄ@const1753  0/526  Ram=0
    ³     ÃÄpush_message_queue_ISR  0/636  Ram=18
    ³     ÃÄpush_priority_queue_ISR  0/178  Ram=5
    ³     ÃÄpush_priority_queue_ISR  0/178  Ram=5
@@ -1007,31 +880,24 @@
    ³     ³  ÃÄsetup_T4_int  0/18  Ram=1
    ³     ³  ÀÄ@PUTCHARI_BIU_2  0/8  Ram=0
    ³     ÀÄsetup_T4_int  0/18  Ram=1
-   ÃÄcomp1_ISR  0/1204  Ram=10
+   ÃÄcomp1_ISR  0/1030  Ram=10
    ³  ÃÄpush_time_queue_ISR  0/570  Ram=16
    ³  ÃÄpush_time_queue_ISR  0/570  Ram=16
-   ³  ÃÄ@MUL3232  0/90  Ram=14
+   ³  ÃÄ@MUL3232  0/92  Ram=14
    ³  ÃÄpush_time_queue_ISR  0/570  Ram=16
-   ³  ÃÄ@MUL3232  0/90  Ram=14
-   ³  ÃÄpush_time_queue_ISR  0/570  Ram=16
-   ³  ÃÄpush_time_queue_ISR  0/570  Ram=16
-   ³  ÃÄpush_time_queue_ISR  0/570  Ram=16
-   ³  ÃÄpush_priority_queue_ISR  0/178  Ram=5
+   ³  ÃÄ@MUL3232  0/92  Ram=14
    ³  ÃÄpush_time_queue_ISR  0/570  Ram=16
    ³  ÃÄpush_time_queue_ISR  0/570  Ram=16
-   ³  ÀÄpush_priority_queue_ISR  0/178  Ram=5
-   ÃÄccp3_ISR  0/392  Ram=4
    ³  ÃÄpush_time_queue_ISR  0/570  Ram=16
-   ³  ÃÄpush_priority_queue_ISR  0/178  Ram=5
-   ³  ÃÄpush_priority_queue_ISR  0/178  Ram=5
+   ³  ÀÄpush_time_queue_ISR  0/570  Ram=16
+   ÃÄccp3_ISR  0/360  Ram=4
    ³  ÃÄpush_time_queue_ISR  0/570  Ram=16
-   ³  ÀÄset_comp_dac_level_ISR  0/314  Ram=1
-   ³     ÃÄread_system_state  0/10  Ram=0
-   ³     ÀÄread_system_state  0/10  Ram=0
-   ÃÄccp4_isr  0/872  Ram=6
-   ³  ÃÄpop_time_queue_ISR  0/168  Ram=5
+   ³  ÃÄpush_time_queue_ISR  0/570  Ram=16
+   ³  ÀÄset_comp_dac_level_ISR  0/320  Ram=0
+   ÃÄccp4_isr  0/744  Ram=6
+   ³  ÃÄpop_time_queue_ISR  0/156  Ram=5
    ³  ³  ÀÄpush_priority_queue_ISR  0/178  Ram=5
-   ³  ÃÄpop_message_queue_and_send_ISR  0/906  Ram=17
+   ³  ÃÄpop_message_queue_and_send_ISR  0/882  Ram=17
    ³  ³  ÃÄremove_message_queue_item_ISR  0/292  Ram=14
    ³  ³  ³  ÀÄ@MEMSET  0/26  Ram=0
    ³  ³  ÃÄpush_message_queue_ISR  0/636  Ram=18
@@ -1068,14 +934,14 @@
    ³  ³     ÀÄgenerate_message_and_send_ISR  0/92  Ram=2
    ³  ³        ÀÄ*
    ³  ÃÄpush_time_queue_ISR  0/570  Ram=16
-   ³  ÃÄpop_sprinkler_queue_ISR  0/526  Ram=4
+   ³  ÃÄpop_sprinkler_queue_ISR  0/522  Ram=4
    ³  ³  ÀÄpush_time_queue_ISR  0/570  Ram=16
    ³  ÃÄpush_time_queue_ISR  0/570  Ram=16
-   ³  ÃÄstop_current_spinkler_setting_ISR  0/60  Ram=0
+   ³  ÃÄstop_current_spinkler_setting_ISR  0/48  Ram=0
    ³  ³  ÀÄpush_priority_queue_ISR  0/178  Ram=5
    ³  ÃÄpush_priority_queue_ISR  0/178  Ram=5
    ³  ÃÄpush_priority_queue_ISR  0/178  Ram=5
    ³  ÃÄpush_priority_queue_ISR  0/178  Ram=5
    ³  ÃÄpush_priority_queue_ISR  0/178  Ram=5
    ³  ÀÄpush_priority_queue_ISR  0/178  Ram=5
-   ÀÄCCP5_ISR  0/154  Ram=4
+   ÀÄCCP5_ISR  0/122  Ram=4

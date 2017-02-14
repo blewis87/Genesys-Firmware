@@ -683,7 +683,7 @@ void vars_init(void)
 
 ////////////////////System State Variables/////////////////////////////////////
    global_mote_state = MOTESTATE_UNKNOWN;
-   global_system_state = SYSTEM_INIT;
+   global_system_state = SYSTEM_STATE_UNKNOWN;
 }
 
 void deep_sleep(void)
