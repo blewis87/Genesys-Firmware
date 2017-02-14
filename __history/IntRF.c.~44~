@@ -5,7 +5,7 @@
                  
 // standard libraries
 #include <stdio.h>
-#include <stdint.h>               
+#include <stdint.h>         
 #include <stdlib.h>
 #include <string.h>
 #include <stdlibm.h>
@@ -27,13 +27,9 @@
 #include "battery.h"                                                          
 #include "stacks_queues.h"  
 #include "util.h"
-                  
-void main()
-{      
 
-   // some change
-   int i;
-   
+void main()
+{                                                         
    // priority queue item that is to be executed
    uint8_t     priority_queue_item_to_execute = EMPTY_PRIORITY_QUEUE;    
    // valve setting that is stored when free spin rate is performed (so you can return to it afterwards)

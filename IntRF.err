@@ -1,25 +1,100 @@
->>> Warning 205 "C:\_PROJ\Jain Irrigation\2017 reset\Firmware\E313\dust.h" Line 1565(1,1): Unsigned variable is never less than zero
->>> Warning 205 "C:\_PROJ\Jain Irrigation\2017 reset\Firmware\E313\dust.h" Line 1594(1,1): Unsigned variable is never less than zero
->>> Warning 205 "C:\_PROJ\Jain Irrigation\2017 reset\Firmware\E313\control.h" Line 59(1,1): Unsigned variable is never less than zero
->>> Warning 204 "C:\_PROJ\Jain Irrigation\2017 reset\Firmware\E313\control.h" Line 59(1,1): Condition always FALSE
->>> Warning 205 "C:\_PROJ\Jain Irrigation\2017 reset\Firmware\E313\control.h" Line 66(1,1): Unsigned variable is never less than zero
->>> Warning 204 "C:\_PROJ\Jain Irrigation\2017 reset\Firmware\E313\control.h" Line 66(1,1): Condition always FALSE
->>> Warning 206 "C:\_PROJ\Jain Irrigation\2017 reset\Firmware\E313\control.h" Line 72(1,1): Variable of this data type is never greater than this constant
->>> Warning 204 "C:\_PROJ\Jain Irrigation\2017 reset\Firmware\E313\control.h" Line 72(1,1): Condition always FALSE
->>> Warning 205 "C:\_PROJ\Jain Irrigation\2017 reset\Firmware\E313\valve.h" Line 237(1,1): Unsigned variable is never less than zero
->>> Warning 204 "C:\_PROJ\Jain Irrigation\2017 reset\Firmware\E313\valve.h" Line 237(1,1): Condition always FALSE
->>> Warning 203 "IntRF.c" Line 152(1,1): Condition always TRUE
->>> Warning 225 "IntRF.c" Line 930(1,1): Interrupt level changed  : NORMAL=>HIGH
->>> Warning 225 "IntRF.c" Line 1523(1,1): Interrupt level changed  : FAST=>HIGH
->>> Warning 216 "IntRF.c" Line 1523(1,2): Interrupts disabled during call to prevent re-entrancy:  (push_priority_queue_ISR)
->>> Warning 216 "IntRF.c" Line 1523(1,2): Interrupts disabled during call to prevent re-entrancy:  (push_time_queue_ISR)
->>> Warning 216 "IntRF.c" Line 1523(1,2): Interrupts disabled during call to prevent re-entrancy:  (@MUL3232)
->>> Warning 216 "IntRF.c" Line 1523(1,2): Interrupts disabled during call to prevent re-entrancy:  (@DIV3232)
->>> Warning 216 "IntRF.c" Line 1523(1,2): Interrupts disabled during call to prevent re-entrancy:  (fcs_fcs16)
->>> Warning 216 "IntRF.c" Line 1523(1,2): Interrupts disabled during call to prevent re-entrancy:  (fosc_pri)
->>> Warning 202 "C:\_PROJ\Jain Irrigation\2017 reset\Firmware\E313\periph.h" Line 590(13,28): Variable never used:   battery_voltage
->>> Warning 202 "C:\_PROJ\Jain Irrigation\2017 reset\Firmware\E313\battery.h" Line 228(16,29): Variable never used:   bat_frac_part
->>> Warning 202 "C:\_PROJ\Jain Irrigation\2017 reset\Firmware\E313\battery.h" Line 264(16,29): Variable never used:   bat_frac_part
-      Memory usage:   ROM=69%      RAM=35% - 41%
-      0 Errors,  22 Warnings.
-Build Successful.
+*** Error 1 "C:\Users\Brian\Dropbox\Metrionix\Firmware\Genesys Firmware\pic_config.h" Line 64(1,2): Illegal C character in input file  0x80
+*** Error 1 "C:\Users\Brian\Dropbox\Metrionix\Firmware\Genesys Firmware\pic_config.h" Line 64(1,2): Illegal C character in input file  0x00
+*** Error 1 "C:\Users\Brian\Dropbox\Metrionix\Firmware\Genesys Firmware\pic_config.h" Line 64(1,2): Illegal C character in input file  0xD5
+*** Error 1 "C:\Users\Brian\Dropbox\Metrionix\Firmware\Genesys Firmware\pic_config.h" Line 64(1,2): Illegal C character in input file  0x0B
+*** Error 1 "C:\Users\Brian\Dropbox\Metrionix\Firmware\Genesys Firmware\pic_config.h" Line 64(1,2): Illegal C character in input file  0x00
+*** Error 1 "C:\Users\Brian\Dropbox\Metrionix\Firmware\Genesys Firmware\pic_config.h" Line 64(1,2): Illegal C character in input file  0x00
+*** Error 1 "C:\Users\Brian\Dropbox\Metrionix\Firmware\Genesys Firmware\pic_config.h" Line 64(1,2): Illegal C character in input file  0xFF
+*** Error 1 "C:\Users\Brian\Dropbox\Metrionix\Firmware\Genesys Firmware\pic_config.h" Line 64(1,2): Illegal C character in input file  0xFF
+*** Error 1 "C:\Users\Brian\Dropbox\Metrionix\Firmware\Genesys Firmware\pic_config.h" Line 64(1,2): Illegal C character in input file  0xFF
+*** Error 1 "C:\Users\Brian\Dropbox\Metrionix\Firmware\Genesys Firmware\pic_config.h" Line 64(1,2): Illegal C character in input file  0x00
+*** Error 1 "C:\Users\Brian\Dropbox\Metrionix\Firmware\Genesys Firmware\pic_config.h" Line 64(1,2): Illegal C character in input file  0x06
+*** Error 1 "C:\Users\Brian\Dropbox\Metrionix\Firmware\Genesys Firmware\pic_config.h" Line 64(1,2): Illegal C character in input file  0x00
+*** Error 1 "C:\Users\Brian\Dropbox\Metrionix\Firmware\Genesys Firmware\pic_config.h" Line 64(1,2): Illegal C character in input file  0x00
+*** Error 1 "C:\Users\Brian\Dropbox\Metrionix\Firmware\Genesys Firmware\pic_config.h" Line 64(1,2): Illegal C character in input file  0x00
+*** Error 1 "C:\Users\Brian\Dropbox\Metrionix\Firmware\Genesys Firmware\pic_config.h" Line 64(1,2): Illegal C character in input file  0x00
+*** Error 1 "C:\Users\Brian\Dropbox\Metrionix\Firmware\Genesys Firmware\pic_config.h" Line 64(1,2): Illegal C character in input file  0x00
+*** Error 1 "C:\Users\Brian\Dropbox\Metrionix\Firmware\Genesys Firmware\pic_config.h" Line 64(1,2): Illegal C character in input file  0x00
+*** Error 1 "C:\Users\Brian\Dropbox\Metrionix\Firmware\Genesys Firmware\pic_config.h" Line 64(1,2): Illegal C character in input file  0x00
+*** Error 1 "C:\Users\Brian\Dropbox\Metrionix\Firmware\Genesys Firmware\pic_config.h" Line 64(1,2): Illegal C character in input file  0x18
+*** Error 1 "C:\Users\Brian\Dropbox\Metrionix\Firmware\Genesys Firmware\pic_config.h" Line 64(1,2): Illegal C character in input file  0xFC
+*** Error 1 "C:\Users\Brian\Dropbox\Metrionix\Firmware\Genesys Firmware\pic_config.h" Line 64(1,2): Illegal C character in input file  0xE4
+*** Error 1 "C:\Users\Brian\Dropbox\Metrionix\Firmware\Genesys Firmware\pic_config.h" Line 64(8,9): Illegal C character in input file  0x1C
+*** Error 1 "C:\Users\Brian\Dropbox\Metrionix\Firmware\Genesys Firmware\pic_config.h" Line 64(8,9): Illegal C character in input file  0xAE
+*** Error 1 "C:\Users\Brian\Dropbox\Metrionix\Firmware\Genesys Firmware\pic_config.h" Line 64(8,9): Illegal C character in input file  0xC1
+*** Error 48 "C:\Users\Brian\Dropbox\Metrionix\Firmware\Genesys Firmware\pic_config.h" Line 64(1,2): Expecting a (
+*** Error 1 "C:\Users\Brian\Dropbox\Metrionix\Firmware\Genesys Firmware\pic_config.h" Line 64(12,13): Illegal C character in input file  0x93
+*** Error 1 "C:\Users\Brian\Dropbox\Metrionix\Firmware\Genesys Firmware\pic_config.h" Line 64(12,13): Illegal C character in input file  0xE3
+*** Error 1 "C:\Users\Brian\Dropbox\Metrionix\Firmware\Genesys Firmware\pic_config.h" Line 64(12,13): Illegal C character in input file  0xE4
+*** Error 1 "C:\Users\Brian\Dropbox\Metrionix\Firmware\Genesys Firmware\pic_config.h" Line 64(12,13): Illegal C character in input file  0x40
+*** Error 1 "C:\Users\Brian\Dropbox\Metrionix\Firmware\Genesys Firmware\pic_config.h" Line 64(12,13): Illegal C character in input file  0xCC
+*** Error 1 "C:\Users\Brian\Dropbox\Metrionix\Firmware\Genesys Firmware\pic_config.h" Line 64(12,13): Illegal C character in input file  0x05
+*** Error 1 "C:\Users\Brian\Dropbox\Metrionix\Firmware\Genesys Firmware\pic_config.h" Line 64(12,13): Illegal C character in input file  0x00
+*** Error 1 "C:\Users\Brian\Dropbox\Metrionix\Firmware\Genesys Firmware\pic_config.h" Line 64(12,13): Illegal C character in input file  0x00
+*** Error 1 "C:\Users\Brian\Dropbox\Metrionix\Firmware\Genesys Firmware\pic_config.h" Line 64(12,13): Illegal C character in input file  0xB0
+*** Error 1 "C:\Users\Brian\Dropbox\Metrionix\Firmware\Genesys Firmware\pic_config.h" Line 64(12,13): Illegal C character in input file  0xD7
+*** Error 1 "C:\Users\Brian\Dropbox\Metrionix\Firmware\Genesys Firmware\pic_config.h" Line 64(12,13): Illegal C character in input file  0x01
+*** Error 1 "C:\Users\Brian\Dropbox\Metrionix\Firmware\Genesys Firmware\pic_config.h" Line 64(12,13): Illegal C character in input file  0x00
+*** Error 1 "C:\Users\Brian\Dropbox\Metrionix\Firmware\Genesys Firmware\pic_config.h" Line 64(12,13): Illegal C character in input file  0x80
+*** Error 1 "C:\Users\Brian\Dropbox\Metrionix\Firmware\Genesys Firmware\pic_config.h" Line 64(12,13): Illegal C character in input file  0x00
+*** Error 1 "C:\Users\Brian\Dropbox\Metrionix\Firmware\Genesys Firmware\pic_config.h" Line 64(12,13): Illegal C character in input file  0x00
+*** Error 1 "C:\Users\Brian\Dropbox\Metrionix\Firmware\Genesys Firmware\pic_config.h" Line 64(12,13): Illegal C character in input file  0x00
+*** Error 1 "C:\Users\Brian\Dropbox\Metrionix\Firmware\Genesys Firmware\pic_config.h" Line 64(12,13): Illegal C character in input file  0x00
+*** Error 1 "C:\Users\Brian\Dropbox\Metrionix\Firmware\Genesys Firmware\pic_config.h" Line 64(12,13): Illegal C character in input file  0x00
+*** Error 1 "C:\Users\Brian\Dropbox\Metrionix\Firmware\Genesys Firmware\pic_config.h" Line 64(12,13): Illegal C character in input file  0x00
+*** Error 1 "C:\Users\Brian\Dropbox\Metrionix\Firmware\Genesys Firmware\pic_config.h" Line 64(12,13): Illegal C character in input file  0x00
+*** Error 1 "C:\Users\Brian\Dropbox\Metrionix\Firmware\Genesys Firmware\pic_config.h" Line 64(12,13): Illegal C character in input file  0x00
+*** Error 1 "C:\Users\Brian\Dropbox\Metrionix\Firmware\Genesys Firmware\pic_config.h" Line 64(12,13): Illegal C character in input file  0x00
+*** Error 1 "C:\Users\Brian\Dropbox\Metrionix\Firmware\Genesys Firmware\pic_config.h" Line 64(12,13): Illegal C character in input file  0x00
+*** Error 1 "C:\Users\Brian\Dropbox\Metrionix\Firmware\Genesys Firmware\pic_config.h" Line 64(12,13): Illegal C character in input file  0x00
+*** Error 1 "C:\Users\Brian\Dropbox\Metrionix\Firmware\Genesys Firmware\pic_config.h" Line 64(21,22): Illegal C character in input file  0xAF
+*** Error 1 "C:\Users\Brian\Dropbox\Metrionix\Firmware\Genesys Firmware\pic_config.h" Line 64(21,22): Illegal C character in input file  0xC7
+*** Error 1 "C:\Users\Brian\Dropbox\Metrionix\Firmware\Genesys Firmware\pic_config.h" Line 64(21,22): Illegal C character in input file  0x04
+*** Error 1 "C:\Users\Brian\Dropbox\Metrionix\Firmware\Genesys Firmware\pic_config.h" Line 64(21,22): Illegal C character in input file  0x40
+*** Error 48 "C:\Users\Brian\Dropbox\Metrionix\Firmware\Genesys Firmware\pic_config.h" Line 64(12,13): Expecting a (
+*** Error 1 "C:\Users\Brian\Dropbox\Metrionix\Firmware\Genesys Firmware\pic_config.h" Line 64(25,26): Illegal C character in input file  0x9F
+*** Error 1 "C:\Users\Brian\Dropbox\Metrionix\Firmware\Genesys Firmware\pic_config.h" Line 64(25,26): Illegal C character in input file  0x04
+*** Error 1 "C:\Users\Brian\Dropbox\Metrionix\Firmware\Genesys Firmware\pic_config.h" Line 64(25,26): Illegal C character in input file  0xD0
+*** Error 43 "C:\Users\Brian\Dropbox\Metrionix\Firmware\Genesys Firmware\pic_config.h" Line 64(25,26): Expecting a declaration
+*** Error 1 "C:\Users\Brian\Dropbox\Metrionix\Firmware\Genesys Firmware\pic_config.h" Line 64(28,29): Illegal C character in input file  0x9F
+*** Error 1 "C:\Users\Brian\Dropbox\Metrionix\Firmware\Genesys Firmware\pic_config.h" Line 64(28,29): Illegal C character in input file  0x04
+*** Error 1 "C:\Users\Brian\Dropbox\Metrionix\Firmware\Genesys Firmware\pic_config.h" Line 64(28,29): Illegal C character in input file  0x00
+*** Error 1 "C:\Users\Brian\Dropbox\Metrionix\Firmware\Genesys Firmware\pic_config.h" Line 64(28,29): Illegal C character in input file  0x00
+*** Error 1 "C:\Users\Brian\Dropbox\Metrionix\Firmware\Genesys Firmware\pic_config.h" Line 64(28,29): Illegal C character in input file  0x00
+*** Error 1 "C:\Users\Brian\Dropbox\Metrionix\Firmware\Genesys Firmware\pic_config.h" Line 64(28,29): Illegal C character in input file  0x00
+*** Error 1 "C:\Users\Brian\Dropbox\Metrionix\Firmware\Genesys Firmware\pic_config.h" Line 64(28,29): Illegal C character in input file  0x90
+*** Error 43 "C:\Users\Brian\Dropbox\Metrionix\Firmware\Genesys Firmware\pic_config.h" Line 64(28,29): Expecting a declaration
+*** Error 1 "C:\Users\Brian\Dropbox\Metrionix\Firmware\Genesys Firmware\pic_config.h" Line 64(31,32): Illegal C character in input file  0x9F
+*** Error 1 "C:\Users\Brian\Dropbox\Metrionix\Firmware\Genesys Firmware\pic_config.h" Line 64(31,32): Illegal C character in input file  0x04
+*** Error 1 "C:\Users\Brian\Dropbox\Metrionix\Firmware\Genesys Firmware\pic_config.h" Line 64(31,32): Illegal C character in input file  0x00
+*** Error 1 "C:\Users\Brian\Dropbox\Metrionix\Firmware\Genesys Firmware\pic_config.h" Line 64(31,32): Illegal C character in input file  0x00
+*** Error 1 "C:\Users\Brian\Dropbox\Metrionix\Firmware\Genesys Firmware\pic_config.h" Line 64(31,32): Illegal C character in input file  0x00
+*** Error 1 "C:\Users\Brian\Dropbox\Metrionix\Firmware\Genesys Firmware\pic_config.h" Line 64(31,32): Illegal C character in input file  0x00
+*** Error 1 "C:\Users\Brian\Dropbox\Metrionix\Firmware\Genesys Firmware\pic_config.h" Line 64(31,32): Illegal C character in input file  0x00
+*** Error 1 "C:\Users\Brian\Dropbox\Metrionix\Firmware\Genesys Firmware\pic_config.h" Line 64(31,32): Illegal C character in input file  0x00
+*** Error 1 "C:\Users\Brian\Dropbox\Metrionix\Firmware\Genesys Firmware\pic_config.h" Line 64(31,32): Illegal C character in input file  0x00
+*** Error 1 "C:\Users\Brian\Dropbox\Metrionix\Firmware\Genesys Firmware\pic_config.h" Line 64(31,32): Illegal C character in input file  0x00
+*** Error 1 "C:\Users\Brian\Dropbox\Metrionix\Firmware\Genesys Firmware\pic_config.h" Line 64(31,32): Illegal C character in input file  0x00
+*** Error 1 "C:\Users\Brian\Dropbox\Metrionix\Firmware\Genesys Firmware\pic_config.h" Line 64(31,32): Illegal C character in input file  0x00
+*** Error 1 "C:\Users\Brian\Dropbox\Metrionix\Firmware\Genesys Firmware\pic_config.h" Line 64(31,32): Illegal C character in input file  0x00
+*** Error 1 "C:\Users\Brian\Dropbox\Metrionix\Firmware\Genesys Firmware\pic_config.h" Line 64(31,32): Illegal C character in input file  0x00
+*** Error 1 "C:\Users\Brian\Dropbox\Metrionix\Firmware\Genesys Firmware\pic_config.h" Line 64(31,32): Illegal C character in input file  0x00
+*** Error 1 "C:\Users\Brian\Dropbox\Metrionix\Firmware\Genesys Firmware\pic_config.h" Line 64(31,32): Illegal C character in input file  0x00
+*** Error 1 "C:\Users\Brian\Dropbox\Metrionix\Firmware\Genesys Firmware\pic_config.h" Line 64(31,32): Illegal C character in input file  0x00
+*** Error 1 "C:\Users\Brian\Dropbox\Metrionix\Firmware\Genesys Firmware\pic_config.h" Line 64(31,32): Illegal C character in input file  0x00
+*** Error 1 "C:\Users\Brian\Dropbox\Metrionix\Firmware\Genesys Firmware\pic_config.h" Line 64(31,32): Illegal C character in input file  0x00
+*** Error 1 "C:\Users\Brian\Dropbox\Metrionix\Firmware\Genesys Firmware\pic_config.h" Line 64(31,32): Illegal C character in input file  0x00
+*** Error 1 "C:\Users\Brian\Dropbox\Metrionix\Firmware\Genesys Firmware\pic_config.h" Line 64(31,32): Illegal C character in input file  0x00
+*** Error 1 "C:\Users\Brian\Dropbox\Metrionix\Firmware\Genesys Firmware\pic_config.h" Line 64(31,32): Illegal C character in input file  0x00
+*** Error 1 "C:\Users\Brian\Dropbox\Metrionix\Firmware\Genesys Firmware\pic_config.h" Line 64(31,32): Illegal C character in input file  0x00
+*** Error 1 "C:\Users\Brian\Dropbox\Metrionix\Firmware\Genesys Firmware\pic_config.h" Line 64(31,32): Illegal C character in input file  0x00
+*** Error 1 "C:\Users\Brian\Dropbox\Metrionix\Firmware\Genesys Firmware\pic_config.h" Line 64(31,32): Illegal C character in input file  0x00
+*** Error 1 "C:\Users\Brian\Dropbox\Metrionix\Firmware\Genesys Firmware\pic_config.h" Line 64(31,32): Illegal C character in input file  0x00
+*** Error 1 "C:\Users\Brian\Dropbox\Metrionix\Firmware\Genesys Firmware\pic_config.h" Line 64(31,32): Illegal C character in input file  0x00
+*** Error 1 "C:\Users\Brian\Dropbox\Metrionix\Firmware\Genesys Firmware\pic_config.h" Line 64(31,32): Illegal C character in input file  0x00
+*** Error 1 "C:\Users\Brian\Dropbox\Metrionix\Firmware\Genesys Firmware\pic_config.h" Line 64(31,32): Illegal C character in input file  0x00
+*** Error 1 "C:\Users\Brian\Dropbox\Metrionix\Firmware\Genesys Firmware\pic_config.h" Line 64(31,32): Illegal C character in input file  0x00
+*** Error 1 "C:\Users\Brian\Dropbox\Metrionix\Firmware\Genesys Firmware\pic_config.h" Line 64(31,32): Illegal C character in input file  0x00
+*** Error 1 "C:\Users\Brian\Dropbox\Metrionix\Firmware\Genesys Firmware\pic_config.h" Line 64(31,32): Illegal C character in input file  0x00
+*** Error 1 "C:\Users\Brian\Dropbox\Metrionix\Firmware\Genesys Firmware\pic_config.h" Line 64(31,32): Illegal C character in input file  0x00
+*** Error 1 "C:\Users\Brian\Dropbox\Metrionix\Firmware\Genesys Firmware\pic_config.h" Line 64(31,32): Illegal C character in input file  0x00
