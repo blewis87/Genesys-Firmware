@@ -1,0 +1,5 @@
+From E309-E310
+(Brian)
+-Added LCD "Page" functionality
+-Added RB4 IOC functionality
+-Cleaned up LCD stuff a bit

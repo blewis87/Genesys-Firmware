@@ -1,0 +1,796 @@
+void setup_gen_rpm(void)
+{
+   setup_timer_5(T5_ENABLE_SOSC | T5_EXTERNAL_SYNC | T5_DIV_BY_1);
+   setup_ccp5(CCP_USE_TIMER5_AND_TIMER6 | CCP_CAPTURE_RE); 
+   clear_interrupt(INT_CCP5);     // insurance
+
+   disable_interrupts(INT_TIMER5);
+   enable_interrupts(INT_CCP5);
+}
+
+uint16_t calc_gen_rpm(void)
+{  
+   uint16_t current_rpm16;
+   uint32_t current_rpm32;
+   
+     
+   disable_interrupts(INT_CCP5);                
+   current_rpm32 = global_last_rpm_value_time;
+   enable_interrupts(INT_CCP5);       
+                                           
+   // if the last measurement of rpm was more than RPM_TIMEOUT seconds ago
+   if ((global_rtc_time - current_rpm32) > RPM_TIMEOUT)           
+   {                                        
+      if (global_valve_position <= VLV_NOT_SPIN_LIMIT)
+      {
+         return 0;                               
+      }                                      
+      else if(global_valve_position >= VLV_MAGNETIC_COUPLING_LIMIT)
+      {
+         return 0-1;
+      }
+   }                                  
+   // otherwise, calculate rpms as usual
+   else
+   { 
+      disable_interrupts(INT_CCP5);
+      current_rpm32 = CCP_PER_RPM/(make32(0,0,make8(global_current_period,1), make8(global_current_period,0)));   
+      enable_interrupts(INT_CCP5);
+      current_rpm16 = make16(make8(current_rpm32,3), make8(current_rpm32,2));
+      if (bit_test(current_rpm32, 15))
+      {
+         current_rpm16++;
+      }
+      return current_rpm16;
+   }
+   return 0;
+}
+
+int1  is_brake_duty_valid(uint16_t value)
+// returns true if valid range for brake duty cycle
+{
+   if (value > MAX_BRK) return FALSE;
+   else if ((value < NO_BRK) && (NO_BRK != 0)) return FALSE;
+   else return TRUE;
+}
+int1  is_charge_duty_valid(uint16_t value)
+// returns true if valid range for charge duty cycle
+{
+   if (value > MAX_CHARGE) return FALSE;
+   else if ((value < NO_CHARGE) && (NO_CHARGE != 0)) return FALSE;
+   else return TRUE;
+}
+int1  is_mppc_valid(uint8_t value)
+// returns true if valid range for mppc
+{
+   if (value > MAX_MPPC) return FALSE;
+   else if ((value < NO_MPPC) && (NO_MPPC != 0)) return FALSE;
+   else return TRUE;
+}
+int1  is_rpm_setting_valid(uint16_t value)
+// returns true if valid range for rpm
+{
+   if (value > MAX_RPM_SETTING) return FALSE;
+   else if ((value < MIN_RPM_SETTING) && (MIN_RPM_SETTING != 0)) return FALSE;
+   else return TRUE;
+}
+void  set_brake_duty(uint16_t value)
+{
+   if (value == NO_BRK)
+   {
+      setup_ccp1(CCP_OFF);
+      output_high(BRK_CTRLn);    // no braking
+   }
+   else if (value == MAX_BRK)
+   {
+      setup_ccp1(CCP_OFF);
+      output_low(BRK_CTRLn);     // maximum braking
+   }
+   
+   else
+   {      
+      setup_ccp1(CCP_USE_TIMER5_AND_TIMER6 | CCP_PWM_L_L | CCP_PULSE_STEERING_A);
+      // increase pwm duty1 for slower speed
+      CCP1CON |= (make8(value,0) & 0x03) << 4;
+      CCPR1L = make8((value>>2),0);
+   }
+   
+   global_brake_duty = value;
+}
+
+void     set_charge_duty(uint16_t value)
+{
+   if (value == NO_CHARGE)
+   {
+      setup_ccp2(CCP_OFF);
+      output_low(LTC3105_CTRL);     // lo for NO CHARGING
+   }
+   else if (value == MAX_CHARGE)
+   {
+      setup_ccp2(CCP_OFF);
+      output_high(LTC3105_CTRL);    // maximum charging aggressiveness
+   }
+   
+   else
+   {   
+      //setup_ccp2(CCP_USE_TIMER1_AND_TIMER2 | CCP_PWM_H_H | CCP_PULSE_STEERING_A);
+      setup_ccp2(CCP_USE_TIMER5_AND_TIMER6 | CCP_PWM_H_H | CCP_PULSE_STEERING_A);
+      // increase pwm duty2 for slower speed
+      CCP2CON |= (make8(value,0) & 0x03) << 4;
+      CCPR2L = make8((value>>2),0);
+   }
+   global_charge_duty = value;
+}                  
+
+void set_mppc(uint8_t value)
+{
+   // for large scale PCBs
+   
+   safeI2C_start();
+
+   safei2c_write(0x58);   // address
+   safei2c_write(0x00);   // Pot 0 command
+   safei2c_write(value); 
+   safei2c_write(0x10);   // Pot 1 command
+   safei2c_write(value); 
+   safei2c_write(0x60);   // Pot 2 command
+   safei2c_write(value); 
+   safei2c_write(0x70);   // Pot 3 command
+   safei2c_write(value);    
+   i2c_stop();
+
+   // and connect all four pots
+   safeI2C_start();
+   
+   safei2c_write(0x58); 
+   safei2c_write(0x40);   // TCON0
+   safei2c_write(0xff);   // Connect 0 and 1
+   safei2c_write(0xa0);   // TCON1
+   safei2c_write(0xff);   // Connect 2 and 3
+   i2c_stop();
+   
+   global_mppc_value = value;
+}
+
+void  set_fixture_dac(uint16_t dac_value)
+{
+   safeI2C_start();
+
+//   fl_FIXTURE = !i2c_write(0x40);   // (0x40) Write FIXTURE DAC address
+//   if (!fl_FIXTURE);
+//   {
+//      i2c_stop();
+//      return;
+//   }
+   
+   safei2c_write(0x40);
+   safei2c_write(0x30);
+
+   dac_value <<= 4;        // shift 12 bit value so that MS bit is at bit15 
+   safei2c_write (make8(dac_value,1)); 
+   safei2c_write (make8(dac_value,0));
+   i2c_stop();
+   
+   global_fixture_dac_value = dac_value;
+}
+
+void adjust_brake_for_rpm(uint16_t rpm_set_value)
+{
+   if (calc_gen_rpm() < rpm_set_value)
+   {
+      if (global_brake_duty != NO_BRK)
+      {
+         global_brake_duty--;
+      }
+      set_brake_duty(global_brake_duty);
+   }
+   else if (calc_gen_rpm() > rpm_set_value)
+   {
+      if (global_brake_duty != MAX_BRK)
+      {
+         global_brake_duty++;
+      }
+      set_brake_duty(global_brake_duty);
+   }
+}
+
+void adjust_brake_for_vgen(uint16_t vgen_set_value)
+{
+   if (get_vgen(0) < vgen_set_value)
+   {
+      if (global_brake_duty != NO_BRK)
+      {
+         global_brake_duty--;
+      }
+      set_brake_duty(global_brake_duty);
+   }
+   else if (get_vgen(0) > vgen_set_value)
+   {
+      if (global_brake_duty != MAX_BRK)
+      {
+         global_brake_duty++;
+      }
+      set_brake_duty(global_brake_duty);
+   }
+}
+
+   
+void adjust_fixture_for_rpm(uint16_t fixture_set_value)
+{
+   if (calc_gen_rpm() < fixture_set_value)
+   {
+      if (global_fixture_dac_value != NO_FIXTURE)
+      {
+         global_fixture_dac_value--;
+      }
+      set_fixture_dac(global_fixture_dac_value);
+   }
+   else if (calc_gen_rpm() > fixture_set_value)
+   {
+      if (global_fixture_dac_value != MAX_FIXTURE)
+      {
+         global_fixture_dac_value++;
+      }
+      set_fixture_dac(global_fixture_dac_value);
+   }
+}      
+      
+void adjust_mppc(void)
+{
+   static uint16_t last_vbatt_measurement = 0;
+   static uint16_t current_vbatt_measurement = 0;
+   static uint8_t last_mppc_value = 0;
+   static uint8_t last_last_mppc_value = 0;
+   
+   // if the battery is full, exit
+   
+    current_vbatt_measurement = get_vbatt(0);
+    
+   // first time to initalize values
+   if ((last_vbatt_measurement == 0) || (last_mppc_value == 0))
+   {
+      last_vbatt_measurement = current_vbatt_measurement;
+      last_mppc_value = global_mppc_value;
+   }
+   last_last_mppc_value = last_mppc_value;
+   last_mppc_value = global_mppc_value;
+      
+   if (last_vbatt_measurement < current_vbatt_measurement)
+   {
+      if (last_last_mppc_value < global_mppc_value)
+      {
+         if (global_mppc_value != MAX_MPPC) global_mppc_value+=5;
+      }
+      else if (last_last_mppc_value > global_mppc_value)
+      {
+         if (global_mppc_value != NO_MPPC) global_mppc_value-=5;
+      }
+      else
+      {
+         if (global_mppc_value == NO_MPPC) global_mppc_value++;
+         else if (global_mppc_value == MAX_MPPC) global_mppc_value--;
+         else global_mppc_value++;
+      }
+   }
+   else
+   {
+      if (last_last_mppc_value > global_mppc_value)
+      {
+         if (global_mppc_value != MAX_MPPC) global_mppc_value++;
+      }
+      else if (last_last_mppc_value < global_mppc_value)
+      {
+         if (global_mppc_value != NO_MPPC) global_mppc_value--;
+      }
+      else
+      {
+         if (global_mppc_value == NO_MPPC) global_mppc_value++;
+         else if (global_mppc_value == MAX_MPPC) global_mppc_value--;
+         else global_mppc_value++;
+      }
+   }
+   
+   last_vbatt_measurement = current_vbatt_measurement;
+   set_mppc(global_mppc_value);
+   return;
+}
+
+uint8_t calc_mppc_by_vgen(void)
+{
+   int16_t mppc;
+   mppc = (((get_vgen(0) - 100) * 20)/100);
+   if (mppc < NO_MPPC)
+   {
+      mppc = NO_MPPC;
+   }
+   else if (mppc > MAX_MPPC)
+   {
+      mppc = MAX_MPPC;
+   }
+   return mppc;
+}
+
+void update_control_loop(void)
+{
+// Moves the brake duty and charge duty closer to their respective set points
+// How quickly they move towards their set points depends on how far away they
+//    are from the set points.
+
+   uint16_t rpm_difference, brake_duty_difference, charge_duty_difference;
+   uint8_t  duty_change, brake_duty_change, charge_duty_change;
+   static uint8_t  control_loop_cycles_to_next_update = 1;
+   
+   /*
+   // if the sprinkler has no current commands, exit the control loop                  
+   if (global_control_loop_mechanism == NO_SPRINKLER_CONTROL) 
+   {
+      return;
+   }
+   */
+   
+   // set mppc to dynamic if in any other mode except test mode no rpm (with mppc hard set)
+   if (global_control_loop_mechanism != NO_RPM_CONTROL)
+   {
+      global_mppc_set_value = calc_mppc_by_vgen();
+   }
+   // set the mppc value             
+   set_mppc(global_mppc_set_value);  
+   
+   // if it hasn't been enough cycles to update the control loop, exit
+   if (--control_loop_cycles_to_next_update > 0)
+   {
+      return;
+   }
+   // otherwise, set it to the default of 1
+   else 
+   {
+      control_loop_cycles_to_next_update = 1;
+   }
+   
+   // grab the current rpm
+   global_current_rpm = calc_gen_rpm();
+   
+   // decide which regime we are in
+   switch (global_control_loop_mechanism)
+   {
+   // regular brake + charge rpm control
+   case BRAKE_AND_CHARGE:
+      // calculate the difference in rpm from set point
+      rpm_difference = abs((int16_t)global_current_rpm - (int16_t)global_rpm_set_value);
+      
+      // calulate how much to change the parameter (either brake or charge, just
+      //    reusing brake duty cycle for both) and how often to update based on 
+      //    rpm difference from setpoint
+      if (rpm_difference >= 50) 
+      {
+         duty_change = 10;
+         control_loop_cycles_to_next_update = 5;              
+      }
+      else if (rpm_difference >= 25) 
+      {
+         duty_change = 5;
+         control_loop_cycles_to_next_update = 6;
+      }
+      else if (rpm_difference >= 10)
+      {
+         duty_change = 4;
+         control_loop_cycles_to_next_update = 7;
+      }
+      else if (rpm_difference >= 5) 
+      {
+         duty_change = 2;
+         control_loop_cycles_to_next_update = 8;
+      }
+//      else if (rpm_difference >= 0) 
+      else
+      {  
+         duty_change = 1;
+         control_loop_cycles_to_next_update = 10;
+      }
+      
+      // Set point is lower than current value (increase braking force)
+      if (global_current_rpm > global_rpm_set_value) 
+      {
+         // if we are at max charge already, move to the braking
+         if (global_charge_duty == MAX_CHARGE)
+         {
+            // if we are at max brake (and charge) and detecting a magnetic decoupling condition
+            if ((global_brake_duty == MAX_BRK) && (global_current_rpm == 0-1))
+            {
+               // start magnetic de-coupling fix
+               // set an error bit saying magnetic decoupling is detected
+               global_error_message_bitfield |= ERR_MSG_MAG_DECOUPLING;
+               // send error message
+               PUSH_MESSAGE_QUEUE_MACRO(MSG_MOTE_ERROR_MSG);
+               // push a MOVE_VALVE_MAG_DECOUPLING_RECOVERY event
+               PUSH_PRIORITY_QUEUE_MACRO(MOVE_VALVE_MAG_DECOUPLING_RECOVERY);
+            }
+            // if we are at max brake (and charge) (no decoupling) send an error message
+            else if (global_brake_duty == MAX_BRK)
+            {
+               // set an error bit saying rpm was too low to reach
+               global_error_message_bitfield |= ERR_MSG_RPM_TOO_LOW_TO_REACH;
+               // send error message
+               PUSH_MESSAGE_QUEUE_MACRO(MSG_MOTE_ERROR_MSG);
+            }
+            // if we can't increase charge anymore, set it to max
+            else if ((global_brake_duty + duty_change) > MAX_CHARGE)
+            {
+               set_brake_duty(MAX_BRK);
+            }
+            // increase braking as per normal
+            else
+            {
+               set_brake_duty(global_brake_duty + duty_change);
+            }
+         }  
+         // if we can't increase charge anymore, set it to max
+         else if ((global_charge_duty + duty_change) > MAX_CHARGE)
+         {
+            set_charge_duty(MAX_CHARGE);
+         }
+        // increase charging as per normal
+        else
+        {
+            set_charge_duty(global_charge_duty + duty_change);
+        }
+      }
+      // Set point is higher than current value (increase braking force)
+      else if (global_current_rpm < global_rpm_set_value) 
+      {
+         // if we are at min braking already, move to the charging
+         if (global_brake_duty == NO_BRK)
+         {
+            // if we are at min charge (and brake) and the rpms are 0 
+            // (a not spinning condition)
+            if ((global_charge_duty == NO_CHARGE) && (global_current_rpm == 0))
+            {
+               // start not spinning recovery
+               // set an error bit saying there isn't any spinning
+               global_error_message_bitfield |= ERR_MSG_NOT_SPINNING;
+               // send error message to manager
+               PUSH_MESSAGE_QUEUE_MACRO(MSG_MOTE_ERROR_MSG);
+               // push a MOVE_VALVE_NO_SPIN_RECOVERY event
+               PUSH_PRIORITY_QUEUE_MACRO(MOVE_VALVE_NO_SPIN_RECOVERY);
+            }
+            // if we are at min charge (and brake) send an error message if
+            //    the bitfield bit isn't already sent (to avoid sending messages
+            //    all the time
+            else if (global_charge_duty == NO_CHARGE) 
+            {
+               // set an error bit saying rpm was too high to reach
+               global_error_message_bitfield |= ERR_MSG_RPM_TOO_HIGH_TO_REACH;
+               // send error message to manager
+               PUSH_MESSAGE_QUEUE_MACRO(MSG_MOTE_ERROR_MSG);
+            }
+            // if we can't decrease charge anymore, set it to min
+            // notice use of unsigned math here 
+            else if ((global_charge_duty - duty_change) > MAX_CHARGE)
+            {
+               set_charge_duty(NO_CHARGE);
+            }
+            // decrease charging as per normal
+            else
+            {
+               set_charge_duty(global_charge_duty - duty_change);
+            }
+         }  
+         // if we can't decrease brake anymore, set it to min
+         // notice use of unsigned math here 
+         else if ((global_brake_duty - duty_change) > MAX_BRK)
+         {
+            set_brake_duty(NO_BRK);
+         }
+        // decrease braking as per normal
+        else
+        {
+            set_brake_duty(global_brake_duty - duty_change);
+        }
+      }
+      break;
+      
+   // RPM is only controlled by brake (when charger is turned off
+   case BRAKE_ONLY:
+   case BRAKE_AND_CHARGE_START:
+      // calculate the difference in rpm from set point
+      rpm_difference = abs((int16_t)global_current_rpm - (int16_t)global_rpm_set_value);
+      
+      // calulate how much to change the parameter (either brake or charge, just
+      //    reusing brake duty cycle for both) and how often to update based on 
+      //    rpm difference from setpoint
+      if (rpm_difference >= 50) 
+      {
+         duty_change = 15;
+         control_loop_cycles_to_next_update = 5;
+      }
+      else if (rpm_difference >= 25) 
+      {
+         duty_change = 10;
+         control_loop_cycles_to_next_update = 5;
+      }
+      else if (rpm_difference >= 10)
+      {
+         duty_change = 5;
+         control_loop_cycles_to_next_update = 7;
+      }
+      else if (rpm_difference >= 5) 
+      {
+         duty_change = 2;
+         control_loop_cycles_to_next_update = 8;
+      }
+//      else if (rpm_difference >= 0) 
+      else
+      {  
+         duty_change = 1;
+         control_loop_cycles_to_next_update = 8;
+      }
+      
+      // Set point is lower than current value (increase braking force)
+      if (global_current_rpm > global_rpm_set_value) 
+      {
+      // if we are at max brake (and charge) and detecting a magnetic decoupling condition
+         if ((global_brake_duty == MAX_BRK) && (global_current_rpm == 0-1))
+         {
+            // start magnetic de-coupling fix
+            // set an error bit saying magnetic decoupling is detected
+            global_error_message_bitfield |= ERR_MSG_MAG_DECOUPLING;
+            // send error message
+            PUSH_MESSAGE_QUEUE_MACRO(MSG_MOTE_ERROR_MSG);
+            // push a MOVE_VALVE_MAG_DECOUPLING_RECOVERY event
+            PUSH_PRIORITY_QUEUE_MACRO(MOVE_VALVE_MAG_DECOUPLING_RECOVERY);
+         }
+         // if we are at max brake (and charge) send an error message
+         else if (global_brake_duty == MAX_BRK)
+         {
+            // set an error bit saying rpm was too low to reach
+            global_error_message_bitfield |= ERR_MSG_MAG_DECOUPLING;
+            // send error message
+            PUSH_MESSAGE_QUEUE_MACRO(MSG_MOTE_ERROR_MSG);
+         }
+         // if we can't increase charge anymore, set it to max
+         else if ((global_brake_duty + duty_change) > MAX_CHARGE)
+         {
+            set_brake_duty(MAX_BRK);
+         }
+         // increase braking as per normal
+         else
+         {
+            set_brake_duty(global_brake_duty + duty_change);
+         }
+       
+      }
+      // Set point is higher than current value (increase braking force)
+      else if (global_current_rpm < global_rpm_set_value) 
+      {
+         
+         // if we are at min charge (and brake) and the rpms are 0 
+         // (a not spinning condition)
+         if (global_brake_duty == NO_BRK && (global_current_rpm == 0))
+         {
+            // start not spinning recovery
+            // set an error bit saying there isn't any spinning
+            global_error_message_bitfield |= ERR_MSG_NOT_SPINNING;
+            // send error message to manager
+            PUSH_MESSAGE_QUEUE_MACRO(MSG_MOTE_ERROR_MSG);
+            // push a MOVE_VALVE_NO_SPIN_RECOVERY event
+            PUSH_PRIORITY_QUEUE_MACRO(MOVE_VALVE_NO_SPIN_RECOVERY);
+         }
+         // if we are at min braking already, move to the charging
+         else if (global_brake_duty == NO_BRK)
+         {
+            // if we are at min charge (and brake) send an error message if
+            //    the bitfield bit isn't already sent (to avoid sending messages
+            //    all the time
+   
+            // set an error bit saying rpm was too high to reach
+            global_error_message_bitfield |= ERR_MSG_RPM_TOO_HIGH_TO_REACH;
+            // send error message to manager
+            PUSH_MESSAGE_QUEUE_MACRO(MSG_MOTE_ERROR_MSG);  
+         }  
+         // if we can't decrease brake anymore, set it to min
+         // notice use of unsigned math here 
+         else if ((global_brake_duty - duty_change) > MAX_BRK)
+         {
+            set_brake_duty(NO_BRK);
+         }
+        // decrease braking as per normal
+        else
+        {
+            set_brake_duty(global_brake_duty - duty_change);
+        }
+      }
+      
+      // if we are in the brake only loop and want to turn off charger
+      if (global_control_loop_mechanism == BRAKE_ONLY)
+      {
+         // turn down charging until it is off (slowly)
+         if (global_charge_duty != NO_CHARGE)
+         {
+            // if gobal_charge_duty is 0-3 (note unsigned int math)
+            if ((global_charge_duty - 4) > MAX_CHARGE)
+            {
+               // set it to no charge
+               global_charge_duty = NO_CHARGE;
+            }
+            else
+            {
+               // otherwise, decrement it by 4
+               global_charge_duty -= 4;
+            }
+            // set lower charge amount.
+            set_charge_duty(global_charge_duty); 
+         }
+      }
+      // if we are trying to turn the charger back on   
+      else if (global_control_loop_mechanism == BRAKE_AND_CHARGE_START)
+      {   
+         // if gobal_charge_duty is almost completely on
+         if ((global_charge_duty + 4) >= MAX_CHARGE)
+         {
+            // set it to max charge
+            global_charge_duty = MAX_CHARGE;
+            // change control loop mechanism so it changes on next loop
+            global_control_loop_mechanism = BRAKE_AND_CHARGE;
+         }
+         // if the braking has turned itself all the way off trying to compensate for
+         //    the charging turning on, switch over to the main control loop
+         else if(global_brake_duty == NO_BRK)
+         {
+            // change control loop mechanism
+            global_control_loop_mechanism = BRAKE_AND_CHARGE;
+         }
+         // otherwise, keep increasing the charge duty cycle.
+         else
+         {
+            // otherwise, decrement it by 4
+            global_charge_duty += 4;
+         }
+         // set higher charge amount.
+         set_charge_duty(global_charge_duty);
+      }
+      break;
+      
+      
+   // If in no rpm test mode
+   case NO_RPM_CONTROL_DYN_MPPC:
+   case NO_RPM_CONTROL:
+
+      // move things closer to the set values
+      // worst case senario 2.3 seconds to move 400 counts
+      
+      // if difference is >= 200, move by 20 
+      // if difference is >= 100, move by 10
+      // if difference is >= 50, move by 5
+      // if difference is >= 10, move by 2
+      // if difference is < 10, move by 1
+      
+      brake_duty_difference = abs((int16_t)global_brake_duty - (int16_t)global_brake_duty_set_value);
+      charge_duty_difference = abs((int16_t)global_charge_duty - (int16_t)global_charge_duty_set_value);
+      
+      if (brake_duty_difference >= 200) brake_duty_change = 20;
+      else if (brake_duty_difference >= 100) brake_duty_change = 10;
+      else if (brake_duty_difference >= 50) brake_duty_change = 5;
+      else if (brake_duty_difference >= 10) brake_duty_change = 2;
+      else if (brake_duty_difference > 0) brake_duty_change = 1;
+      
+      if (global_brake_duty > global_brake_duty_set_value) 
+      {
+         global_brake_duty-=brake_duty_change;
+         set_brake_duty(global_brake_duty);
+      }
+      else if (global_brake_duty < global_brake_duty_set_value)
+      {
+         global_brake_duty+=brake_duty_change;
+         set_brake_duty(global_brake_duty);
+      }
+      
+      if (charge_duty_difference >= 200) charge_duty_change = 20;
+      else if (charge_duty_difference >= 100) charge_duty_change = 10;
+      else if (charge_duty_difference >= 50) charge_duty_change = 5;
+      else if (charge_duty_difference >= 10) charge_duty_change = 2;
+      else if (charge_duty_difference > 0) charge_duty_change = 1;
+      
+      if (global_charge_duty > global_charge_duty_set_value) 
+      {
+         global_charge_duty-=charge_duty_change;
+         set_charge_duty(global_charge_duty);
+      }
+      else if (global_charge_duty < global_charge_duty_set_value)
+      {
+         global_charge_duty+=charge_duty_change;
+         set_charge_duty(global_charge_duty);
+      }
+      control_loop_cycles_to_next_update = 1;
+      break;
+   case NO_SPIN_RECOVERY:
+      // it's fixed!
+      // RPM is above the limit (10), RPM is not MAX (for decoupled condition) and valve is moving.
+      if ((global_current_rpm > NOT_SPINNING_MAG_DECOUPLING_RPM_FIXED) && (global_current_rpm !=(0-1)) && (!IS_VLV_COASTING))
+      {
+         //stop the valve movement
+         disable_interrupts(INT_CCP3);
+         global_valve_position_set_value = global_valve_position;
+         enable_interrupts(INT_CCP3);
+         // change control loop back to a normal mode
+         global_control_loop_mechanism = BRAKE_AND_CHARGE_START;
+         // send a valve report to let people know of the new position
+         PUSH_MESSAGE_QUEUE_MACRO(MSG_MOTE_VALVE_REPORT);
+      }
+      // KINDA MESSY, FIX THIS LATER
+      // if the valve is within 5% of valve range (~2 seconds) of the position it's going,
+      //    control loop update position is slowed to 100x64ms or 6.4 seconds to give it time to react 
+      else if ((!IS_VLV_COASTING) && ((global_valve_position_set_value - global_valve_position) < 0x0400))
+      {
+         control_loop_cycles_to_next_update = 100;
+      }
+      // it tried to move the valve a bunch and it didn't fix it :-/
+      else if (IS_VLV_COASTING)
+      {
+         // set an error bit saying there isn't any spinning
+         global_error_message_bitfield |= ERR_MSG_MAG_NOT_SPIN_RECOVERY_FAILED;
+         // send error message to manager
+         PUSH_MESSAGE_QUEUE_MACRO(MSG_MOTE_ERROR_MSG);
+         // stop the current sprinkler setting (also closes valve) and clear the queue
+         stop_current_spinkler_setting();
+         clear_sprinkler_queue();
+         // send a valve report to let people know of the new position
+         PUSH_MESSAGE_QUEUE_MACRO(MSG_MOTE_VALVE_REPORT);
+      }
+      break;
+   case MAG_DECOUPLING_RECOVERY:
+      // it's fixed!
+      // RPM is above the limit (10), RPM is not MAX (for decoupled condition) and valve is moving.
+      if ((global_current_rpm > NOT_SPINNING_MAG_DECOUPLING_RPM_FIXED) && (global_current_rpm !=(0-1)) && (!IS_VLV_COASTING))
+      {
+         //stop the valve movement
+         disable_interrupts(INT_CCP3);
+         global_valve_position_set_value = global_valve_position;
+         enable_interrupts(INT_CCP3);
+         // change control loop back to a normal mode
+         global_control_loop_mechanism = BRAKE_AND_CHARGE_START;
+         // send a valve report to let people know of the new position
+         PUSH_MESSAGE_QUEUE_MACRO(MSG_MOTE_VALVE_REPORT);
+         // put the control algorithm into a non-rpm controlled state (sort of an idle state)
+         global_control_loop_mechanism = BRAKE_AND_CHARGE_START;
+      }
+      // KINDA MESSY, FIX THIS LATER
+      // if the valve is within 5% of valve range (~2 seconds) of the position it's going,
+      //    control loop update position is slowed to 100x64ms or 6.4 seconds to give it time to react 
+      else if ((!IS_VLV_COASTING) && ((global_valve_position - global_valve_position_set_value) < 0x0400))
+      {
+         control_loop_cycles_to_next_update = 100;
+      }
+      // it tried to move the valve a bunch and it didn't fix it :-/
+      else if (IS_VLV_COASTING)
+      {
+         // set an error bit saying there isn't any spinning
+         global_error_message_bitfield |= ERR_MSG_MAG_NOT_SPIN_RECOVERY_FAILED;
+         // send error message to manager
+         PUSH_MESSAGE_QUEUE_MACRO(MSG_MOTE_ERROR_MSG);
+         // stop the current sprinkler setting (also closes valve) and clear the queue
+         stop_current_spinkler_setting();
+         clear_sprinkler_queue();
+         // send a valve report to let people know of the new position
+         PUSH_MESSAGE_QUEUE_MACRO(MSG_MOTE_VALVE_REPORT);
+      }
+      break;
+   }     
+   return;
+}
+
+void stop_current_spinkler_setting(void)
+{
+   global_current_sprinkler_settings_end_time = 0-1;
+   PUSH_PRIORITY_QUEUE_ISR(OPEN_VALVE_UNKNOWN_STATE);
+   global_rpm_set_value = 0;
+   //global_sprinkler_queue[global_current_sprinkler_queue_location].zone_num;
+   global_control_loop_mechanism = NO_RPM_CONTROL;
+}
+void stop_current_spinkler_setting_ISR(void)
+{
+   global_current_sprinkler_settings_end_time = 0-1;
+   PUSH_PRIORITY_QUEUE_ISR_MACRO(OPEN_VALVE_UNKNOWN_STATE);          
+   global_rpm_set_value = 0;
+   //global_sprinkler_queue[global_current_sprinkler_queue_location].zone_num;
+   global_control_loop_mechanism = NO_RPM_CONTROL;
+}                                                        

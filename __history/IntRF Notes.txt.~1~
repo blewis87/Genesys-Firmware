@@ -1,0 +1,30 @@
+Some notes about some interesting parts of the system.
+
+2017Jan25-JG: #use functions are handled by the compiler pre-processor.  
+ #USE DLAY is remains in effect through the entire compilation until another 
+ #USE DELAY is encountered.  
+ See "Duplicate USE" in the help file for a poor explanation.
+ Double check that there is no confusion in Brian's code in that regard.
+ 
+2017Jan25-JG: STKPTR=__ statement in a subroutine seems quite dangerous to me.
+ Discuss with Brian.
+ 
+See E309
+2017Jan26-JG: fl_alt_LCD added to control JG display / Brian display
+ as dictated by SW1....
+ 
+See E309
+2017Jan27-JG:  VERSION and VERSION_TEXT should both be representations of the
+ same thing.  In the case of VERSION_TEXT defined to be A101, e.g., we could
+ use hex 16-bit A101 for VERSION.  The LV program receives only 2-bytes for
+ VERSION, so we should stick with letter a-f only, I think.
+ 
+See E309
+2017Jan27-JG:  there was an extra character placed on the screen
+ at position 1,15 to indicate mote state.  This has been removed and is
+ no seen on the alt LCD display during SW1
+ 
+ E310
+ 2017Jan31-JG: Note pullup enabled on SW1/LED1 line.  This needs checking
+  with o-scope, etc.  
+

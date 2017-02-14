@@ -1,0 +1,386 @@
+_RETURN_
+CCP_1
+CCP_1_LOW
+CCP_1_HIGH
+CCP_2
+CCP_2_LOW
+CCP_2_HIGH
+CCP_3
+CCP_3_LOW
+CCP_3_HIGH
+CCP_4
+CCP_4_LOW
+CCP_4_HIGH
+CCP_5
+CCP_5_LOW
+CCP_5_HIGH
+C1OUT
+C2OUT
+_Randseed
+__DYNAMIC_HEAD
+WREG
+status
+CARRY
+STKPTR
+STKUNF
+STKFUL
+RCON
+IPEN
+INTCON
+RBIF
+INT0IF
+TMR0IF
+RBIE
+INT0IE
+TMR0IE
+INTCON2
+RBPU
+INTCON3
+INT1IF
+INT2IF
+T0CON
+TMR0ON
+OSCCON
+SCS0
+SCS1
+HFIOFS
+OSTS
+IDLEN
+OSCCON2
+LFIOFS
+MFIOFS
+PRISD
+SOSCGO
+MFIOSEL
+SOSCRUN
+PLLRDY
+OSCTUNE
+PLLEN
+INTSRC
+TMR1H
+TMR1L
+T1CON
+TMR1ON
+T1GCON
+T1GGO
+T2CON
+TMR2ON
+T2CKPS0
+T2CKPS1
+PR2
+TMR3H
+TMR3L
+T3CON
+TMR3ON
+T3GCON
+T3GGO
+T4CON
+TMR4ON
+PR4
+TMR5H
+TMR5L
+T5CON
+TMR5ON
+T5GCON
+T5GGO
+T6CON
+TMR6ON
+PR6
+ADRES
+ADCON0
+ADON
+ADGO
+ADCON2
+CCPR1H
+CCPR1L
+CCP1CON
+CCPR2H
+CCPR2L
+CCP2CON
+CCPR3H
+CCPR3L
+CCP3CON
+CCPR4H
+CCPR4L
+CCP4CON
+CCPR5H
+CCPR5L
+CCP5CON
+CCPTMRS0
+CCPTMRS1
+PSTR1CON
+BAUDCON1
+SPBRGH1
+SPBRG1
+RCREG1
+TXREG1
+TXSTA1
+TRMT1
+RCSTA1
+FERR1
+PIR1
+TMR1IF
+TMR2IF
+SSP1IF
+ADIF
+PIR2
+CCP2IF
+TMR3IF
+BCL1IF
+C1IF
+OSCFIF
+PIR3
+TMR5GIF
+TMR3GIF
+TMR1GIF
+PIR4
+CCP3IF
+CCP4IF
+CCP5IF
+PIR5
+TMR4IF
+TMR5IF
+TMR6IF
+PIE1
+TMR2IE
+PIE2
+CCP2IE
+PIE3
+PIE4
+PIE5
+IPR1
+IPR2
+IPR3
+IPR4
+IPR5
+LATA
+PORTA
+TRISA
+LATB
+PORTB
+TRISB
+LATC
+PORTC
+TRISC
+LATD
+PORTD
+TRISD
+LATE
+PORTE
+TRISE
+PSTR2CON
+IOCB
+WPUB
+PSTR3CON
+CM1CON0
+C1ON
+C1POL
+CM2CON0
+CM2CON1
+VREFCON0
+FVREN
+FVRST
+FVRS1
+FVRS0
+VREFCON1
+VREFCON2
+PMD0
+PMD1
+PMD2
+CTMUICON
+CTMUCONL
+CTMUCONH
+SRCON1
+SRCON0
+SSP1CON2
+SEN
+PEN
+SSP1CON1
+WCOL
+SSP1STAT
+I2CBUSY
+LTC3105_CTRL_pinstate
+BRK_pinstate
+joinkey
+fcstab
+global_last_connected_time
+global_xdcr_output
+global_shutdown_cause
+global_previous_shutdown_cause
+test_global
+test_global_2
+test_start_time
+test_end_time
+test_valve_open_1
+test_rpm_1
+test_duty_cycle_1
+test_valve_open_2
+test_rpm_2
+test_duty_cycle_2
+test_valve_open_3
+test_rpm_3
+test_duty_cycle_3
+global_temp_line_buff
+global_extra_lcd_ptr
+global_skip_lcd_update_count
+global_rtc_time
+global_utc_time
+global_sprinkler_num
+serial_number_rcvd
+macaddr_rcvd
+global_hardware_enabled
+global_lcd_enabled
+global_gps_enabled
+global_xcdr_type1_enabled
+global_xcdr_type2_enabled
+global_fixture_enabled
+global_temp1_enabled
+global_dust_enabled
+global_dust_operational
+global_current_period
+global_current_rpm
+global_rpm_set_value
+global_last_rpm_value_time
+global_brake_duty
+global_charge_duty
+global_brake_duty_set_value
+global_charge_duty_set_value
+global_mppc_value
+global_mppc_set_value
+global_vgen
+global_fixture_dac_value
+global_control_loop_mechanism
+global_valve_position
+global_valve_position_set_value
+global_valve_time_to_close_1024th
+global_valve_time_to_open_1024th
+global_valve_time_in_motion_1024ths
+global_valve_calibration_utc_time
+global_valve_movements_since_endstop
+global_calibrate_fsr_valve_position
+global_calibrate_fsr_period
+global_calibrate_fsr_utc_time
+event_flags
+fl_boot_event
+fl_alarm_event
+fl_time_event
+fl_joinfail_event
+fl_disconnected_event
+fl_operational_event
+fl_config_event
+fl_unknown_event
+bytes_from_mote
+p
+dust_send_buffer
+dust_send_buffer_isr
+dust_recive_buffer
+payload_buff
+num_of_bytes_to_send
+num_of_bytes_to_send_isr
+send_prefix
+result_rcvd
+fl_mote_dealt
+global_set_get_response
+advert_rcvd_fl
+setnetid_done_fl
+ack_sent_fl
+pkt_rcvd_fl
+joinduty_done_fl
+gettime_done_fl
+fl_batNOEE
+joinkey_done_fl
+joincmd_done_fl
+flags_rcvd
+param_type_rcvd
+svc_index_rcvd
+mote_msgSEQ
+network_id_rcvd
+mote_id_rcvd
+rssi_rcvd
+hop_depth_rcvd
+global_mote_temperature
+global_priority_queue
+global_current_priority_queue_location
+global_time_queue
+global_current_time_queue_location
+global_sprinkler_queue
+global_current_sprinkler_queue_location
+global_current_sprinkler_settings_end_time
+global_command_queue
+global_current_command_queue_location
+global_message_queue
+global_current_message_queue_location
+global_error_message_bitfield
+last_error_message_sent_bitfield
+last_error_message_sent_rtc_time
+global_mote_state
+global_system_state
+VLV_NEAR_CLOSED_RANGE_MAX
+VLV_NEAR_OPENED_RANGE_MAX
+DAC_LVL_OPENING_NEAR_OPENED
+DAC_LVL_OPENING_NEAR_CLOSED
+DAC_LVL_CLOSING_NEAR_OPENED
+DAC_LVL_CLOSING_NEAR_CLOSED
+DAC_LVL_IN_MIDDLE
+DAC_LVL_INIT_CURRENT_BOOST
+VLV_INIT_CURRENT_BOOST_TIME_1024THS
+VLV_NOT_SPIN_LIMIT
+VLV_NOT_SPIN_FIX
+NOT_SPINNING_MAG_DECOUPLING_RPM_FIXED
+VLV_MAGNETIC_COUPLING_LIMIT
+VLV_MAGNETIC_COUPLING_FIX
+RPM_TIMEOUT
+MOTE_SEARCH_TIME
+MOTE_NETWORK_SHUTDOWN_TIMEOUT
+rs232_errors
+
+Project Directory:
+    C:\_PROJ\Jain Irrigation\2017 reset\JG workspace post Brian Fork - D308\
+
+Project Files:
+    IntRF.c                                                 [24-Jan-17 19:46  CRC=4EADE785]
+    ..\..\..\..\Program Files (x86)\PICC\Devices\18F46K22.h [24-Jan-17 15:19  CRC=1DF6DD4A]
+    ..\..\..\..\Program Files (x86)\PICC\Drivers\stdio.h    [31-Jul-07 14:24  CRC=4E4534F4]
+    ..\..\..\..\Program Files (x86)\PICC\Drivers\string.h   [26-Mar-15 12:34  CRC=C4814297]
+    ..\..\..\..\Program Files (x86)\PICC\Drivers\stddef.h   [05-Sep-14 11:47  CRC=897CEC6C]
+    ..\..\..\..\Program Files (x86)\PICC\Drivers\ctype.h    [03-Jan-08 14:55  CRC=2D1F019F]
+    ..\..\..\..\Program Files (x86)\PICC\Drivers\stdint.h   [06-May-16 10:24  CRC=FE3369EA]
+    ..\..\..\..\Program Files (x86)\PICC\Drivers\stdlib.h   [29-Jun-16 09:34  CRC=7E9CC16B]
+    ..\..\..\..\Program Files (x86)\PICC\Drivers\stdlibm.h  [04-Nov-16 08:33  CRC=CB9FB4EB]
+    ..\..\..\..\Program Files (x86)\PICC\Drivers\memmgmt.c  [24-Feb-12 10:47  CRC=E82E24A3]
+    pic_config.h                                            [26-Aug-16 13:38  CRC=44370FC0]
+    defines.h                                               [26-Aug-16 13:38  CRC=D9AA5AEF]
+    function_headers.h                                      [26-Aug-16 13:38  CRC=4548C818]
+    jack_dn2500.h                                           [26-Aug-16 13:38  CRC=B34466B6]
+    globals.h                                               [26-Aug-16 13:38  CRC=98485C23]
+    eeprom.h                                                [26-Aug-16 13:38  CRC=BAD370F1]
+    pic.h                                                   [26-Aug-16 13:38  CRC=297E083E]
+    dust.h                                                  [26-Aug-16 13:38  CRC=5C878BD9]
+    periph.h                                                [26-Aug-16 13:38  CRC=00A28743]
+    control.h                                               [26-Aug-16 13:38  CRC=BF9F9A18]
+    valve.h                                                 [26-Aug-16 13:38  CRC=1E8BE173]
+    battery.h                                               [25-Jan-17 11:44  CRC=09602BC1]
+    stacks_queues.h                                         [26-Aug-16 13:38  CRC=46786EB2]
+    util.h                                                  [26-Aug-16 13:38  CRC=5A9C470F]
+
+Source signature=3A14554F
+
+Units:
+    IntRF (main)
+
+Compiler Settings:
+    Processor:      PIC18F46K22
+    Pointer Size:   16
+    ADC Range:      0-1023
+    Opt Level:      9
+    Short,Int,Long: UNSIGNED: 1,8,16
+    Float,Double:   32,32
+    Output file:    Relocatable
+    Compile Mode:       CCS5
+
+Output Files:
+    XREF file:   IntRF.xsym
+    Errors:      IntRF.err
+    Ext Symbols: IntRF.esym
+    Object:      IntRF.o
+    Symbols:     IntRF.osym

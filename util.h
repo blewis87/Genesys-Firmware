@@ -1,0 +1,176 @@
+/* This file contains all functions related to PIC functions
+ *
+ *
+ *
+ *
+ *
+ */
+
+/****************************************/
+void flash_leds(uint8_t num_of_flashes)                          
+{
+   uint8_t  n;
+   
+   for (n = 0; n < num_of_flashes; n++)
+   {
+      LED1_ON
+      LED2_ON
+      setup_T0_int(T0_50MS);
+      while (!TMR0IF);
+      
+      LED1_OFF   
+      LED2_OFF                      
+      if (n == (num_of_flashes - 1))
+      {
+         return;
+      }
+      setup_T0_int(T0_50MS);
+      while (!TMR0IF); 
+   }      
+}
+void flash_leds_ISR(uint8_t num_of_flashes)
+{
+   uint8_t  n;
+   
+   for (n = 0; n < num_of_flashes; n++)
+   {
+      LED1_ON
+      LED2_ON
+      setup_T4_int(T4_64MS);
+      while (!TMR4IF);
+      LED1_OFF
+      LED2_OFF
+      setup_T4_int(T4_64MS);
+      while (!TMR4IF);
+   }      
+}
+
+
+void flash_led_1(uint8_t num_of_flashes)
+{
+   uint8_t  n;
+   
+   for (n = 0; n < num_of_flashes; n++)
+   {
+      LED1_ON
+      setup_T0_int(T0_100MS);
+      while (!TMR0IF);
+      
+      LED1_OFF
+      setup_T0_int(T0_100MS);
+      while (!TMR0IF); 
+   }      
+}
+
+void flash_led_2(uint8_t num_of_flashes)
+{
+   uint8_t  n;
+   
+   for (n = 0; n < num_of_flashes; n++)
+   {
+      LED2_ON
+      setup_T0_int(T0_100MS);
+      while (!TMR0IF);
+      
+      LED2_OFF
+      setup_T0_int(T0_100MS);
+      while (!TMR0IF); 
+   }      
+}
+
+void happy_lites(void)
+{
+// blink the two leds in a fashion to let the operator know, e.g.,
+// that the SW1-initiated search process was successful
+   uint8_t  n;
+   
+   for (n=0; n<4; n++)
+   {
+      LED1_ON
+      
+      setup_T0_int(T0_250MS);
+      while (!TMR0IF);
+      
+      LED1_OFF
+      LED2_ON
+      
+      setup_T0_int(T0_250MS);
+      while (!TMR0IF);
+      
+      LED2_OFF
+   }
+}
+
+char *word_to_4dig_new (uint16_t xword)
+{
+   /* Takes a uint16 and converts it to a 4 digit result
+    * that is stored in a static char pointer
+    */
+    
+   uint16_t temp_u16;
+   static char result[4];
+   ldiv_t      lidiv_temp;
+   div_t       idiv_temp;
+   
+   if (xword > 9999)
+      return 0;
+   else
+   {   
+      lidiv_temp=ldiv(xword,1000);
+      result[3] = '0' + lidiv_temp.quot;
+      temp_u16 = lidiv_temp.rem;
+      lidiv_temp=ldiv(temp_u16,(uint16_t)(100));
+      result[2] = '0' + lidiv_temp.quot;
+      idiv_temp = div((uint8_t)(lidiv_temp.rem),10);
+      result[1] = '0' + idiv_temp.quot;
+      result[0] = '0' + idiv_temp.rem;
+      return result;
+   }
+}
+
+// this routine ain't done yet
+uint16_t convert_rpm_to_period(uint16_t rpm)
+{
+   uint16_t period;
+   return period;
+}
+uint16_t convert_period_to_rpm(uint16_t period)
+{
+   uint32_t rpm_32;
+   uint16_t rpm_16;
+   
+   rpm_32 = CCP_PER_RPM/(make32(0,0,make8(period,1), make8(period,0)));
+   rpm_16 = make16(make8(rpm_32,3), make8(rpm_32,2));
+   if (bit_test(rpm_32, 15)) rpm_16++; 
+   return rpm_16;
+}
+uint16_t convert_period_to_rpm_ISR(uint16_t period)
+{
+   uint32_t rpm_32;
+   uint16_t rpm_16;
+   
+   rpm_32 = CCP_PER_RPM/(make32(0,0,make8(period,1), make8(period,0)));
+   rpm_16 = make16(make8(rpm_32,3), make8(rpm_32,2));
+   if (bit_test(rpm_32, 15)) rpm_16++; 
+   return rpm_16;
+}
+uint8_t  hi2asc(uint8_t xbyte)
+{
+   xbyte >>= 4;
+   if (xbyte < 0x0A)
+      xbyte += 0x30;
+   else
+      xbyte += 0x37;
+   return xbyte;
+}
+
+
+uint8_t  lo2asc(uint8_t xbyte)
+{
+   xbyte &= 0x0F;
+   if (xbyte < 0x0A)
+      xbyte += 0x30;
+   else
+      xbyte += 0x37;
+   return xbyte;
+}
