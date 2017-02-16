@@ -158,6 +158,61 @@ uint16_t get_vgen(int1 charge_state)
    return vgen_value;
 }
 
+uint16_t get_vgen_ISR(int1 charge_state)
+{
+   /* Samples the V_GEN to get the battery voltage
+    * and returns a uint16_t of the sum of 4 samples
+    * charge_state defines if you want the LTC3105 to be:
+    * 0 - original state
+    * 1 - not charging
+    */
+    
+   uint8_t nn;
+   uint16_t vgen_value = 0;
+   int1     tmp_RB3;
+   uint8_t  tmp_ccp2con;
+   
+   // save state of RB3, which includes the LTC3105_CTRL line
+   tmp_ccp2con = CCP2CON;
+   
+   // save state of CCP2, which controls charging aggressiveness
+   // note that CCP2 will have control of the pin unless it is OFF
+   tmp_RB3 = LTC3105_CTRL_pinstate; 
+   
+   // turn on ADC
+   ADON = TRUE;         
+   
+   // set adc to VREF
+   set_adc_channel(V_GEN);
+   
+   // alter the charge state if necessary
+   // charge state off
+   if (charge_state == 1)
+   {
+      setup_ccp2(CCP_OFF);   
+      output_low(LTC3105_CTRL);
+   }
+   
+   // sum up 3 samples from the adc
+   for (nn=0; nn<3; nn++)
+   {
+      vgen_value += read_adc();
+   }
+   
+   // Now return charger to its previous state
+   LTC3105_CTRL_pinstate = tmp_RB3;
+   CCP2CON = tmp_ccp2con;
+   
+   // turn off adc
+   ADON = FALSE;
+   
+   // save vgen to global value
+   global_vgen = vgen_value;
+   
+   // return the voltage
+   return vgen_value;
+}
+
 uint16_t calc_vbatt_BCD(uint16_t vref_count)
 {
    /* Takes the voltage count as an input (summed from ADC)
@@ -169,8 +224,6 @@ uint16_t calc_vbatt_BCD(uint16_t vref_count)
 
    uint32_t tempo_u32, frac_part;
    uint16_t tempo_u16;  
-   
-   uint16_t    bat_frac_part;    // in units of mV
    
    tempo_u32 = VAL32_FVR_BAT/vref_count;   // = 1 count in volts in 12.20 format
    tempo_u32 *= 1023;                        // bat voltage in 12.20 format
@@ -205,9 +258,7 @@ uint16_t calc_vgen_BCD(uint16_t vref_count)
 
    uint32_t tempo_u32, frac_part;
    uint16_t tempo_u16;  
-   
-   uint16_t    bat_frac_part;    // in units of mV
-   
+
    // First calculate a single count of the ADC in volts in 12.20 format?
    tempo_u32 = VAL32_FVR_BAT/get_vbatt(0);   // = 1 count in volts in 12.20 format
    tempo_u32 *= vref_count;                  // vgen in 12.20 format

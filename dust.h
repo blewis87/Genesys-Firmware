@@ -43,6 +43,7 @@ uint8_t mote_sleep(void)
    }
    return NO_ERR;
 }
+
 void     search_for_strongest(void)
 {
    uint8_t     result_byte;
@@ -645,9 +646,17 @@ void deal_with_mote_ISR(void)
 
             case  PARAM_TIME:
                utc_sec_rcvd = bytes_from_mote.get_time_response.utc_sec;
+               // JG: save first utc time reported from mote since boot
+               if (!global_utc_time)
+               {
+                  global_first_utc_time = make32(make8(utc_sec_rcvd,0), \
+                   make8(utc_sec_rcvd,1), make8(utc_sec_rcvd,2), \
+                   make8(utc_sec_rcvd,3));     //  **fix byte order**
+               }
+               
                global_utc_time = make32(make8(utc_sec_rcvd,0), \
-                 make8(utc_sec_rcvd,1), make8(utc_sec_rcvd,2), \
-                 make8(utc_sec_rcvd,3));     //  **fix byte order**
+                make8(utc_sec_rcvd,1), make8(utc_sec_rcvd,2), \
+                make8(utc_sec_rcvd,3));     //  **fix byte order**
                              
                utc_usec_rcvd = bytes_from_mote.get_time_response.utc_usec;
                if (mote_msgSEQ == 0)
@@ -739,9 +748,18 @@ void deal_with_mote_ISR(void)
       case  CMD_TIME:
       // receipt of response after a _TIME hardware interrupt
          utc_sec_rcvd = bytes_from_mote.time_indication.utc_sec;
+         
+         // JG: save first utc time reported from mote since boot
+         if (!global_utc_time)
+         {
+            global_first_utc_time = make32(make8(utc_sec_rcvd,0), \
+             make8(utc_sec_rcvd,1), make8(utc_sec_rcvd,2), \
+             make8(utc_sec_rcvd,3));     //  **fix byte order**
+         }
+
          global_utc_time = make32(make8(utc_sec_rcvd,0), \
-         make8(utc_sec_rcvd,1), make8(utc_sec_rcvd,2), \
-         make8(utc_sec_rcvd,3));     //  **fix byte order**
+          make8(utc_sec_rcvd,1), make8(utc_sec_rcvd,2), \
+          make8(utc_sec_rcvd,3));     //  **fix byte order**
          utc_usec_rcvd = bytes_from_mote.time_indication.utc_usec;
          if (!mote_msgSEQ)
          {
@@ -1731,14 +1749,20 @@ uint8_t deal_with_packet(void)
                // set test parameters with no rpm control and preset mppc value   
                push_sprinkler_queue(0, 0-1,make16(payload_buff[8], payload_buff[7]), 0, \
                0, NO_RPM_CONTROL);     
-               global_mppc_set_value = payload_buff[13]; 
+               global_mppc_set_value = payload_buff[13];
+               global_control_loop_mechanism = NO_RPM_CONTROL;
             }
             else if (payload_buff[14] == TRUE)        
             {
                // set test parameters with no rpm control and dynamic mppc
                push_sprinkler_queue(0, 0-1,make16(payload_buff[8], payload_buff[7]), 0, \
                0, NO_RPM_CONTROL_DYN_MPPC);
+               global_control_loop_mechanism = NO_RPM_CONTROL_DYN_MPPC;
             }
+            
+            global_valve_position_set_value = make16(payload_buff[8], payload_buff[7]);
+            global_rpm_set_value = 0;
+
             send_full_report(command_id_received, mgr_msgSEQ);
          }
          break;
@@ -1780,15 +1804,19 @@ uint8_t deal_with_packet(void)
             {
                push_sprinkler_queue(0, 0-1,make16(payload_buff[8], payload_buff[7]), \
                   make16(payload_buff[10], payload_buff[9]), 0, BRAKE_AND_CHARGE_START);
+                  
+               global_control_loop_mechanism = BRAKE_AND_CHARGE_START;
             }
             else
             {
                push_sprinkler_queue(0, 0-1,make16(payload_buff[8], payload_buff[7]), \
                   make16(payload_buff[10], payload_buff[9]), 0, BRAKE_ONLY);
+               
+               global_control_loop_mechanism = BRAKE_ONLY;
             }
                
             // deal with JG-added special cases of commands to fully open or
-            //  or fully close the valve in cases whete the valve has not
+            //  or fully close the valve in cases where the valve has not
             //  yet been calibrated
             if ((make16(payload_buff[8], payload_buff[7]) == VLV_POSITION_OPENED) \
                && (global_valve_position == VLV_POSITION_UNKNOWN))
@@ -1806,6 +1834,9 @@ uint8_t deal_with_packet(void)
             {
                PUSH_PRIORITY_QUEUE_MACRO(MOVE_VALVE);  
             }
+            
+            global_valve_position_set_value = make16(payload_buff[8], payload_buff[7]);
+            global_rpm_set_value = make16(payload_buff[10], payload_buff[9]);
             send_full_report(command_id_received, mgr_msgSEQ);   
          }
          break; 
@@ -1845,7 +1876,7 @@ uint8_t deal_with_packet(void)
          if ((global_valve_position == VLV_POSITION_UNKNOWN) &&                                       \
             (is_valve_value_full_open_or_close(make16(payload_buff[8], payload_buff[7]))))  
          {                           
-            global_valve_position = VLV_PRECALIBRAION_POSITION; 
+            global_valve_position = VLV_PRECALIBRATION_POSITION; 
          }      
          
          // if the valve position is unknown and we're trying to send it to a specific position, NACK it   
@@ -1870,7 +1901,6 @@ uint8_t deal_with_packet(void)
          break;    
    }       
 }  // deal_with_packet
-
 
 void prepare_prefix_and_payload(uint8_t payload_buf_length)
 {
@@ -1958,6 +1988,117 @@ void generate_message_and_send_ISR()
          break;
    }
 }
+
+void send_full_report_ISR(uint8_t command_id_in_response_to, uint16_t msg_seq)
+{
+   uint16_t temp_u16;
+   //flash led to help identifying motes
+   LED2_ON;
+   prepare_prefix_and_payload(58);
+   payload_buff[4] = make8(msg_seq,0);
+   payload_buff[5] = make8(msg_seq,1);
+   payload_buff[6] = command_id_in_response_to;
+   payload_buff[7] = MSG_MOTE_FULL_REPORT;
+   payload_buff[8] = make8(global_sprinkler_num, 0);
+   payload_buff[9] = make8(global_sprinkler_num, 1);
+   payload_buff[10] = global_hardware_enabled;
+   payload_buff[11] = read_system_state();
+   // vbatt(unchanged charge state)
+//   temp_u16 = get_vbatt_ISR(0);
+   temp_u16 = 0;
+   payload_buff[12] = make8(temp_u16, 0);
+   payload_buff[13] = make8(temp_u16, 1);
+   // vbatt(no charging)       
+//   temp_u16 = get_vbatt_ISR(1);
+   temp_u16 = 0;
+   payload_buff[14] = make8(temp_u16, 0);
+   payload_buff[15] = make8(temp_u16, 1);
+   // vgen(unchanged charge state)
+//   temp_u16 = get_vgen_ISR(0);
+   temp_u16 = 0;
+   payload_buff[16] = make8(temp_u16, 0);
+   payload_buff[17] = make8(temp_u16, 1);      
+   /*
+   disable_interrupts(INT_CCP5);             
+   temp_u16 = convert_period_to_rpm(global_current_period);
+   enable_interrupts(INT_CCP5);
+   */
+   temp_u16 = 0;
+   payload_buff[18] = make8(temp_u16, 0);
+   payload_buff[19] = make8(temp_u16, 1);               
+   payload_buff[20] = make8(global_rpm_set_value,0);
+   payload_buff[21] = make8(global_rpm_set_value,1);
+   disable_interrupts(INT_CCP4);
+   if (global_current_sprinkler_queue_location != 255)
+   {
+      payload_buff[22] = make8(global_sprinkler_queue[global_current_sprinkler_queue_location].spin_rate,0);
+      payload_buff[23] = make8(global_sprinkler_queue[global_current_sprinkler_queue_location].spin_rate,1);
+   }
+   else
+   {
+      payload_buff[22] = 0;
+      payload_buff[23] = 0;
+   }
+   payload_buff[24] = make8(global_brake_duty,0);
+   payload_buff[25] = make8(global_brake_duty,1);
+   payload_buff[26] = make8(global_brake_duty_set_value,0);
+   payload_buff[27] = make8(global_brake_duty_set_value,1);
+   payload_buff[28] = make8(global_charge_duty,0);
+   payload_buff[29] = make8(global_charge_duty,1);
+   payload_buff[30] = make8(global_charge_duty_set_value,0);
+   payload_buff[31] = make8(global_charge_duty_set_value,1);
+   payload_buff[32] = global_mppc_value;
+   payload_buff[33] = global_control_loop_mechanism;
+   payload_buff[34] = make8(global_calibrate_fsr_valve_position, 0);
+   payload_buff[35] = make8(global_calibrate_fsr_valve_position, 1);
+   temp_u16 = convert_period_to_rpm(global_calibrate_fsr_period);
+   payload_buff[36] = make8(temp_u16, 0);
+   payload_buff[37] = make8(temp_u16, 1);
+   payload_buff[38] = LATE;
+   payload_buff[39] = make8(global_valve_position,0);
+   payload_buff[40] = make8(global_valve_position,1);
+   payload_buff[41] = make8(global_valve_position_set_value,0);
+   payload_buff[42] = make8(global_valve_position_set_value,1);
+   if (global_current_sprinkler_queue_location != 255)
+   {
+      payload_buff[43] = make8(global_sprinkler_queue[global_current_sprinkler_queue_location].vlv_open_amount,0);
+      payload_buff[44] = make8(global_sprinkler_queue[global_current_sprinkler_queue_location].vlv_open_amount,1);
+      payload_buff[45] = make8(global_sprinkler_queue[global_current_sprinkler_queue_location].start_time,0);
+      payload_buff[46] = make8(global_sprinkler_queue[global_current_sprinkler_queue_location].start_time,1);
+      payload_buff[47] = make8(global_sprinkler_queue[global_current_sprinkler_queue_location].start_time,2);
+      payload_buff[48] = make8(global_sprinkler_queue[global_current_sprinkler_queue_location].start_time,3);
+   }
+   else
+   {
+      payload_buff[43] = 0;
+      payload_buff[44] = 0;
+      payload_buff[45] = 0;
+      payload_buff[46] = 0;
+      payload_buff[47] = 0;
+      payload_buff[48] = 0;
+   }
+   enable_interrupts(INT_CCP4);
+   payload_buff[49] = make8(global_xdcr_output, 0);
+   payload_buff[50] = make8(global_xdcr_output, 1);
+      //  JG: changed from mote uptime to boot time
+   payload_buff[51] = make8(global_first_utc_time,0);
+   payload_buff[52] = make8(global_first_utc_time,1);
+   payload_buff[53] = make8(global_first_utc_time,2);
+   payload_buff[54] = make8(global_first_utc_time,3);
+   /*
+   payload_buff[51] = make8(global_rtc_time,0);
+   payload_buff[52] = make8(global_rtc_time,1);
+   payload_buff[53] = make8(global_rtc_time,2);
+   payload_buff[54] = make8(global_rtc_time,3);
+   */
+   payload_buff[55] = global_previous_shutdown_cause;
+   payload_buff[56] = make8(FIRMWARE_VERSION,0);
+   payload_buff[57] = make8(FIRMWARE_VERSION,1);
+
+   generate_message_and_send();
+   LED2_OFF;
+}
+
 void send_full_report(uint8_t command_id_in_response_to, uint16_t msg_seq)
 {
    uint16_t temp_u16;
@@ -2042,13 +2183,21 @@ void send_full_report(uint8_t command_id_in_response_to, uint16_t msg_seq)
    enable_interrupts(INT_CCP4);
    payload_buff[49] = make8(global_xdcr_output, 0);
    payload_buff[50] = make8(global_xdcr_output, 1);
+      //  JG: changed from mote uptime to boot time
+   payload_buff[51] = make8(global_first_utc_time,0);
+   payload_buff[52] = make8(global_first_utc_time,1);
+   payload_buff[53] = make8(global_first_utc_time,2);
+   payload_buff[54] = make8(global_first_utc_time,3);
+   /*
    payload_buff[51] = make8(global_rtc_time,0);
    payload_buff[52] = make8(global_rtc_time,1);
    payload_buff[53] = make8(global_rtc_time,2);
    payload_buff[54] = make8(global_rtc_time,3);
+   */
    payload_buff[55] = global_previous_shutdown_cause;
    payload_buff[56] = make8(FIRMWARE_VERSION,0);
-   payload_buff[57] = make8(FIRMWARE_VERSION,1);   
+   payload_buff[57] = make8(FIRMWARE_VERSION,1);
+
    generate_message_and_send();
 }
 void send_health_report(uint8_t command_id_in_response_to, uint16_t msg_seq)
@@ -2085,7 +2234,7 @@ void send_valve_report(uint8_t command_id_in_response_to, uint16_t msg_seq)
    payload_buff[4] = make8(msg_seq,0);
    payload_buff[5] = make8(msg_seq,1);
    payload_buff[6] = command_id_in_response_to;                                                        
-   payload_buff[7] = MSG_MOTE_VALVE_REPORT;
+   payload_buff[7] = MSG_MOTE_VALVE_REPORT; 
    payload_buff[8] = make8(global_sprinkler_num, 0);
    payload_buff[9] = make8(global_sprinkler_num, 1);
    payload_buff[10] = make8(global_valve_position, 0);

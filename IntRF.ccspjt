@@ -1,20 +1,20 @@
 [PROJECT]
-Target=IntRF_E311.hex
+Target=IntRF.hex
 Processor_Text=PIC18F46K22
 CCSVersion=5.051
 Compiler=PCH
 [Target Data]
-FileList=IntRF_E311.c
+FileList=IntRF.c
 [IntRF_E311.c]
 Type=4
 [mru-list]
-1=IntRF_E311.c
+1=IntRF.c
 
 [defines]
-buildcount=91
+buildcount=155
 
 [ProjectLog]
-Days=9
+Days=15
 D1=01-02-2017
 D1_L=20
 D1_L1=[43927]Started Editing.
@@ -43,11 +43,7 @@ D2_L1=[32315]Started Editing.
 D2_L2=[34255]Stopped Editing.
 D2_L3=[34460]Started Editing.
 D2_L4=[35024]Stopped Editing.
-<<<<<<< HEAD
-TotalEdit=657
-=======
-TotalEdit=401
->>>>>>> parent of 136b246... E313 commit
+TotalEdit=681
 TotalDebug=0
 D2_E=71
 D2_D=0
@@ -182,7 +178,6 @@ D9_L33=[61626]Stopped Editing.
 D9_L34=[62309]Started Editing.
 D9_L35=[62837]Stopped Editing.
 D9_L36=[62837]Project Closed.
-<<<<<<< HEAD
 D10=10-02-2017
 D10_L=5
 D10_L1=[61855]Project Opened.
@@ -283,7 +278,7 @@ D13_L42=[63629]Stopped Editing.
 D13_L43=[70407]Started Editing.
 D13_L44=[71415]Stopped Editing.
 D14=14-02-2017
-D14_E=256
+D14_E=258
 D14_D=0
 D14_L=18
 D14_L1=[30862]Project Closed.
@@ -294,65 +289,73 @@ D14_L5=[35279]Started Editing.
 D14_L6=[35641]Stopped Editing.
 D14_L7=[42241]Started Editing.
 D14_L8=[42541]Stopped Editing.
-D14_L9=[51338]Project Opened.
-D14_L10=[51346]Project Closed.
-D14_L11=[51390]Project Opened.
-D14_L12=[51413]Project Closed.
-D14_L13=[51805]Project Opened.
-D14_L14=[51836]Started Editing.
-D14_L15=[52142]Stopped Editing.
-D14_L16=[52171]Started Editing.
-D14_L17=[52180]Stopped Editing.
-D14_L18=[52182]Project Closed.
+D14_L9=[51413]Project Opened.
+D14_L10=[51625]Started Editing.
+D14_L11=[51804]Stopped Editing.
+D14_L12=[51805]Project Closed.
+D14_L13=[52182]Project Opened.
+D14_L14=[55302]Project Opened.
+D14_L15=[57786]Started Editing.
+D14_L16=[58165]Stopped Editing.
+D14_L17=[58460]Started Editing.
+D14_L18=[59389]Stopped Editing.
+D15=16-02-2017
+D15_L=21
+D15_L1=[44287]Project Opened.
+D15_L2=[44303]Project Closed.
+D15_L3=[44325]Project Opened.
+D15_L4=[44345]Project Closed.
+D15_L5=[44351]Project Closed.
+D15_L6=[44356]Project Opened.
+D15_L7=[44486]Started Editing.
+D15_L8=[44945]Stopped Editing.
+D15_L9=[45330]Started Editing.
+D15_L10=[45685]Stopped Editing.
+D15_L11=[51385]Started Editing.
+D15_L12=[51851]Stopped Editing.
+D15_L13=[52008]Started Editing.
+D15_L14=[52365]Stopped Editing.
+D15_L15=[52492]Started Editing.
+D15_L16=[52896]Stopped Editing.
+D15_L17=[53364]Started Editing.
+D15_L18=[54039]Stopped Editing.
+D15_L19=[54886]Started Editing.
+D15_L20=[55249]Stopped Editing.
+D15_E=22
+D15_D=0
+D15_L21=[55249]Project Closed.
 
 [Opened Files]
 1=IntRF.c
-t1=21
-2=pic_config.h
-t2=1
-3=battery.h
-t3=1
-Count=17
-4=control.h
-t4=1
-5=function_headers.h
-t5=1
-6=defines.h
-=======
-
-[Opened Files]
-1=IntRF_E311.c
-t1=126
-2=globals.h
-t2=250
-3=defines.h
-t3=42
-Count=16
-4=periph.h
-t4=357
-5=control.h
-t5=1
-6=pic_config.h
->>>>>>> parent of 136b246... E313 commit
-t6=1
-7=pic.h
-t7=834
-8=util.h
-t8=1
-9=function_headers.h
-t9=1
-10=stacks_queues.h
+t1=113
+2=dust.h
+t2=1555
+3=control.h
+t3=62
+Count=9
+4=valve.h
+t4=227
+5=periph.h
+t5=580
+6=function_headers.h
+t6=173
+7=battery.h
+t7=306
+8=..\..\..\..\..\..\Program Files (x86)\PICC\Devices\18F46K22.h
+t8=205
+9=pic.h
+t9=726
+10=util.h
 t10=1
 11=IntRF Notes.txt
 t11=1
 12=dust.h
 t12=1
-13=valve.h
-t13=219
-14=battery.h
+13=globals.h
+t13=1
+14=periph.h
 t14=1
 15=eeprom.h
-<<<<<<< HEAD
 t15=1
 16=IntRF.hex
 t16=1
@@ -364,28 +367,15 @@ t18=1
 t19=13
 20=IntRF.lst
 t20=1
-=======
-t15=145
-16=IntRF_E311.lst
-t16=1
-17=battery.h
-t17=128
-18=eeprom.h
-t18=129
-19=IntRF_E311.lst
-t19=1
->>>>>>> parent of 136b246... E313 commit
 
 [Documentation]
-1=C:\_PROJ\Jain Irrigation\2017 reset\Firmware\2017-01-31 - E311\IntRF_E311 Notes.txt
-1T=IntRF_E311 Notes.txt
+1=IntRF Notes.txt
+1T=IntRF Notes.txt
 1E=
 1W=0
-Count=2
-2=C:\_PROJ\Jain Irrigation\2017 reset\Firmware\2017-01-31 - E311\IntRF Notes.txt
-2T=IntRF Notes.txt
-2E=
-2W=0
+Count=1
+[IntRF.c]
+Type=4
 [Units]
 Count=1
-1=IntRF_E311 (main)
+1=IntRF (main)

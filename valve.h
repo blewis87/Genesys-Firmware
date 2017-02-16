@@ -25,7 +25,6 @@ void  comparator_setup(void)
    enable_interrupts(INT_COMP);
 }
 
-
 uint16_t calc_valve_movement_time(uint16_t current_location, uint16_t destination)
 {
 // calculates the amount of time it takes to make the move from 
@@ -234,7 +233,7 @@ int1 is_valve_position_valid(uint16_t value)
 // returns true if valid range for valve
 {
    if (value > VLV_POSITION_OPENED) return FALSE;
-   else if ((value < VLV_POSITION_CLOSED) && (VLV_POSITION_CLOSED != 0)) return FALSE;
+   else if (value < VLV_POSITION_CLOSED) return FALSE;
    else return TRUE;
 }
 

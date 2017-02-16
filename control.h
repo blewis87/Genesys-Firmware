@@ -56,29 +56,29 @@ int1  is_brake_duty_valid(uint16_t value)
 // returns true if valid range for brake duty cycle
 {
    if (value > MAX_BRK) return FALSE;
-   else if ((value < NO_BRK) && (NO_BRK != 0)) return FALSE;
-   else return TRUE;
+   else if (value < NO_BRK) return FALSE;
+   else return TRUE;  
 }
 int1  is_charge_duty_valid(uint16_t value)
 // returns true if valid range for charge duty cycle
 {
    if (value > MAX_CHARGE) return FALSE;
-   else if ((value < NO_CHARGE) && (NO_CHARGE != 0)) return FALSE;
+   else if (value < NO_CHARGE) return FALSE;
    else return TRUE;
 }
 int1  is_mppc_valid(uint8_t value)
 // returns true if valid range for mppc
 {
    if (value > MAX_MPPC) return FALSE;
-   else if ((value < NO_MPPC) && (NO_MPPC != 0)) return FALSE;
-   else return TRUE;
+   else if (value < NO_MPPC) return FALSE;
+   else return TRUE;       
 }
 int1  is_rpm_setting_valid(uint16_t value)
 // returns true if valid range for rpm
 {
    if (value > MAX_RPM_SETTING) return FALSE;
-   else if ((value < MIN_RPM_SETTING) && (MIN_RPM_SETTING != 0)) return FALSE;
-   else return TRUE;
+   else if (value < MIN_RPM_SETTING) return FALSE;
+   else return TRUE;    
 }
 void  set_brake_duty(uint16_t value)
 {

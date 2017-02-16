@@ -586,8 +586,7 @@ void LCD_display_message_queue(void)
 void LCD_display_battery_voltage(int1 lcd_line)
 {                                           
    if (!global_lcd_enabled) return;    
-      
-   uint32_t battery_voltage = calc_vbatt(get_vbatt(1));
+
    strcpy (global_temp_line_buff, "Vbatt =      V  ");
    if (lcd_line == 0) LCD_line1(global_temp_line_buff);
    else LCD_line2(global_temp_line_buff);
@@ -785,8 +784,18 @@ void LCD_update_diplay(void)
          // c indicates real-time Clock in seconds
          // q indicates message Queue location
          // a indicates Attempt_num
-         LCD_place_uint16(global_valve_position, 0, 1, 5);          
-         LCD_place_uint16(global_current_rpm,0,8,3);           
+         LCD_place_uint16(global_valve_position, 0, 1, 5);
+         if (read_system_state() != SYSTEM_IDLE)
+         {
+            LCD_place_uint16(global_current_rpm,0,8,3);
+         }
+         else
+         {
+            LCD_place_char('*',0,8);
+            LCD_place_char('*',0,9);
+            LCD_place_char('*',0,10);
+         } 
+          
          LCD_place_uint32(global_rtc_time, 1,1,5);                     
          //LCD_place_uint16(global_xdcr_output, 1, 8, 5);                
          //LCD_place_uint32(global_utc_time, 1,1,10);          
@@ -926,8 +935,30 @@ void LCD_update_diplay(void)
          LCD_place_char(hi2asc(global_mppc_value),0,14);
          LCD_place_char(lo2asc(global_mppc_value),0,15);
          
-         LCD_place_uint16(global_current_rpm,1,1,3);
-         LCD_place_uint16(global_rpm_set_value,1,5,3);
+         // do not report measured RPM if it is not being measured
+         if (read_system_state() != SYSTEM_IDLE)
+         {
+            LCD_place_uint16(global_current_rpm,1,1,3);
+         }
+         else
+         {
+            LCD_place_char('*',1,1);
+            LCD_place_char('*',1,2);
+            LCD_place_char('*',1,3);
+         }
+         
+         // do not report target RPM if there is no target
+         if ((global_control_loop_mechanism == NO_RPM_CONTROL) || \
+             (global_control_loop_mechanism == NO_RPM_CONTROL_DYN_MPPC))
+         {
+            LCD_place_char('*',1,5);
+            LCD_place_char('*',1,6);
+            LCD_place_char('*',1,7);
+         }
+         else
+         {
+            LCD_place_uint16(global_rpm_set_value,1,5,3);
+         }
          
          // put the vgen voltage on the LCD
 

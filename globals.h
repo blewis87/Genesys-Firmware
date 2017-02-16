@@ -66,6 +66,9 @@ uint8_t     global_lcd_page_number = 1;
 uint32_t global_rtc_time = 0;
 // keeps track of the time within the mote system (taken from mote)
 uint32_t global_utc_time = 0;
+// keeps track of the time at book (as taken from the mote the first time after
+//  program startup
+uint32_t global_first_utc_time = 0;
 // keeps track of when SW1 was last depressed (for recognition of long press event)
 uint32_t sw1_start_time = 0;  
 ////////////////////System Parameter Globals///////////////////////////////////
@@ -109,15 +112,15 @@ uint16_t global_vgen = 0;
 uint16_t global_fixture_dac_value = NO_FIXTURE;
 
 // specifies how the rpm is being controlled (see defines for more info)
-uint8_t global_control_loop_mechanism = NO_RPM_CONTROL_DYN_MPPC;
+uint8_t global_control_loop_mechanism = BRAKE_AND_CHARGE_START;
 // JG: set to brake and charge for testing purposes Feb 2, 2017
 //uint8_t global_control_loop_mechanism = BRAKE_AND_CHARGE_START;
 
 ////////////////////Valve Related Globals//////////////////////////////////////
 // keeps track of current valve position
-uint16_t global_valve_position = VLV_PRECALIBRAION_POSITION;   
+uint16_t global_valve_position = VLV_PRECALIBRATION_POSITION;   
 // valve position set point
-uint16_t global_valve_position_set_value = VLV_PRECALIBRAION_POSITION;   
+uint16_t global_valve_position_set_value = VLV_PRECALIBRATION_POSITION;   
                                
 // 1/1024th of the time to go from open to close calculated by calibrate valve   
 //     routine in units of 2ndary oscillator ticks

@@ -1,7 +1,4 @@
-/* This file contains all functions related to PIC functions
- *
- *
- *
+/* This file contains all utility functions
  *
  *
  */

@@ -5,7 +5,7 @@
                  
 // standard libraries
 #include <stdio.h>
-#include <stdint.h>               
+#include <stdint.h>         
 #include <stdlib.h>
 #include <string.h>
 #include <stdlibm.h>
@@ -27,19 +27,10 @@
 #include "battery.h"                                                          
 #include "stacks_queues.h"  
 #include "util.h"
-                  
-void main()
-<<<<<<< HEAD
-{      
 
-   // some change
-   int i;
-   
-   // priority queue item that is to be executed
-=======
+void main()
 {                                                         
-   // priority queue item that is to be executed 
->>>>>>> parent of 136b246... E313 commit
+   // priority queue item that is to be executed
    uint8_t     priority_queue_item_to_execute = EMPTY_PRIORITY_QUEUE;    
    // valve setting that is stored when free spin rate is performed (so you can return to it afterwards)
    uint16_t    pre_fsr_valve_setting;                                         
@@ -130,7 +121,7 @@ void main()
       global_skip_lcd_update_count = 2;        
       
       // all periphs should be initalized (except mote), so system should be ready to run        
-      write_system_state(SYSTEM_RUN);
+      write_system_state(SYSTEM_INIT);
                                       
       // flash the leds to help identify motes   
       happy_lites();
@@ -140,27 +131,20 @@ void main()
       
       // check mote info
       PUSH_TIME_QUEUE_MACRO(global_rtc_time + 10, UPDATE_MOTE_NETWORK_INFO);
-            
-      // setup WDT for 1 second (plenty long for the control loop (~64ms) to   
-      setup_wdt(WDT_1S);     
-   }                                                                 
+      
+#IFDEF OPEN_VALVE_TO_SETPT_AT_BOOT      
+      PUSH_TIME_QUEUE_MACRO(global_rtc_time + 15, CLOSE_VALVE_UNKNOWN_STATE);
+#ENDIF                                     
+   // setup WDT for 1 second (plenty long for the control loop (~64ms)) to catch system lockups
+      setup_wdt(WDT_1S);                      
+   }
                                                              
    // start the queue/control loop timer
    setup_T2_int(T2_64MS);    
-       
-    
-   // HACKY LAB STUFF TO REMOVE LATER
-   global_valve_position = VLV_PRECALIBRAION_POSITION; 
-   global_valve_position_set_value = VLV_PRECALIBRAION_POSITION;                        
-   global_valve_time_to_close_1024th = DEFAULT_VLV_TIME_TO_CLOSE;                        
-   global_valve_time_to_open_1024th = DEFAULT_VLV_TIME_TO_OPEN;                        
-                           
+          
+               
    while(1)                   
-   {               
-      // restart the watchdog timer    
-      restart_wdt();    
-  
-                
+   {                                                                                                            
 ////////////////////Start of Priority Queue Handling///////////////////////////
                                                                       
       // Timer 2 is used to signal the priority queue to check for another item
@@ -170,11 +154,14 @@ void main()
       //    is re-evaluated and adjustments are made to the actual values is
       //    controlled by control_loop_delay_cycles_left within update_control_loop()
       
-      // if it is time to check priority queue/control loop
+      // if it is time to check priority queue/control loop  
       if (TMR2IF) 
-      {  
+      {                             
          // reset the timer 2 queue loop interrupt
-         setup_T2_int(T2_64MS);      
+         setup_T2_int(T2_64MS);         
+         
+         // restart the watchdog timer    
+         restart_wdt();   
                             
          // update the control loop if the system isn't in the system wait (low-power) state
          if (read_system_state() != SYSTEM_IDLE) update_control_loop();           
@@ -190,7 +177,7 @@ void main()
                                                       
          // execute the priority queue item    
          switch (priority_queue_item_to_execute)                               
-         {
+         {                         
             // Decode a new packet and react/respond appropriately
             case DEAL_WITH_NEW_PACKET:            
                // Display that you're dealing with a new packet
@@ -207,7 +194,20 @@ void main()
                enable_interrupts(INT_EXT2_H2L);                       
                enable_interrupts(INT_CCP4);
                break;
+                                                       
+            case MOVE_VALVE_AT_BOOT:
+               // open valve slightly at bootup according to define "VLV_BOOT_SETPT"
+               // display message on screen 
+               LCD_clear();
+               strcpy (global_temp_line_buff, "VLV Init @ start");
+               LCD_line1(global_temp_line_buff);
+               global_skip_lcd_update_count = 2;  
                
+               // set valve position to VLV_BOOT_SETPT on boot    
+               global_valve_position_set_value = VLV_BOOT_SETPT;                           
+               PUSH_PRIORITY_QUEUE_MACRO(MOVE_VALVE); 
+               break;
+             
             // Start the somewhat convoluted calibrate valve routine
             // 1. Open valve VLV_CAL_1_MOVEMENT w/ "starting current"
             // 2. Close valve fully w/ current being "normal closing current"
@@ -216,9 +216,8 @@ void main()
             // 5. Close valve fully w/ normal current regimes
             // 6. Send valve calibration response to mote   
             // steps and system states are handled in COMP and CCP3 ISR as well 
-            //    as setting the calibration values      
-                        
-            case CALIBRATE_VALVE_1:
+            //    as setting the calibration values     
+            case CALIBRATE_VALVE_1:                     
                // Change system state: initial open for calibrate valve routine
                write_system_state(SYSTEM_CAL_VLV_1);    
                // display calibration routine on screen     
@@ -238,9 +237,9 @@ void main()
                global_valve_time_to_open_1024th = DEFAULT_VLV_TIME_TO_OPEN;              
                // Set the global valve position to the default value (middle)                 
                // this gives the valve a reference point to open a little from
-               global_valve_position = VLV_PRECALIBRAION_POSITION;
+               global_valve_position = VLV_PRECALIBRATION_POSITION;
                // Set valve position slightly more open than it is and move valve
-               global_valve_position_set_value = (VLV_PRECALIBRAION_POSITION +                        \
+               global_valve_position_set_value = (VLV_PRECALIBRATION_POSITION +                        \
                VLV_CAL_1_MOVEMENT);
                PUSH_PRIORITY_QUEUE_MACRO(MOVE_VALVE);
                break;                                                      
@@ -289,10 +288,12 @@ void main()
                LCD_place_uint16(global_valve_time_to_open_1024th,1,11,5);
                // put calibration stuff on screen for 4 seconds
                global_skip_lcd_update_count = 5;     
-               // if valve calibration time is below the limit, it triggers an error
+               // if valve calibration time is beyond limits, it triggers an error
                //    and throws away the calibration, returning it to the run state.
-               if ((global_valve_time_to_close_1024th < ERROR_VLV_CAL_TIME) || \
-                  (global_valve_time_to_open_1024th < ERROR_VLV_CAL_TIME))
+               if ((global_valve_time_to_close_1024th < ERROR_VLV_CAL_TIME_LO) || \
+                  (global_valve_time_to_open_1024th < ERROR_VLV_CAL_TIME_LO)   || \
+                  (global_valve_time_to_close_1024th > ERROR_VLV_CAL_TIME_HI)  || \
+                  (global_valve_time_to_open_1024th > ERROR_VLV_CAL_TIME_HI))
                {
                   // reset valve calibration times to the defaults
                   global_valve_time_to_open_1024th = DEFAULT_VLV_TIME_TO_OPEN;
@@ -448,13 +449,31 @@ void main()
                // if system is in an undesireable state, don't move the valve
                //    and send an error message                                  
                // Undesirable states such as unkown or init
+#IFNDEF OPEN_VALVE_TO_SETPT_AT_BOOT               
                if ((read_system_state() == SYSTEM_STATE_UNKNOWN)||            \
                   (read_system_state() == SYSTEM_INIT))
-               {                                   
+#ELSE                         
+               if (read_system_state() == SYSTEM_STATE_UNKNOWN)
+#ENDIF          
+               {
                   global_error_message_bitfield |= ERR_MSG_INCOMPATIBLE_STATE;
                   PUSH_MESSAGE_QUEUE_MACRO(MSG_MOTE_ERROR_MSG);
-                  break;                                 
+                  break;          
                }
+
+               // Jack has changed this test to check if the valve calibration
+               //  is stale as per VLV_SECS_TO_STALE_CAL defined parameter
+               else if ((read_system_state() == SYSTEM_RUN) &&                \
+                 ((global_utc_time-global_valve_calibration_utc_time)>VLV_SECS_TO_STALE_CAL))
+               {
+                  global_error_message_bitfield |= ERR_MSG_VLV_CAL_STALE;
+                  PUSH_MESSAGE_QUEUE_MACRO(MSG_MOTE_ERROR_MSG);
+#IFNDEF ALLOW_VALVE_SET_WITH_STALE_CAL                  
+                  break;
+#ENDIF                  
+               } 
+
+/*
                // or if you're in the run state and the valve is uncalibrated
                else if ((read_system_state() == SYSTEM_RUN) &&                \
                   (global_valve_position == VLV_POSITION_UNKNOWN))
@@ -463,7 +482,7 @@ void main()
                   PUSH_MESSAGE_QUEUE_MACRO(MSG_MOTE_ERROR_MSG);
                   break;
                }
-                                           
+*/                                           
                // if valve movement is not needed (less than one millispan away
                //    and in run state), break out of switch case
                if ((read_system_state() == SYSTEM_RUN) &&                     \
@@ -480,7 +499,7 @@ void main()
                // enough valve movements have happened to warrant a recalibration of
                //    the position of the valve by going towards an endstop
                if ((global_valve_movements_since_endstop++) > VLV_MOVES_BEFORE_RECAL)
-               {
+               {                               
 #IFNDEF  DISABLE_RECAL_VLV                       
                   write_system_state(SYSTEM_RECAL_VLV_MOVES);                        
                   // quicker to go to the closed endstop. Start motion.
@@ -491,7 +510,7 @@ void main()
                      mV_CLOSEm;                                                                   
                   }
                   // quicker to go to the open endstop. Start motion.
-                  else   
+                  else                          
                   {
                      CCP_3 = global_valve_time_to_open_1024th;
                      // don't go to the open endstop to avoid magnetic decoupling
@@ -509,7 +528,7 @@ void main()
                   {
                      CCP_3 = global_valve_time_to_open_1024th;
                      mV_OPENm; 
-                  }
+                  }                             
                   else if (global_valve_position_set_value < global_valve_position)
                   {
                      CCP_3 = global_valve_time_to_close_1024th;
@@ -662,13 +681,19 @@ void main()
                */        
                check_and_deal_with_battery();
                break;
+
+            // Added by Jack 2017Feb13
+            case SEND_UNSOLICITED_FULL_REPORT:
+               send_full_report(MSG_MOTE_UNSOLICITED, global_message_queue[global_current_message_queue_location].msg_seq);
+               break;
+            
             
             // Query the mote for the temp and store it
             case CHECK_MOTE_TEMP:
                mote_temp_check();
                /*
                LCD_clear();
-               strcpy (global_temp_line_buff, "Temp =         C");
+               strcpy (global_temp_line_buff, "Temp =         C");    
                LCD_line1(global_temp_line_buff);
                LCD_place_uint8(global_mote_temperature,0,7,3);
                global_skip_lcd_update_count = 2;
@@ -875,7 +900,7 @@ void RB_ISR(void)
 }
 
 
-#INT_EXT
+#INT_EXT HIGH  
 void vgen_wakeup_ISR(void)
 {
 // runs on wakeup from vgen int
@@ -883,7 +908,7 @@ void vgen_wakeup_ISR(void)
 }                
 
 #INT_BUSCOL
-void BUSCOL_ISR(void)
+void BUSCOL_ISR(void)  
 {  
 // Catches and recovers from an i2c bus collision 
 
@@ -952,9 +977,7 @@ void comp1_ISR(void)
       // grab the extra time/2ndary osc ticks since the last 1024th interrupt  
       temp16_frac = get_timer1();
       
-      // if statements for different calibration routines
-      // valve opening a little bit to ensure we dont jam into close endstop
-      if (global_system_state ==  SYSTEM_CAL_VLV_1)
+      if (global_system_state == SYSTEM_CAL_VLV_1)
       {
          global_valve_position = VLV_POSITION_OPENED;
          // queue up the next stage of the calibration
@@ -1009,7 +1032,7 @@ void comp1_ISR(void)
             global_system_state = SYSTEM_RUN;
          }
          // valve is closing
-         if (IS_VLV_CLOSING)
+         if ((IS_VLV_CLOSING) && (global_system_state != SYSTEM_INIT))
          {
             // error checking if valve movement was longer or shorter than expected
             // We accomplish this by seeing if the valve hit an endstop while it was
@@ -1027,9 +1050,20 @@ void comp1_ISR(void)
             // was an expected endstop, proceed as usual
             else
             {
-               global_valve_position = VLV_POSITION_CLOSED; 
+               global_valve_position = VLV_POSITION_CLOSED;
+               PUSH_PRIORITY_QUEUE_ISR_MACRO(SEND_UNSOLICITED_FULL_REPORT); 
             }
          }
+         
+         // added to accomodate the move valve to set point at boot
+#IFDEF OPEN_VALVE_TO_SETPT_AT_BOOT
+         else if ((IS_VLV_CLOSING) && (global_system_state == SYSTEM_INIT))
+         {
+            global_system_state = SYSTEM_RUN;
+            global_valve_position = VLV_POSITION_CLOSED;
+            push_time_queue_ISR(global_rtc_time + 3, MOVE_VALVE_AT_BOOT);
+         }
+#ENDIF
          // valve is opening
          else if (IS_VLV_OPENING)
          {
@@ -1050,6 +1084,7 @@ void comp1_ISR(void)
             else
             {
                global_valve_position = VLV_POSITION_OPENED; 
+               PUSH_PRIORITY_QUEUE_ISR_MACRO(SEND_UNSOLICITED_FULL_REPORT); 
             }
          }
       }
@@ -1188,6 +1223,8 @@ void ccp3_ISR(void)
             
             // turn off valve movement
             mV_COASTm;
+            // update user with message to manager
+            PUSH_PRIORITY_QUEUE_ISR_MACRO(SEND_UNSOLICITED_FULL_REPORT);   
          }
       }
       else if (IS_VLV_OPENING)
@@ -1216,6 +1253,12 @@ void ccp3_ISR(void)
             
             // turn off valve movement
             mV_COASTm;
+
+            if (global_system_state != SYSTEM_CAL_VLV_1)
+            {
+            // update user with message to manager
+            PUSH_PRIORITY_QUEUE_ISR_MACRO(SEND_UNSOLICITED_FULL_REPORT);   
+            }
             
             // Special case: if we are opening during CALIBRATE_VALVE_1 and
             //    have reached our position, start the next calibration 
@@ -1308,7 +1351,7 @@ void ccp4_isr(void)
    if (global_current_sprinkler_settings_end_time <= global_utc_time)
    {                        
       // if the system is in the SYSTEM_IDLE state, bump it into the SYSTEM_RUN state.
-      if (global_system_state == SYSTEM_IDLE) global_system_state == SYSTEM_RUN;  
+      if (global_system_state == SYSTEM_IDLE) global_system_state = SYSTEM_RUN;  
                                                                                           
       // if system is not in run state, do not stop the item.  Send an error
       //    stating that the stop time is delayed
@@ -1326,7 +1369,7 @@ void ccp4_isr(void)
          global_control_loop_mechanism = NO_SPRINKLER_CONTROL;
       }       
       */                                         
-                             
+           
       else
       {                  
          // stop the current sprinkler setting
@@ -1343,10 +1386,15 @@ void ccp4_isr(void)
    //    system already in SYSTEM_RUN   
    //    Closed valve (or unknown)       
    //    no valve movement
-   //    rpm = 0    
+   //    rpm = 0
+   
+   // JACK modified E313
+   /*
    if (((global_valve_position == VLV_POSITION_CLOSED) ||                                              \     
       (global_valve_position == VLV_POSITION_UNKNOWN)) && (IS_VLV_COASTING) &&                         \
-      ((global_rtc_time - global_last_rpm_value_time) > RPM_TIMEOUT))           
+      ((global_rtc_time - global_last_rpm_value_time) > RPM_TIMEOUT))
+   */
+   if (global_valve_position == VLV_POSITION_CLOSED)
    {                                  
       // change processor speed?     
       // change state to idle       
@@ -1355,8 +1403,13 @@ void ccp4_isr(void)
          global_system_state = SYSTEM_IDLE;
          //fosc_31250_ISR(); 
        }
-   }                                        
-   // Second condition for SYSTEM_IDLE:               
+   } 
+   
+   // JG thinks that going into SYSTEM_IDLE should also be triggered when
+   // water supply is turned off.  THINK ABOUT THIS... must discuss with BL
+   
+   /*
+   // Second condition for SYSTEM_IDLE:
    //    system already in SYSTEM_RUN   
    //    global_control_loop_mechanism is in either NO_RPM_CONTROL (test command) or NO_SPRINKLER_CONTROL       
    //    no valve movement        
@@ -1374,7 +1427,9 @@ void ccp4_isr(void)
          global_system_state = SYSTEM_IDLE;
          //fosc_31250_ISR(); 
       }               
-   }                      
+   }
+   */
+   
    // if above conditions are not met and system is in idle mode, put it into run mode
    else if (global_system_state == SYSTEM_IDLE)         
    {                                 
@@ -1402,7 +1457,7 @@ void ccp4_isr(void)
    }                                                                                                                          
 }
 
-#INT_CCP5 FAST
+#INT_CCP5 HIGH
 void CCP5_ISR(void)
 {
 // GEN_RPM event capture for determining speed of rotation
